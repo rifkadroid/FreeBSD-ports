@@ -1,14 +1,14 @@
 # $FreeBSD$
 
 PORTNAME=	pfSense
-DISTVERSION=	2.4.5
+DISTVERSION=	2.4.4
 CATEGORIES=	security
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	renato@pfsense.com
-COMMENT?=	Meta package to install pfSense required ports
+MAINTAINER=	contato@kontrolsecurity.com.br
+COMMENT?=	Meta package to install Kontrol required ports
 
 LICENSE=	APACHE20
 
