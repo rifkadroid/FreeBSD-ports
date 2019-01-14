@@ -14,7 +14,7 @@ COMMENT=	Kontrol	E2guardian package
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	${LOCALBASE}/sbin/e2guardian:www/e2guardian5 \
+RUN_DEPENDS=	${LOCALBASE}/sbin/e2guardian:www/e2guardian \
 		/usr/local/sbin/squid:www/squid \
 		/usr/local/share/certs/ca-root-nss.crt:security/ca_root_nss
 
