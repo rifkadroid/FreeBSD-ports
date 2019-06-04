@@ -66,9 +66,6 @@ $g['suricata_postinstall'] = true;
 // Remove any LCK files for Suricata that might have been left behind
 unlink_if_exists("{$g['varrun_path']}/suricata_pkg_starting.lck");
 
-// Mount file system read/write so we can modify some files
-conf_mount_rw();
-
 // Remove any previously installed script since we rebuild it
 unlink_if_exists("{$rcdir}suricata.sh");
 
@@ -179,7 +176,6 @@ if ($config['installedpackages']['suricata']['config'][0]['forcekeepsettings'] =
 	include('/usr/local/pkg/suricata/suricata_check_for_rule_updates.php');
 	update_status(gettext("Generating suricata.yaml configuration file from saved settings.") . "\n");
 	$rebuild_rules = true;
-	conf_mount_rw();
 
 	// Make sure config variable is an array (PHP7 likes every level to be created individually )
 	if (!is_array($config['installedpackages']['suricata'])) {
@@ -258,8 +254,35 @@ if (empty($config['installedpackages']['suricata']['config'][0]['forcekeepsettin
 	$config['installedpackages']['suricata']['config'][0]['forcekeepsettings'] = 'on';
 }
 
-// Finished with file system mods, so remount it read-only
-conf_mount_ro();
+/**********************************************************/
+/* Incorporate content of SID Mgmt example files in the   */
+/* /var/db/suricata/sidmods directory to Base64 encoded   */
+/* strings in SID_MGMT_LIST array in config.xml if this   */
+/* is a first-time green field install of Suricata.       */
+/**********************************************************/
+if (!is_array($config['installedpackages']['suricata']['sid_mgmt_lists'])) {
+	$config['installedpackages']['suricata']['sid_mgmt_lists'] = array();
+}
+if (empty($config['installedpackages']['suricata']['config'][0]['sid_list_migration']) && count($config['installedpackages']['suricata']['sid_mgmt_lists']) < 1) {
+	if (!is_array($config['installedpackages']['suricata']['sid_mgmt_lists']['item'])) {
+		$config['installedpackages']['suricata']['sid_mgmt_lists']['item'] = array();
+	}
+	$a_list = &$config['installedpackages']['suricata']['sid_mgmt_lists']['item'];
+	$sidmodfiles = array("disablesid-sample.conf", "dropsid-sample.conf", "enablesid-sample.conf", "modifysid-sample.conf");
+	foreach ($sidmodfiles as $sidfile) {
+		if (file_exists(SURICATA_SID_MODS_PATH . $sidfile)) {
+			$data = file_get_contents(SURICATA_SID_MODS_PATH . $sidfile);
+			if ($data !== FALSE) {
+				$tmp = array();
+				$tmp['name'] = basename($sidfile);
+				$tmp['modtime'] = filemtime(SURICATA_SID_MODS_PATH . $sidfile);
+				$tmp['content'] = base64_encode($data);
+				$a_list[] = $tmp;
+			}
+		}
+	}
+	$config['installedpackages']['suricata']['config'][0]['sid_list_migration'] = "1";
+}
 
 // Update Suricata package version in configuration
 update_status(gettext("  " . "Setting package version in configuration file.") . "\n");

@@ -188,9 +188,7 @@ if (!$input_errors) {
 			install_cron_job("/usr/local/pkg/suricata/suricata_geoipupdate.php", FALSE);
 
 		/* create passlist and homenet file, then sync files */
-		conf_mount_rw();
 		sync_suricata_package_config();
-		conf_mount_ro();
 
 		/* forces page to reload new settings */
 		header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' );
@@ -316,7 +314,7 @@ $section->addInput(new Form_Input(
 	'Snort Rules Filename',
 	'text',
 	$pconfig['snort_rules_file']
-))->setHelp('Enter the rules tarball filename (filename only, do not include the URL.)<br />Example: snortrules-snapshot-29111.tar.gz');
+))->setHelp('Enter the rules tarball filename (filename only, do not include the URL.)<br />Example: snortrules-snapshot-29120.tar.gz');
 $section->addInput(new Form_Input(
 	'oinkcode',
 	'Snort Oinkmaster Code',

@@ -177,6 +177,8 @@ if (empty($pconfig['eve_log_smtp']))
 	$pconfig['eve_log_smtp'] = "on";
 if (empty($pconfig['eve_log_flow']))
 	$pconfig['eve_log_flow'] = "off";
+if (empty($pconfig['eve_log_netflow']))
+	$pconfig['eve_log_netflow'] = "off";
 if (empty($pconfig['eve_log_stats']))
 	$pconfig['eve_log_stats'] = "off";
 if (empty($pconfig['eve_log_stats_totals']))
@@ -278,9 +280,7 @@ if (isset($_POST["save"]) && !$input_errors) {
 		suricata_stop($a_rule[$id], get_real_interface($a_rule[$id]['interface']));
 		write_config("Suricata pkg: disabled Suricata on " . convert_friendly_interface_to_friendly_descr($a_rule[$id]['interface']));
 		$rebuild_rules = false;
-		conf_mount_rw();
 		sync_suricata_package_config();
-		conf_mount_ro();
 		header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' );
 		header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
 		header( 'Cache-Control: no-store, no-cache, must-revalidate' );
@@ -385,6 +385,7 @@ if (isset($_POST["save"]) && !$input_errors) {
 		if ($_POST['eve_log_smtp'] == "on") { $natent['eve_log_smtp'] = 'on'; }else{ $natent['eve_log_smtp'] = 'off'; }
 		if ($_POST['eve_log_stats'] == "on") { $natent['eve_log_stats'] = 'on'; }else{ $natent['eve_log_stats'] = 'off'; }
 		if ($_POST['eve_log_flow'] == "on") { $natent['eve_log_flow'] = 'on'; }else{ $natent['eve_log_flow'] = 'off'; }
+		if ($_POST['eve_log_netflow'] == "on") { $natent['eve_log_netflow'] = 'on'; }else{ $natent['eve_log_netflow'] = 'off'; }
 		if ($_POST['eve_log_stats_totals'] == "on") { $natent['eve_log_stats_totals'] = 'on'; }else{ $natent['eve_log_stats_totals'] = 'off'; }
 		if ($_POST['eve_log_stats_deltas'] == "on") { $natent['eve_log_stats_deltas'] = 'on'; }else{ $natent['eve_log_stats_deltas'] = 'off'; }
 		if ($_POST['eve_log_stats_threads'] == "on") { $natent['eve_log_stats_threads'] = 'on'; }else{ $natent['eve_log_stats_threads'] = 'off'; }
@@ -430,9 +431,7 @@ if (isset($_POST["save"]) && !$input_errors) {
 				else
 					$suricata_start = false;
 				@rename("{$suricatalogdir}suricata_{$oif_real}{$a_rule[$id]['uuid']}", "{$suricatalogdir}suricata_{$if_real}{$a_rule[$id]['uuid']}");
-				conf_mount_rw();
 				@rename("{$suricatadir}suricata_{$a_rule[$id]['uuid']}_{$oif_real}", "{$suricatadir}suricata_{$a_rule[$id]['uuid']}_{$if_real}");
-				conf_mount_ro();
 			}
 			$a_rule[$id] = $natent;
 		}
@@ -558,9 +557,7 @@ if (isset($_POST["save"]) && !$input_errors) {
 		write_config("Suricata pkg: modified interface configuration for " . convert_friendly_interface_to_friendly_descr($natent['interface']));
 
 		// Update suricata.conf and suricata.sh files for this interface
-		conf_mount_rw();
 		sync_suricata_package_config();
-		conf_mount_ro();
 
 		// Refresh page fields with just-saved values
 		$pconfig = $natent;
@@ -1028,6 +1025,14 @@ $group->add(new Form_Checkbox(
 	'Traffic Flows',
 	'Traffic Flows',
 	$pconfig['eve_log_flow'] == 'on' ? true:false,
+	'on'
+));
+
+$group->add(new Form_Checkbox(
+	'eve_log_netflow',
+	'Net Flow',
+	'Net Flow',
+	$pconfig['eve_log_netflow'] == 'on' ? true:false,
 	'on'
 ));
 
@@ -1667,6 +1672,7 @@ events.push(function(){
 		disableInput('eve_log_ssh', disable);
 		disableInput('eve_log_smtp', disable);
 		disableInput('eve_log_flow', disable);
+		disableInput('eve_log_netflow', disable);
 		disableInput('eve_log_drop', disable);
 		disableInput('eve_log_alerts_packet',disable)
 		disableInput('eve_log_alerts_payload',disable);
