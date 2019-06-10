@@ -2,6 +2,7 @@
 
 PORTNAME=	pfSense-pkg-suricata
 PORTVERSION=	4.1.4
+PORTREVISION=	3
 CATEGORIES=	security
 MASTER_SITES=	# empty
 DISTFILES=	# empty
