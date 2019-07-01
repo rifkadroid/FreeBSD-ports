@@ -712,8 +712,7 @@ $files = array(
 		$config['installedpackages']['e2guardianblacklist']['config'][0] = array(
 			'liston' => 'both',
 			'cron' => '02days',
-
-			'url' => "http://kontrol-pkg.brasilia.me:8081/blacklist/blacklists.tar.gz",
+			'url' => "http://www.shallalist.de/Downloads/shallalist.tar.gz",
  			'enable_custom_script' => "",
 			'update_script' => "");
 	}
@@ -1422,7 +1421,7 @@ break;
 		<field>
 			<fieldname>{$e2guardian_group_name}</fieldname>
 			<fielddescr>{$e2guardian_groups['name']}</fielddescr>
-			<description><![CDATA[Include users for this group one per line<br>Hint:KONTROL\john #John Smith]]></description>
+			<description><![CDATA[Include users for this group one per line<br>Hint:KONTROL\smith #John Smith]]></description>
 			<type>textarea</type>
 
 			<cols>80</cols><rows>12</rows>
@@ -1593,7 +1592,7 @@ EOF;
 			if (preg_match('/(\d+)(h|m)/', $e2guardian_groups['freq'], $matches)) {
 			    switch ($matches[2]){
 			        case 'm':
-			            e2g_check_cron("{$cron_cmd} $e2_group_source '{$e2guardian_groups[$e2_group_source]}'", "create", "*/{$matches[1]}", "0");
+			            e2g_check_cron("{$cron_cmd} $e2_group_source '{$e2guardian_groups[$e2_group_source]}'", "create", "*/{$matches[1]}", "*");
 			            break;
 			        case 'h':
 			            e2g_check_cron("{$cron_cmd} $e2_group_source '{$e2guardian_groups[$e2_group_source]}'", "create",  "0", "*/{$matches[1]}");

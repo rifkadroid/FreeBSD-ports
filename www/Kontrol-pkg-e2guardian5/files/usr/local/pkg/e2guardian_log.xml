@@ -111,9 +111,9 @@
 			<fieldname>reportingcgi</fieldname>
 			<description><![CDATA[Default Access denied cgi/page for groups access. <br>
 				While using Report Level (report fully) or (Report why but not what denied phrase)<br>
-				<b>ex:</b> http://YOUR.PFSENSE.IP/e2gerror.php (using wpad package)<br>
+				<b>ex:</b> http://YOUR.KONTROL.IP/e2gerror.php (using wpad package)<br>
 				   http://YOURSERVER.YOUR.DOMAIN/cgi-bin/e2guardian.pl<br><br>
-				<b>Do not forget to add YOURSERVER.YOUR.DOMAIN or YOUR.PFSENSE.IP on site exception list to avoid redirect loop.</b>]]>
+				<b>Do not forget to add YOURSERVER.YOUR.DOMAIN or YOUR.KONTROL.IP on site exception list to avoid redirect loop.</b>]]>
 			</description>
 			<type>input</type>
 			<size>70</size>

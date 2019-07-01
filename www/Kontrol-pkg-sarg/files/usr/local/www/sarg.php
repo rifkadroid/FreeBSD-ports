@@ -1,13 +1,11 @@
 <?php
-
 /*
-	pkg_e2guardianfx.inc
-	Copyright (C) 2015 Marcello Coutinho
-	part of pfSense (http://www.pfSense.com)
+	sarg.php
+	part of pfSense (https://www.pfSense.org/)
+	Copyright (C) 2012-2018 Marcello Coutinho
+	Copyright (C) 2015 ESF, LLC
 	All rights reserved.
-*/
-/* ========================================================================== */
-/*
+
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions are met:
 
@@ -29,12 +27,19 @@
 	ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
-/* ========================================================================== */
-global $shortcuts;
+require_once("/etc/inc/util.inc");
+require_once("/etc/inc/functions.inc");
+require_once("/etc/inc/pkg-utils.inc");
+require_once("/etc/inc/globals.inc");
+require_once("/usr/local/pkg/sarg.inc");
 
-$shortcuts['e2guardian'] = array();
-$shortcuts['e2guardian']['main'] = "pkg_edit.php?xml=e2guardian.xml";
-$shortcuts['e2guardian']['status'] = "status_services.php";
-$shortcuts['e2guardian']['service'] = "e2guardian";
+$uname = posix_uname();
+if ($uname['machine'] == 'amd64') {
+	ini_set('memory_limit', '768M');
+}
+
+if (preg_match("/(\d+)/", $argv[1], $matches)) {
+	run_sarg($matches[1]);
+}
 
 ?>

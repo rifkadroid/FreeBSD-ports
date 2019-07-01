@@ -96,7 +96,7 @@
 		<field>
 			<fieldname>admins</fieldname>
 			<fielddescr>Admins</fielddescr>
-			<description><![CDATA[Include users for this group one per line<br>Hint:PFSENSE\marcelloc #Marcello Coutinho]]></description>
+			<description><![CDATA[Include users for this group one per line<br>Hint:KONTROL\smith #John Smith]]></description>
 			<type>textarea</type>
 
 			<cols>80</cols><rows>12</rows>
