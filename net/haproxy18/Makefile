@@ -2,11 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	haproxy
-PORTVERSION=	1.7.11
-PORTREVISION=	1
+DISTVERSION=	1.8.21
 CATEGORIES=	net www
-MASTER_SITES=	http://www.haproxy.org/download/1.7/src/
-PKGNAMESUFFIX=	17
+MASTER_SITES=	http://www.haproxy.org/download/1.8/src/
+PKGNAMESUFFIX=	18
 
 MAINTAINER=	demon@FreeBSD.org
 COMMENT=	Reliable, high performance TCP/HTTP load balancer
@@ -14,10 +13,7 @@ COMMENT=	Reliable, high performance TCP/HTTP load balancer
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	multi
 
-BROKEN_mips=		fails to build: undefined reference to '__sync_sub_and_fetch_4'
-BROKEN_mips64=		fails to build: undefined reference to '__sync_sub_and_fetch_4'
-
-CONFLICTS_INSTALL=	haproxy-[0-9]* haproxy-devel-[0-9]* haproxy18-[0-9]* haproxy19-[0-9]*
+CONFLICTS_INSTALL=	haproxy-[0-9]* haproxy-devel-[0-9]* haproxy17-[0-9]* haproxy19-[0-9]*
 
 USES=		cpe gmake
 USE_RC_SUBR=	haproxy
@@ -48,7 +44,7 @@ LUA_MAKE_ARGS=		USE_LUA=1 LUA_INC=${LUA_INCDIR} LUA_LIB=${LUA_LIBDIR} LUA_LIB_NA
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == "amd64" || ${ARCH} == "i386"
-MAKE_ARGS+=	USE_REGPARM=1
+MAKE_ARGS+=     USE_REGPARM=1
 .endif
 
 post-build:

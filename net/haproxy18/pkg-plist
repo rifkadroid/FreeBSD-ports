@@ -3,7 +3,6 @@ sbin/halog
 sbin/haproxy
 %%PORTDOCS%%%%DOCSDIR%%/51Degrees-device-detection.txt
 %%PORTDOCS%%%%DOCSDIR%%/DeviceAtlas-device-detection.txt
-%%PORTDOCS%%%%DOCSDIR%%/SOCKS4.protocol.txt
 %%PORTDOCS%%%%DOCSDIR%%/SPOE.txt
 %%PORTDOCS%%%%DOCSDIR%%/WURFL-device-detection.txt
 %%PORTDOCS%%%%DOCSDIR%%/acl.fig
@@ -16,6 +15,8 @@ sbin/haproxy
 %%PORTDOCS%%%%DOCSDIR%%/design-thoughts/backends.txt
 %%PORTDOCS%%%%DOCSDIR%%/design-thoughts/be-fe-changes.txt
 %%PORTDOCS%%%%DOCSDIR%%/design-thoughts/binding-possibilities.txt
+%%PORTDOCS%%%%DOCSDIR%%/design-thoughts/buffer-redesign.txt
+%%PORTDOCS%%%%DOCSDIR%%/design-thoughts/buffers.fig
 %%PORTDOCS%%%%DOCSDIR%%/design-thoughts/config-language.txt
 %%PORTDOCS%%%%DOCSDIR%%/design-thoughts/connection-reuse.txt
 %%PORTDOCS%%%%DOCSDIR%%/design-thoughts/connection-sharing.txt
@@ -30,7 +31,8 @@ sbin/haproxy
 %%PORTDOCS%%%%DOCSDIR%%/haproxy.1
 %%PORTDOCS%%%%DOCSDIR%%/internals/acl.txt
 %%PORTDOCS%%%%DOCSDIR%%/internals/body-parsing.txt
-%%PORTDOCS%%%%DOCSDIR%%/internals/buffer-api.txt
+%%PORTDOCS%%%%DOCSDIR%%/internals/buffer-operations.txt
+%%PORTDOCS%%%%DOCSDIR%%/internals/buffer-ops.fig
 %%PORTDOCS%%%%DOCSDIR%%/internals/connect-status.txt
 %%PORTDOCS%%%%DOCSDIR%%/internals/connection-header.txt
 %%PORTDOCS%%%%DOCSDIR%%/internals/connection-scale.txt
@@ -50,7 +52,6 @@ sbin/haproxy
 %%PORTDOCS%%%%DOCSDIR%%/internals/lua_socket.fig
 %%PORTDOCS%%%%DOCSDIR%%/internals/lua_socket.pdf
 %%PORTDOCS%%%%DOCSDIR%%/internals/naming.txt
-%%PORTDOCS%%%%DOCSDIR%%/internals/notes-layers.txt
 %%PORTDOCS%%%%DOCSDIR%%/internals/pattern.dia
 %%PORTDOCS%%%%DOCSDIR%%/internals/pattern.pdf
 %%PORTDOCS%%%%DOCSDIR%%/internals/polling-states.fig
@@ -97,7 +98,6 @@ sbin/haproxy
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/init.haproxy
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/option-http_proxy.cfg
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/seamless_reload.txt
-%%PORTEXAMPLES%%%%EXAMPLESDIR%%/socks4.cfg
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/ssl.cfg
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/stats_haproxy.sh
 %%PORTEXAMPLES%%%%EXAMPLESDIR%%/transparent_proxy.cfg
