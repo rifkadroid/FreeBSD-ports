@@ -143,4 +143,13 @@ function stunnel_deinstall() {
 	rmdir_recursive("/var/tmp/stunnel");
 	rmdir_recursive(STUNNEL_ETCDIR);
 }
+
+/* Simple dummy copy to use old 2.4.x style array. */
+if (!function_exists('cert_build_list')) {
+	function cert_build_list($type = 'cert', $consumer = '', $selectsource = false, $addnone = false) {
+		global $config;
+		$list = ($type == 'ca') ? $config['ca'] : $config['cert'];
+		return $list;
+	}
+}
 ?>
