@@ -54,6 +54,8 @@ if (isset($id) && $a_nat[$id]) {
 		$pconfig['autoflowbitrules'] = $a_nat[$id]['autoflowbitrules'] == 'on' ? 'on' : 'off';;
 	$pconfig['ips_policy_enable'] = $a_nat[$id]['ips_policy_enable'] == 'on' ? 'on' : 'off';;
 	$pconfig['ips_policy'] = $a_nat[$id]['ips_policy'];
+} else {
+	$pconfig['autoflowbitrules'] = 'on';
 }
 
 $if_real = get_real_interface($pconfig['interface']);
@@ -148,9 +150,7 @@ if (isset($_POST["save"])) {
 	/* rules for this interface.                     */
 	/*************************************************/
 	$rebuild_rules = true;
-	conf_mount_rw();
 	snort_generate_conf($a_nat[$id]);
-	conf_mount_ro();
 	$rebuild_rules = false;
 
 	/* Soft-restart Snort to live-load new rules */
