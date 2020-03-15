@@ -126,7 +126,7 @@
 			<fieldname>filterports</fieldname>
 			<type>input</type>
 			<size>10</size>
-			<description><![CDATA[Default: <strong>8080</strong><br>The port(s) that DansGuardian listens to.]]></description>
+			<description><![CDATA[Default: <strong>8080</strong><br>The port(s) that E2Guardian listens to.]]></description>
 		</field>
 		<field>
 			<fielddescr>Allow Users on Interface</fielddescr>
