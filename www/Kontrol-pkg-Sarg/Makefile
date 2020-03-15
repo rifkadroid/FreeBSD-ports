@@ -13,7 +13,8 @@ COMMENT=	Kontrol SARG package
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	sarg>0:www/sarg
+RUN_DEPENDS=	${LOCALBASE}/bin/sarg:www/sarg
+
 
 NO_BUILD=	yes
 NO_MTREE=	yes
