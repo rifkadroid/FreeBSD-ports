@@ -340,7 +340,7 @@
 				</span><br/><br/>
 				<strong><span class="text-info">Splice All: </span></strong><br/>
 				<span>
-				This configuration is suitable if you want to use the <a href="https://doc.pfsense.org/index.php/SquidGuard_package" target="_blank">SquidGuard package</a> for web filtering.</br>
+				This configuration is suitable if you want to use the SquidGuard_package for web filtering.</br>
 				All destinations will be spliced. SquidGuard can do its job of denying or allowing destinations according its rules, as it does with HTTP.<br/>
 				You do <em>not</em> need to install the CA certificate configured below on clients.<br/>
 				Content filtering (such as Antivirus) <em>will not</em> be available for SSL sites.
@@ -436,7 +436,7 @@
 				<![CDATA[
 				Select Certificate Authority to use when SSL interception is enabled.
 				<div class="infoblock">
-				To create a CA on pfSense, go to <a href="system_camanager.php" target="_blank">System &gt; Cert Manager</a>.<br/>
+				To create a CA on Kontrol, go to <a href="system_camanager.php" target="_blank">System &gt; Cert Manager</a>.<br/>
 				<strong><span class="text-danger">Important:</span></strong> Install the CA certificate as a Trusted Root CA on each computer you want to filter SSL on to avoid SSL error on each connection.
 				</div>
 				]]>
