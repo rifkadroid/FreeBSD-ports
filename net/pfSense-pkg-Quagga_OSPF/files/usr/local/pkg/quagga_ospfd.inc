@@ -91,7 +91,7 @@ function quagga_ospfd_install_conf() {
 		// if there is a raw config specifyed in tthe config.xml use that instead of the assisted config
 		$conffile = str_replace("\r","",base64_decode($config['installedpackages']['quaggaospfdraw']['config'][0]['ospfd']));
 	} else {
-		$conffile = "# This file was created by the pfSense package manager.  Do not edit!\n\n";
+		$conffile = "# This file was created by the Kontrol package manager.  Do not edit!\n\n";
 
 		if ($ospfd_conf['password']) {
 			$conffile .= "password {$ospfd_conf['password']}\n";
@@ -269,7 +269,7 @@ function quagga_ospfd_install_conf() {
 		// if there is a raw config specifyed in tthe config.xml use that instead of the assisted config
 		$zebraconffile = str_replace("\r", "", base64_decode($config['installedpackages']['quaggaospfdraw']['config'][0]['zebra']));
 	} else {
-		$zebraconffile = "# This file was created by the pfSense package manager.  Do not edit!\n\n";
+		$zebraconffile = "# This file was created by the Kontrol package manager.  Do not edit!\n\n";
 		if ($ospfd_conf['password']) {
 			$zebraconffile .= "password {$ospfd_conf['password']}\n";
 		}
@@ -294,7 +294,7 @@ function quagga_ospfd_install_conf() {
 		// if there is a raw config specified in the config.xml use that instead of the assisted config
 		$bgpdconffile = str_replace("\r","",base64_decode($config['installedpackages']['quaggaospfdraw']['config'][0]['bgpd']));
 	} else {
-		$bgpdconffile = "# This file was created by the pfSense package manager.  Do not edit!\n\n";
+		$bgpdconffile = "# This file was created by the Kontrol package manager.  Do not edit!\n\n";
 		if ($ospfd_conf['password']) {
 			$bgpdconffile .= "password {$ospfd_conf['password']}\n";
 		}
@@ -354,9 +354,9 @@ function quagga_ospfd_install_conf() {
 		write_config( $desc = gettext("Quagga_OSPFd: Upgraded failover method for legacy configurations of Quagga_OSPFD") );
 		syslog(LOG_NOTICE, "Quagga: CARP failover upgrade complete");
 	}
-	
+
 	$carp_ip_status_check = "";
-	if ((isset($ospfd_conf['carpmode']) && ($ospfd_conf['carpmode'] == "quaggadisable")) 
+	if ((isset($ospfd_conf['carpmode']) && ($ospfd_conf['carpmode'] == "quaggadisable"))
 	    && (isset($ospfd_conf['carpstatusvid']) && ($ospfd_conf['carpstatusvid'] != "none"))) {
 		$vip = get_configured_vip($ospfd_conf['carpstatusvid']);
 		$carpcheckinterface = escapeshellarg(get_real_interface($vip['interface']));
@@ -370,7 +370,7 @@ if [ \${CARP_STATUS} != "MASTER" ]; then
 fi
 EOF;
 	}
-	
+
 	$carp_ospfcost_status_check = "";
 	if ((isset($ospfd_conf['carpmode']) && ($ospfd_conf['carpmode'] == "ospfcost"))
 	    && (isset($ospfd_conf['carpcostvid']) && (substr($ospfd_conf['carpcostvid'], 0, 4) != "none"))
@@ -395,7 +395,7 @@ else
 	logger "Quagga: CARP \"OSPF Cost\" Mode - Interface {$carpcheckinterface} is NOT in MASTER state, OSPF cost set to {$ospfd_conf['carpbackupcost']}";
 fi
 EOF;
-			
+
 		}
 	}
 
@@ -659,7 +659,7 @@ function write_quagga_running_config($module) {
  	} else {
 		$config['installedpackages']['quaggaospfdraw']['config'][0][$module . "running"] = base64_encode("!!!!! {$module}.conf does not exist or is empty.");
 	}
-	write_config( $desc = gettext("Quagga_OSPFd: Wrote {$module}.conf startup-config to pfSense config file."), $backup = false, $write_config_only = true );
+	write_config( $desc = gettext("Quagga_OSPFd: Wrote {$module}.conf startup-config to Kontrol config file."), $backup = false, $write_config_only = true );
 }
 
 write_quagga_running_config('bgpd');
