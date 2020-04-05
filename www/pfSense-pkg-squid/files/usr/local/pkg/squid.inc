@@ -1405,14 +1405,18 @@ EOD;
 		$src = '';
 		foreach ($real_ifaces as $iface) {
 			list($ip, $mask) = $iface;
-			$ip = long2ip(ip2long($ip) & ip2long($mask));
-			$mask = 32 - log((ip2long($mask) ^ ip2long('255.255.255.255')) +1, 2);
-			if (!preg_match("@$ip/$mask@", $src)) {
-				// XXX: Do not add invalid subnets (Bug #4331, Bug #4526)
-				if (is_subnet("{$ip}/{$mask}")) {
-					$src .= " $ip/$mask";
-				} else {
-					log_error("[squid] 'Allow Users on Interface' ACL skipped for '{$ip}/{$mask}' since it is not a valid subnet.");
+			if (is_subnetv6("{$ip}/{$mask}")) {
+				$src .= " " . gen_subnetv6($ip, $mask) . "/" . $mask;
+			} else {
+				$ip = long2ip(ip2long($ip) & ip2long($mask));
+				$mask = 32 - log((ip2long($mask) ^ ip2long('255.255.255.255')) +1, 2);
+				if (!preg_match("@$ip/$mask@", $src)) {
+					// XXX: Do not add invalid subnets (Bug #4331, Bug #4526)
+					if (is_subnetv4("{$ip}/{$mask}")) {
+						$src .= " $ip/$mask";
+					} else {
+						log_error("[squid] 'Allow Users on Interface' ACL skipped for '{$ip}/{$mask}' since it is not a valid IPv4 subnet.");
+					}
 				}
 			}
 		}
@@ -1979,7 +1983,7 @@ function squid_resync_auth() {
 				break;
 			case 'ldap':
 				$port = '';
-				$ldap_proto = '';
+				$ldap_proto = 'ldap://';
 				$usetls = '';
 				if (isset($settings['auth_server_port']) && !empty($settings['auth_server_port'])) {
 					$port = ":{$settings['auth_server_port']}";
@@ -1989,14 +1993,15 @@ function squid_resync_auth() {
 				if ($settings['ldap_urltype'] == 'ssl') {
 					$ldap_proto = 'ldaps://';
 				} else if ($settings['ldap_urltype'] == 'starttls') {
-					$usetls = '-Z';
+					$usetls = '-ZZ';
 				} 
-				$password = (isset($settings['ldap_pass']) ? "-w {$settings['ldap_pass']}" : '');
+				$password = (isset($settings['ldap_pass']) ? "-w " . escapeshellarg($settings['ldap_pass']) : '');
+				$noreferrals = ($settings['ldap_noreferrals'] == 'on' ? "-R" : '');
 				$conf .= "auth_param basic program " . SQUID_LOCALBASE
 					. "/libexec/squid/basic_ldap_auth -v {$settings['ldap_version']} -b " . escapeshellarg($settings['ldap_basedomain'])
-					. " -D " . escapeshellarg($settings['ldap_user']) . " " . escapeshellarg($password)
+					. " " . $noreferrals . " -D " . escapeshellarg($settings['ldap_user']) . " " . $password
 					. " -f " . escapeshellarg($settings['ldap_filter']) . " -u " . escapeshellarg($settings['ldap_userattribute'])
-					. " -P " . escapeshellarg($settings['auth_server'] . $port) . "\n";
+					. " -P -H " . escapeshellarg($ldap_proto . $settings['auth_server'] . $port) . "\n";
 				break;
 			case 'radius':
 				$port = ((isset($settings['auth_server_port']) && !empty($settings['auth_server_port'])) ? "-p {$settings['auth_server_port']}" : '');
