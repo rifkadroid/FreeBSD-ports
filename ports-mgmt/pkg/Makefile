@@ -1,9 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	pkg
-DISTVERSION=	1.12.0
+DISTVERSION=	1.13.2
 _PKG_VERSION=	${DISTVERSION}
-PORTREVISION=	1
 CATEGORIES=	ports-mgmt
 #MASTER_SITES=	\
 #		http://files.etoilebsd.net/${PORTNAME}/ \
@@ -81,12 +80,6 @@ PKG_DEPENDS=
 .if !defined(CROSS_TOOLCHAIN)
 PKG_BIN=	${WRKSRC}/src/pkg-static
 .endif
-
-REAL_OSMAJOR!=	/usr/bin/uname -r | /usr/bin/cut -d\. -f1
-
-post-patch:
-	@${REINPLACE_CMD} -e "/#define.*OSMAJOR.*__FreeBSD__/ s/__FreeBSD__/${REAL_OSMAJOR}/" \
-		${WRKSRC}/libpkg/pkg.h.in
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
