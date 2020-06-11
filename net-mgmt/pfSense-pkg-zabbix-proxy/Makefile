@@ -2,7 +2,7 @@
 
 PORTNAME?=	pfSense-pkg-zabbix-proxy
 PORTVERSION=	1.0.4
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	net-mgmt
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -15,7 +15,8 @@ LICENSE=	APACHE20
 
 CONFLICTS?=	pfSense-pkg-zabbix-proxy4 \
 		pfSense-pkg-zabbix-proxy42 \
-		pfSense-pkg-zabbix-proxy44
+		pfSense-pkg-zabbix-proxy44 \
+		pfSense-pkg-zabbix-proxy5
 
 RUN_DEPENDS?=	zabbix_proxy:net-mgmt/zabbix3-proxy
 
