@@ -768,9 +768,15 @@
 				####  STARTING  CUSTOM ACLs  #### <br/>
 				acl auth proxy_auth REQUIRED <br/>
  <br/>
-				#### STARTING CUSTOM AUTHORIZATION ACL  ### <br/>
+				####  STARTING CUSTOM AUTHORIZATION ACL  ### <br/>
 				http_access allow auth <br/>
-				 <br/>
+<br/>
+				####  SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTHENTICATION  #### <br/>
+				####  FOR KERBEROS+E2GUARDIAN, UNCOMMENT BELOW   #### <br/>
+				#cache_peer 127.0.0.1 parent 8080 0 login=*:password <br/>
+				#always_direct deny all  <br/>
+				#never_direct allow all   <br/>
+					<br/>
 				]]>
 			</description>
 			<type>textarea</type>
