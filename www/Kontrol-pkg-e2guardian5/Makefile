@@ -8,7 +8,7 @@ MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	contato@kontrolsecurity.com.br
+MAINTAINER=	contato@konntrol.com.br
 COMMENT=	Kontrol E2guardian Package
 
 LICENSE=	APACHE20
