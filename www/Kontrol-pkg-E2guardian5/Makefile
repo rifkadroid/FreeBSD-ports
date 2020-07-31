@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-E2guardian5
-PORTVERSION=	0.5.3.3
-PORTREVISION=   2
+PORTVERSION=	0.5.3.4
+PORTREVISION=   0
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -126,4 +126,3 @@ do-install:
 	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
 		${STAGEDIR}/usr/local/pkg/e2guardian.xml
 .include <bsd.port.mk>
-
