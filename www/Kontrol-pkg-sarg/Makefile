@@ -8,13 +8,12 @@ MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	contato@kontrolsecurity.com.br
-COMMENT=	Kontrol SARG package
+MAINTAINER=	contato@konntrol.com.br
+COMMENT=	SARG report package
 
 LICENSE=	APACHE20
 
 RUN_DEPENDS=	${LOCALBASE}/bin/sarg:www/sarg
-
 
 NO_BUILD=	yes
 NO_MTREE=	yes
@@ -57,6 +56,6 @@ do-install:
 	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
 		${STAGEDIR}${DATADIR}/info.xml
 	@${REINPLACE_CMD} -i '' -e "s|%%PKGVERSION%%|${PKGVERSION}|" \
-		${STAGEDIR}${PREFIX}/pkg/sarg.xml
+		${FILESDIR}${PREFIX}/pkg/sarg.xml
 
 .include <bsd.port.mk>

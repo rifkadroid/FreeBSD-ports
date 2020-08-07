@@ -50,7 +50,7 @@ include("head.inc");
 		$tab_array[] = array(gettext("View Report"), false, "/sarg_reports.php");
 		$tab_array[] = array(gettext("Realtime"), false, "/sarg_realtime.php");
 		$tab_array[] = array(gettext("XMLRPC Sync"), false, "/pkg_edit.php?xml=sarg_sync.xml&id=0");
-//		$tab_array[] = array(gettext("Help"), true, "/sarg_about.php");
+		$tab_array[] = array(gettext("Help"), true, "/sarg_about.php");
 		display_top_tabs($tab_array);
 		?>
 	</td></tr>
@@ -68,8 +68,9 @@ include("head.inc");
 				<tr>
 					<td colspan="2" valign="top" class="listtopic"><?=gettext("About Sarg package"); ?></td>
 				</tr>
-			
-				</table>
+				
+				
+			</table>
 		</div>
 	</td></tr>
 </table>
