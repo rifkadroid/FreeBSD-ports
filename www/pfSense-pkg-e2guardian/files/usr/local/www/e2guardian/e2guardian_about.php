@@ -85,10 +85,7 @@ display_top_tabs($tab_array);
 						<td width="78%" class="vtable"><a target=_new href='https://github.com/e2guardian/e2guardian/wiki/Configuration'><?=gettext("Configuration Wiki");?></a><br><br>
 					</tr>
 					<tr>
-						<td width="22%" valign="top" class="vncell"><?=gettext("Credits ");?></td>
-						<td width="78%" class="vtable"><?=gettext("Package Created by Marcello Coutinho</a><br><br>");?></td>
-					</tr>
-				</tbody>
+					</tbody>
 			</table>
 		</div>
 	<br />
