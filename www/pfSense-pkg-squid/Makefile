@@ -2,14 +2,14 @@
 
 PORTNAME=	pfSense-pkg-squid
 PORTVERSION=	0.4.44
-PORTREVISION=	30
+PORTREVISION=	31
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	coreteam@pfsense.org
-COMMENT=	pfSense package squid
+MAINTAINER=	contato@konntrol.com.br
+COMMENT=	Konntrol tecnologia Squid Package
 
 LICENSE=	APACHE20
 
