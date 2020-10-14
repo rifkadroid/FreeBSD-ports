@@ -35,13 +35,13 @@
 			<url>pkg_edit.php?xml=frr/frr_ospf.xml</url>
 		</tab>
 		<tab>
-			<text>Interfaces</text>
-			<url>pkg.php?xml=frr/frr_ospf_interfaces.xml</url>
-		</tab>
-		<tab>
 			<text>Areas</text>
 			<url>pkg.php?xml=frr/frr_ospf_areas.xml</url>
 			<active/>
+		</tab>
+		<tab>
+			<text>Interfaces</text>
+			<url>pkg.php?xml=frr/frr_ospf_interfaces.xml</url>
 		</tab>
 		<tab>
 			<text>Neighbors</text>
@@ -62,7 +62,7 @@
 		<tab>
 			<text>[OSPF6]</text>
 			<url>pkg_edit.php?xml=frr/frr_ospf6.xml</url>
-		</tab>		
+		</tab>
 		<tab>
 			<text>Status</text>
 			<url>/status_frr.php</url>
