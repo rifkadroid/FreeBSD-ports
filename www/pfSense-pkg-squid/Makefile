@@ -2,14 +2,14 @@
 
 PORTNAME=	pfSense-pkg-squid
 PORTVERSION=	0.4.44
-PORTREVISION=	31
+PORTREVISION=	32
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	contato@konntrol.com.br
-COMMENT=	Konntrol tecnologia Squid Package
+MAINTAINER=	coreteam@pfsense.org
+COMMENT=	pfSense package squid
 
 LICENSE=	APACHE20
 
@@ -85,6 +85,8 @@ do-install:
 	${INSTALL_DATA} ${FILESDIR}${PREFIX}/www/squid_monitor.php \
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} ${FILESDIR}${PREFIX}/www/squid_monitor_data.php \
+		${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} ${FILESDIR}${PREFIX}/www/status_squid.php \
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/bin/check_ip.php \
 		${STAGEDIR}${PREFIX}/bin
