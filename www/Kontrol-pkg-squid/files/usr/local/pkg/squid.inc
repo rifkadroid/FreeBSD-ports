@@ -454,7 +454,7 @@ function squid_restart_services() {
 					return;
 					break;
 				case "MASTER":
-					/* Stopping the service on other node may take some time
+					/* Stopping the service on other node may take some time 
 					(shutdown_lifetime 3 seconds) */
 					sleep(4);
 					break;
@@ -874,13 +874,13 @@ function squid_validate_general($post, &$input_errors) {
 		$webgui_port = 443;
 	}
 	if (($post['transparent_proxy'] != 'on') && ($port == $webgui_port)) {
-		$input_errors[] = "You can not run Squid on the same port as the pfSense WebGUI";
+		$input_errors[] = "You can not run Squid on the same port as the KONTROL-UTM WebGUI";
 	}
 	unset($port, $webgui_port);
 
 	if ($post['transparent_proxy'] == 'on') {
-		if (preg_match("/(local|ldap|radius|ntlm)/", $config['installedpackages']['squidauth']['config'][0]['auth_method'])) {
-			$input_errors[] = "Transparent mode cannot be enabled while proxy authentication is enabled";
+		if (preg_match("/(local|ldap|radius|ntlm|kerberos)/", $config['installedpackages']['squidauth']['config'][0]['auth_method'])) {
+			$input_errors[] = "Transparent mode cannot be enabled to use that authentication mode";
 		}
 		if (empty($post['transparent_active_interface'])) {
 			$input_errors[] = "You must select at least one interface under 'Transparent Proxy Interface(s)' when 'Transparent HTTP Proxy' is enabled.";
@@ -1170,7 +1170,7 @@ function squid_validate_auth($post, &$input_errors) {
 	unset($num_fields);
 
 	$auth_method = $post['auth_method'];
-	if (($auth_method != 'none') && ($auth_method != 'local') && ($auth_method != 'cp')) {
+	if (($auth_method != 'none') && ($auth_method != 'local') && ($auth_method != 'cp')  && ($auth_method != 'transparent') && ($auth_method != 'ntlm') && ($auth_method != 'kerbntlm')) {
 		$server = trim($post['auth_server']);
 		if (empty($server)) {
 			$input_errors[] = "'Authentication server' is required.";
@@ -1181,10 +1181,6 @@ function squid_validate_auth($post, &$input_errors) {
 		$port = trim($post['auth_server_port']);
 		if (!empty($port) && !is_port($port)) {
 			$input_errors[] = "'Authentication server port' must contain a valid port number.";
-		}
-
-		if (!empty($port['max_user_ip']) && !is_numeric($port['max_user_ip'])) {
-			$input_errors[] = "'Authentication Max User IP' must be numeric or empty.";
 		}
 
 		switch ($auth_method) {
@@ -1207,6 +1203,7 @@ function squid_validate_auth($post, &$input_errors) {
 					$input_errors[] = "'RADIUS secret' is required.";
 				}
 				break;
+				
 		}
 
 		$no_auth = explode("\n", $post['no_auth_hosts']);
@@ -1369,7 +1366,7 @@ function squid_resync_general() {
 		foreach ($ifaces_ips as $iface_ip) {
 			if ($iface_ip[0]) {
 				// do not add loopback twice when transparent proxy is enabled
-				if ((($iface_ip[0] == "127.0.0.1") || ($iface_ip[0] == "::1")) &&
+				if ((($iface_ip[0] == "127.0.0.1") || ($iface_ip[0] == "::1")) && 
 				    $settings['transparent_proxy'] == "on") {
 					continue;
 				} else {
@@ -1482,6 +1479,7 @@ cache_mgr {$email}
 access_log {$logdir_access}
 cache_log {$logdir_cache}
 cache_store_log none
+server_persistent_connections off
 netdb_filename {$logdir}/netdb.state
 pinger_enable {$pinger_helper}
 pinger_program {$pinger_program}
@@ -1647,11 +1645,7 @@ EOD;
 	} elseif (file_exists(SQUID_ACLDIR . '/donotcache.acl')) {
 		unlink(SQUID_ACLDIR . '/donotcache.acl');
 	}
-	if ($settings['nocache'] == 'on') {
-		$conf .= "cache deny all\n";
-	} else {
-		$conf .= "cache allow all\n";
-	}
+	$conf .= "cache allow all\n";
 
 	return $conf.$refresh_conf;
 }
@@ -2028,7 +2022,7 @@ function squid_resync_auth() {
 
 	$transparent_proxy = ($settingsconfig['transparent_proxy'] == 'on');
 	if ($transparent_proxy) {
-		if (preg_match ("/(none|cp)/", $settings['auth_method'])) {
+		if (preg_match ("/(none|cp|transparent)/", $settings['auth_method'])) {
 			$auth_method = $settings['auth_method'];
 		} else {
 			$auth_method = "none";
@@ -2043,7 +2037,7 @@ function squid_resync_auth() {
 			$conf .= "http_access deny sglog\n";
 		}
 	}
-	if ($auth_method == 'none') {
+	if ($auth_method == 'none' ) {
 		// SSL interception ACL options without authentication
 		if ($settingsconfig['ssl_proxy'] == "on") {
 			// Custom SSL/MITM configuration overrides everything
@@ -2081,8 +2075,12 @@ function squid_resync_auth() {
 
 		// Set up the external authentication programs
 		$auth_ttl = ($settings['auth_ttl'] ? $settings['auth_ttl'] : 5);
-		$processes = ($settings['auth_processes'] ? $settings['auth_processes'] : 5);
+		$processes = ($settings['auth_processes'] ? $settings['auth_processes'] : 25);
 		$prompt = ($settings['auth_prompt'] ? $settings['auth_prompt'] : 'Please enter your credentials to access the proxy');
+		$myhostname = strtolower(gethostname());
+		$mydomain = strtoupper( exec ('hostname -d'));
+		//$mydomain = strtoupper($mydomain);
+		//$finalhostname = strtolower($myhostname);
 		switch ($auth_method) {
 			case 'local':
 				$conf .= 'auth_param basic program ' . SQUID_LOCALBASE . '/libexec/squid/basic_ncsa_auth ' . SQUID_PASSWD . "\n";
@@ -2100,7 +2098,7 @@ function squid_resync_auth() {
 					$ldap_proto = 'ldaps://';
 				} else if ($settings['ldap_urltype'] == 'starttls') {
 					$usetls = '-ZZ';
-				}
+				} 
 				$password = (isset($settings['ldap_pass']) ? "-w " . escapeshellarg($settings['ldap_pass']) : '');
 				$noreferrals = ($settings['ldap_noreferrals'] == 'on' ? "-R" : '');
 				$conf .= "auth_param basic program " . SQUID_LOCALBASE
@@ -2118,8 +2116,21 @@ function squid_resync_auth() {
 				$conf .= "external_acl_type check_cp {$helpers_num} ttl={$auth_ttl} %SRC " . SQUID_BASE . "/bin/check_ip.php\n";
 				$conf .= "acl password external check_cp\n";
 				break;
+			case 'transparent':
+					$conf .= "####  TRANSPARENT AUTHENTICATION HELPER-Configure credentials using menu SERVICES / KONTROL Transparent #### \n";
+					$conf .= "external_acl_type userip children-startup=50 children-max={$processes} children-idle=10 ttl={$auth_ttl} %SRC /usr/local/bin/kontrolhelper \n";
+					$conf .= "acl KONTROLACL external userip \n";
+					$conf .= "http_access allow KONTROLACL \n";
+					$conf .= "\n";
+					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
+					$conf .= "always_direct deny all \n";
+					$conf .= "never_direct allow all \n";
+				break;	
+				
+				
 		}
-		if ($auth_method != 'cp') {
+		if (($auth_method != 'cp') && ($auth_method != 'transparent') && ($auth_method != 'kerberos')){
 		$conf .= <<< EOD
 auth_param basic children $processes
 auth_param basic realm $prompt
@@ -2128,16 +2139,6 @@ acl password proxy_auth REQUIRED
 
 EOD;
 		}
-
-		// Authentication TTL
-		$conf .= "authenticate_ip_ttl $auth_ttl minute\n";
-
-		// Authentication Max User IP
-		if (is_numeric($settings['max_user_ip'])) {
-			$conf .= "acl maxip max_user_ip -s {$settings['max_user_ip']}\n";
-			$conf .= "http_access deny maxip\n";
-		}
-
 		// Custom User Options after authentication definition
 		$conf .= "# Custom options after auth\n" . sq_text_area_decode($settingsconfig['custom_options2_squid3']) . "\n\n";
 		// SSL interception ACL options with authentication
@@ -2184,7 +2185,6 @@ EOD;
 		foreach ($password as $acl) {
 			$conf .= "http_access allow password $acl\n";
 		}
-
 	}
 
 	$conf .= "# Default block all to be sure\n";
@@ -2676,7 +2676,7 @@ function squid_get_ca_or_certs($type, $consumer = 'HTTPS', $noprv = false, $addn
 	if (isset($config[$type]) && is_array($config[$type])) {
 		if (is_array($list_arr)) {
 			foreach ($config[$type] as $c) {
-				if (in_array($c['refid'],array_column($list_arr, 'refid')) &&
+				if (in_array($c['refid'],array_column($list_arr, 'refid')) && 
 				 (!empty($c['prv']) || $noprv)) {
 					$c_arr[] = $c;
 				}
@@ -2746,15 +2746,13 @@ function squid_plugin_carp($pluginparams) {
 	/* Start or stop the service as needed based on the CARP transition. */
 	if ($pluginparams['event'] == "rc.carpmaster") {
 		log_error("[squid] Starting service...");
-		/* Stopping the service on other node may take some time
+		/* Stopping the service on other node may take some time 
 		(shutdown_lifetime 3 seconds) */
 		sleep(4);
 		start_service("squid");
-		filter_configure();
 	} elseif (($pluginparams['event'] == "rc.carpbackup") && is_service_running('squid')) {
 		log_error("[squid] Stopping service... (CARP BACKUP/INIT)");
 		squid_stop_monitor();
 		stop_service("squid");
-		filter_configure();
 	}
 }

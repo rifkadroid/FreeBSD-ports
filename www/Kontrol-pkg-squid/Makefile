@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTNAME=	pfSense-pkg-squid
+PORTNAME=	Kontrol-pkg-squid
 PORTVERSION=	0.4.44
 PORTREVISION=	32
 CATEGORIES=	www
@@ -8,8 +8,8 @@ MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	coreteam@pfsense.org
-COMMENT=	pfSense package squid
+MAINTAINER=	contato@konntrol.com.br
+COMMENT=	CUSTOMIZED Kontrol package squid
 
 LICENSE=	APACHE20
 
