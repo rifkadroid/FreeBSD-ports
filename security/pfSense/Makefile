@@ -2,7 +2,7 @@
 
 PORTNAME=	pfSense
 DISTVERSION=	2.4.5
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -42,7 +42,6 @@ RUN_DEPENDS=	bind-tools>=0:dns/bind-tools \
 		miniupnpd>=0:net/miniupnpd \
 		mobile-broadband-provider-info>=0:net/mobile-broadband-provider-info \
 		mpd5>=0:net/mpd5 \
-		wmi-client>=0:net-mgmt/wmi-client \
 		nginx>=0:www/nginx \
 		ntp>=0:net/ntp \
 		openvpn>=0:security/openvpn \
