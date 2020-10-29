@@ -1290,7 +1290,7 @@ export delete_pid=""
 export nc_pid=""
 
 # Reboot after 10 seconds
-export reboot_after=10
+export reboot_after=20
 
 # Used to set -r and reroot
 export reboot_params=""
