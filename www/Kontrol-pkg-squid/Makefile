@@ -8,7 +8,7 @@ MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	contato@konntrol.com.br
+MAINTAINER=	coreteam@pfsense.org
 COMMENT=	Kontrol package squid
 
 LICENSE=	APACHE20
