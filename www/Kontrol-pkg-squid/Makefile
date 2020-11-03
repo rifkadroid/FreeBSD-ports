@@ -2,13 +2,13 @@
 
 PORTNAME=	Kontrol-pkg-squid
 PORTVERSION=	0.4.44
-PORTREVISION=	35
+PORTREVISION=	36
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	coreteam@pfsense.org
+MAINTAINER=	contato@konntrol.com.br
 COMMENT=	Kontrol package squid
 
 LICENSE=	APACHE20
