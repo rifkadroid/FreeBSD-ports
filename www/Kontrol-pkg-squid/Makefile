@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTNAME=	pfSense-pkg-squid
+PORTNAME=	Kontrol-pkg-squid
 PORTVERSION=	0.4.44
 PORTREVISION=	36
 CATEGORIES=	www
