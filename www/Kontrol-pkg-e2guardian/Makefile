@@ -7,7 +7,7 @@ MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	coreteam@pfsense.org
+MAINTAINER=	contato@konntrol.com.br
 COMMENT=	E2guardian package
 
 LICENSE=	APACHE20
