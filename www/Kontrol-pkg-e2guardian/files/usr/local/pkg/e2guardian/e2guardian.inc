@@ -945,7 +945,7 @@ function sync_package_e2guardian($via_rpc = "no", $install_process = false) {
 		    'liston' => 'both',
 		    'cron' => '02days',
 		    /* XXX Save this URL on a variable? */
-		    'url' => "http://www.shallalist.de/Downloads/shallalist.tar.gz",
+		    'url' => "http://pkg.konntrol.com.br:8081/blacklist/blacklist.tar.gz",
 		    'enable_custom_script' => "",
 		    'update_script' => ""
 		);
@@ -988,7 +988,7 @@ function sync_package_e2guardian($via_rpc = "no", $install_process = false) {
 		}
 		file_put_contents($e2g_etc . "/lists/exceptionfilesitelist." .
 		    $e2guardian_site['name'],
-		    ($e2guardian_site['exceptionsite_enabled'] 
+		    ($e2guardian_site['exceptionsite_enabled']
 			? e2_text_area_decode($e2guardian_site['exceptionfile_sitelist'])
 			: ""), LOCK_EX);
 
@@ -1105,7 +1105,7 @@ function sync_package_e2guardian($via_rpc = "no", $install_process = false) {
 		//chech schedule
 		e2g_check_sched($e2guardian_url['aclschedule']);
 
-		/* 
+		/*
 		 * XXX Convert all this duplicated code to a function and have
 		 * an array with all lists
 		 */
