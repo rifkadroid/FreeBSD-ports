@@ -945,7 +945,7 @@ function sync_package_e2guardian($via_rpc = "no", $install_process = false) {
 		    'liston' => 'both',
 		    'cron' => '02days',
 		    /* XXX Save this URL on a variable? */
-		    'url' => "http://pkg.konntrol.com.br:8081/blacklist/blacklist.tar.gz",
+		    'url' => "http://www.shallalist.de/Downloads/shallalist.tar.gz",
 		    'enable_custom_script' => "",
 		    'update_script' => ""
 		);
