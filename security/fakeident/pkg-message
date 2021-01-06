@@ -1,8 +1,0 @@
-[
-{ type: install
-  message: <<EOM
-To enable fakeidentd please add fakeidentd_enable="YES" to
-/etc/rc.conf.
-EOM
-}
-]

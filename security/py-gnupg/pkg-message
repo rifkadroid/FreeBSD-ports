@@ -1,9 +1,0 @@
-[
-{ type: install
-  message: <<EOM
-To import this module, use
-
->>> import pretty_bad_protocol
-EOM
-}
-]
