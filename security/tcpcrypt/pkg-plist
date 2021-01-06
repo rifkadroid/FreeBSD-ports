@@ -1,0 +1,10 @@
+bin/tcnetstat
+bin/tcpcryptd
+bin/tcs
+include/tcpcrypt/tcpcrypt.h
+lib/libtcpcrypt.a
+lib/libtcpcrypt.so
+lib/libtcpcrypt.so.0
+lib/libtcpcrypt.so.0.0.0
+man/man8/tcnetstat.8.gz
+man/man8/tcpcryptd.8.gz
