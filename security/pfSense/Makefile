@@ -68,7 +68,7 @@ RUN_DEPENDS=	bind-tools>=0:dns/bind-tools \
 		unbound>=0:dns/unbound \
 		voucher>=0:sysutils/voucher \
 		wol>=0:net/wol \
-		wmi-client>=0:net-mgmt/wmi-client \
+		base64>=0:converters/base64 \
 		wpa_supplicant>=0:security/wpa_supplicant \
 		xinetd>=0:security/xinetd \
 		openvpn-auth-script>=0:security/openvpn-auth-script \
