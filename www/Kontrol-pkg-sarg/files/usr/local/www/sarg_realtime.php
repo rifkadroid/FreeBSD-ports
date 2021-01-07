@@ -58,7 +58,7 @@ function get_cmd(){
 			$update_config++;
 		}
 		if ($update_config > 0) {
-			write_config();
+			write_config("Saving...");
 			// write changes to sarg_file
 			$sarg_config = file_get_contents(SARG_DIR . '/etc/sarg/sarg.conf');
 			$pattern[0] = '/realtime_types\s+[A-Z,,]+/';
@@ -248,7 +248,7 @@ if ($_REQUEST['cmd'] != "") {
 	}
 	//]]>
 	</script>
-	<?php 
+	<?php
 	include("fend.inc");
 	}
 	?>

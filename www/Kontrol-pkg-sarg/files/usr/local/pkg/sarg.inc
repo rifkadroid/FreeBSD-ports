@@ -149,7 +149,7 @@ function sarg_configure_cron() {
 		// update cron
 		if ($cron_found > 0) {
 			$config['cron'] = $new_cron;
-			write_config();
+			write_config("Saving...");
 			configure_cron();
 		}
 	}
@@ -172,10 +172,10 @@ function sarg_resync() {
 function run_sarg($id = -1) {
 	global $config, $g, $sarg_proxy;
 
-	
+
 	$log_files = array('e2guardian' => '/var/log/e2guardian/access.log',
 	                   'squid' => '/var/squid/logs/access.log');
-	
+
 	$cmd = SARG_DIR . "/bin/sarg";
 	if (is_array($config['installedpackages']['sarg']['config'])) {
 	    $proxy_server_log = $config['installedpackages']['sarg']['config'][0]['proxy_server'];
@@ -185,7 +185,7 @@ function run_sarg($id = -1) {
 	        die("log file configuration not found");
 	    }
 	}
-	
+
 	if ($id >= 0 && is_array($config['installedpackages']['sargschedule']['config'])) {
 	    $rsg = $config['installedpackages']['sargschedule']['config'][$id];
 	    $rsg2 = $config['installedpackages']['sarg']['config'];
@@ -205,11 +205,11 @@ function run_sarg($id = -1) {
 		$gziplevel = $_POST['gziplevel'];
 		$daylimit = "";
 	}
-	
+
 	if ($logs == "all logs") {
 	    $rs_file = $rs_file . "*";
 	}
-	
+
 	$args .= " -l $rs_file ";
 	$args .= " -o /usr/local/sarg-reports";
 	if ($fsuffix != "") {
@@ -346,7 +346,7 @@ function sync_package_sarg() {
 	$date_format = (preg_match("/\w/", $sarg['report_date_format']) ? $sarg['report_date_format'] : "u");
 	$report_type = preg_replace('/,/', ' ', $sarg['report_type']);
 	$report_charset = $sarg['report_charset'] ?: "UTF-8";
-	
+
 	$exclude_string = 'exclude_string "e2gerror.php:[inet';
 	if ($sarg['exclude_string'] != "") {
 	    $exclude_string .= ":" .$sarg['exclude_string'];
@@ -407,7 +407,7 @@ function sync_package_sarg() {
 
 	// write config if any file from filesystem was loaded
 	if ($update_conf > 0) {
-		write_config();
+		write_config("Saving...");
 	}
 
 	sarg_sync_on_changes();
@@ -551,26 +551,26 @@ function sarg_sync_on_changes() {
 /* do the actual XMLRPC sync */
 function sarg_do_xmlrpc_sync($sync_to_ip, $port, $protocol, $username, $password, $synctimeout) {
     global $config, $g;
-    
+
     if ($username == "" || $password == "" || $sync_to_ip == "" || $port == "" || $protocol == "") {
         log_error("[sarg] A required XMLRPC sync parameter (username, password, replication target, port or protocol) is empty ... aborting pkg sync");
         return;
     }
-    
+
     // Take care of IPv6 literal address
     if (is_ipaddrv6($sync_to_ip)) {
         $sync_to_ip = "[{$sync_to_ip}]";
     }
-    
+
     $url = "{$protocol}://{$sync_to_ip}";
-    
+
     /* XML will hold the sections to sync. */
     $xml = array();
     $xml['sarg'] = $config['installedpackages']['sarg'];
     $xml['sarguser'] = $config['installedpackages']['sarguser'];
     /* Assemble XMLRPC payload. */
     $params = array(XML_RPC_encode($password), XML_RPC_encode($xml));
-    
+
     /* Set a few variables needed for sync code */
     $method = 'pfsense.merge_installedpackages_section_xmlrpc';
     $msg = new XML_RPC_Message($method, $params);
@@ -594,14 +594,14 @@ function sarg_do_xmlrpc_sync($sync_to_ip, $port, $protocol, $username, $password
     } else {
         log_error("[sarg] XMLRPC sync successfully completed with {$url}:{$port}.");
     }
-    
+
     /* Tell sarg to reload our settings on the destination sync host. */
     $method = 'pfsense.exec_php';
     $execcmd = "require_once('/usr/local/pkg/sarg.inc');\n";
     $execcmd .= "sync_package_sarg();";
     /* Assemble XMLRPC payload. */
     $params = array(XML_RPC_encode($password), XML_RPC_encode($execcmd));
-    
+
     log_error("[sarg] XMLRPC reload data {$url}:{$port}.");
     $msg = new XML_RPC_Message($method, $params);
     $cli = new XML_RPC_Client('/xmlrpc.php', $url, $port);

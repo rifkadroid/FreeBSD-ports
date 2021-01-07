@@ -59,7 +59,7 @@ function get_ldap_members($group, $user, $password) {
 	ldap_set_option($ldap, LDAP_OPT_REFERRALS, 0);
 
 	if (! ldap_bind($ldap, $user, $password) && preg_match ("/cn=/", $user)) {
-	    
+
 	    ldap_bind($ldap, "$user,$ldap_dn", $password) or die("Could not bind to LDAP");
 	}
 
@@ -67,7 +67,7 @@ function get_ldap_members($group, $user, $password) {
 	$group_cn = (preg_match("/cn=/i", $group)? $group : "cn={$group}");
 
 	$results = ldap_search($ldap, $ldap_dn, $group_cn, $LDAPFieldsToFind);
-	
+
 	$member_list = ldap_get_entries($ldap, $results);
 	if (in_array("debug",$argv)) {
 	    print "ldap_search  $ldap_dn, $group_cn results \n";
@@ -116,7 +116,7 @@ if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 							$ldap_dn = $server['dn'];
 							$ldap_host = $server['dc'];
 							$mask = ( empty($server['mask']) ? "USER" : $server['mask'] );
-							
+
 							$result = get_ldap_members($group[$ldap_group_source], $server['username'], $server['password']);
 							if (in_array("debug",$argv)) {
 							    print "get_ldap_members for {$group[$ldap_group_source]}, {$server['username']} results in ...\n";
@@ -168,7 +168,7 @@ if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 }
 if ($apply_config > 0) {
 	print "User list from LDAP is different from current group, applying new configuration...";
-	write_config();
+	write_config("Saving...");
 	include("/usr/local/pkg/e2guardian.inc");
 	sync_package_e2guardian();
 	e2guardian_start();
