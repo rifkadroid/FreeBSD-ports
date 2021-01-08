@@ -126,7 +126,7 @@
 			<fieldname>filterports</fieldname>
 			<type>input</type>
 			<size>10</size>
-			<description><![CDATA[Default: <strong>8080</strong><br>The port(s) that DansGuardian listens to.]]></description>
+			<description><![CDATA[Default: <strong>8080</strong><br>The port(s) that E2Guardian listens to.]]></description>
 		</field>
 		<field>
 			<fielddescr>Allow Users on Interface</fielddescr>
@@ -156,7 +156,7 @@
 		<field>
 			<fielddescr>Upload rate limit</fielddescr>
 			<fieldname>outpipe</fieldname>
-			<description><![CDATA[Choose the Out queue/Virtual interface only if In is also selected.<br> 
+			<description><![CDATA[Choose the Out queue/Virtual interface only if In is also selected.<br>
 				The Out selection is applied to traffic leaving the interface where the rule is created, the In selection is applied to traffic coming into the chosen interface.]]></description>
 			<type>select_source</type>
 			<source><![CDATA[$config['dnshaper']['queue']]]></source>
@@ -385,4 +385,3 @@
 	</custom_php_command_after_form>
 	<filter_rules_needed>e2g_generate_rules</filter_rules_needed>
 </packagegui>
-

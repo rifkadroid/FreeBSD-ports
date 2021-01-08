@@ -88,12 +88,12 @@ loglevel = {$loglevel}
 logexceptionhits = {$logexceptionhits}
 
 # Log File Format
-# 1 = Dansguardian format (space delimited)
+# 1 = E2Guardian format (space delimited)
 # 2 = CSV-style format
 # 3 = Squid Log File Format
 # 4 = Tab delimited
 # Protex format type 5 Tab delimited, squid style format with extra fields
-# for filter block/result codes, reasons, filter group, and system name 
+# for filter block/result codes, reasons, filter group, and system name
 # used in arrays so that combined logs show originating server.
 # 5 = Protex format
 # Protex format type 6 Same format as above but system name field is blank
@@ -110,7 +110,7 @@ logfileformat = {$logfileformat}
 # truncate large items in log lines
 # allowable values 10 to 32000
 # default 2000
-# unlimited not longer allowed - 0 will now set default of 2000 
+# unlimited not longer allowed - 0 will now set default of 2000
 #maxlogitemlength = 2000
 
 # anonymize logs (blank out usernames & IPs)
@@ -127,7 +127,7 @@ anonymizelogs = {$anonymizelogs}
 #namesuffix = $z
 
 # Log file location
-# 
+#
 # Defines the log directory and filename.
 
 loglocation = '/var/log/e2guardian/access.log'
@@ -143,7 +143,7 @@ dstatlocation = '/var/log/e2guardian/dstats.log'
 
 # Interval in seconds between stats output
 # Default 300 (= 5 mins)
-# Minimum 10 
+# Minimum 10
 # Maximum 3600 (= 1 hour)
 dstatinterval = 300  # = 5 minutes
 
@@ -151,13 +151,13 @@ dstatinterval = 300  # = 5 minutes
 #statshumanreadable = off
 
 # Network Settings
-# 
+#
 # the IP that e2guardian listens on.  If left blank e2guardian will
 # listen on all IPs.  That would include all NICs, loopback, modem, etc.
 # Normally you would have your firewall protecting this, but if you want
 # you can limit it to a certain IP. To bind to multiple interfaces,
 # specify each IP on an individual filterip line.
-# If mapportstoips is 'on' you can have the same IP twice so long as 
+# If mapportstoips is 'on' you can have the same IP twice so long as
 # it has a different port.
 #filterip =
 {$filterip}
@@ -182,25 +182,25 @@ dstatinterval = 300  # = 5 minutes
 transparenthttpsport = {$ssl_proxy_port}
 
 #port for ICAP
-#if defined enables icap mode 
+#if defined enables icap mode
 #icapport = 1344  # TODO: Add to gui
 
 # the ip of upstream proxy - optional - if blank e2g will go direct to sites.
-# default is "" i.e. no proxy 
+# default is "" i.e. no proxy
 #proxyip = 127.0.0.1
 proxyip = {$proxyip}
 
 # the port e2guardian connects to proxy on
 proxyport = {$proxyport}
 
-# Proxy timeout 
+# Proxy timeout
 # Set tcp timeout between the Proxy and e2guardian
  # This is a connection timeout
  # If proxy is remote you may need to increase this to 10 or more.
 # Min 5 - Max 100
 proxytimeout = {$proxytimeout}
 
-# Connect timeout 
+# Connect timeout
 # Set tcp timeout between the e2guardian and upstream service (proxy or target host)
  # This is a connection timeout
  # For remote sites you may need to increase this to 10 or more.
@@ -214,7 +214,7 @@ connecttimeout = 5
 # default 1
 
 # Proxy header exchange
-# Set timeout between the Proxy and e2guardian 
+# Set timeout between the Proxy and e2guardian
 # Min 20 - Max 300
 # If this is higher than proxies timeout user will get proxy Gateway error page
 # If lower e2guardian Gateway error page
@@ -321,7 +321,7 @@ showweightedfound = {$showweightedfound}
 # 0 = off = do not use the weighted phrase feature.
 # 1 = on, normal = normal weighted phrase operation.
 # 2 = on, singular = each weighted phrase found only counts once on a page.
-# 
+#
 # IMPORTANT: Note that setting this to "0" turns off all features which
 # extract phrases from page content, including banned & exception
 # phrases (not just weighted), search term filtering, and scanning for
@@ -385,11 +385,11 @@ reverseaddresslookups = {$reverseaddresslookups}
 
 # Reverse lookups for banned and exception IP lists.
 # If set to on, e2guardian will look up the forward DNS for the IP
-# of the connecting computer.  
+# of the connecting computer.
 # If a client computer is matched against an IP given in the lists, then the
 # IP will be recorded in any log entries; if forward DNS is successful and a
 # match occurs against a hostname, the hostname will be logged instead.
-# It will reduce searching speed somewhat so unless you have a local DNS server, 
+# It will reduce searching speed somewhat so unless you have a local DNS server,
 # leave it off.
 reverseclientiplookups = {$reverseclientiplookups}
 
@@ -511,7 +511,7 @@ contentscannertimeout = {$contentscannertimeout}
 # contentscanexceptions = off
 
 # Auth plugins
-# 
+#
 # Handle the extraction of client usernames from various sources, such as
 # Proxy-Authorisation headers and ident servers, enabling requests to be
 # handled according to the settings of the user's filter group.
@@ -557,7 +557,7 @@ usexforwardedfor = {$usexforwardedfor}
 # this kind of header is allowed, such as another upstream proxy server for
 # instance If you want authorize multiple IPs, specify each one on an individual
 # xforwardedforfilterip line.
-# xforwardedforfilterip = 
+# xforwardedforfilterip =
 {$xforwardedforfilterip}
 # if on it logs some debug info regarding accept()ing and failed connections
 # which
@@ -565,7 +565,7 @@ usexforwardedfor = {$usexforwardedfor}
 # it on or off
 logconnectionhandlingerrors = {$logconnectionhandlingerrors}
 
-#sets the number of worker threads to use 
+#sets the number of worker threads to use
 #
 # This figure is the maximum number of concurrent connections.
 # If more connections are made, connections will queue until a worker thread is free.
@@ -579,7 +579,7 @@ httpworkers = {$httpworkers}
 # Remember to edit the log file path above also if that is your intention.
 
 # PID filename
-# 
+#
 # Defines process id directory and filename.
 #pidfilename = '/var/run/e2guardian.pid'
 
@@ -618,7 +618,7 @@ daemongroup = '{$daemongroup}'
 # Path (sendmail-compatible) email program, with options.
 # Not used if usesmtp is disabled (filtergroup specific).
 
-# Enable SSL support  
+# Enable SSL support
 # This must be present to enable MITM and/or Cert checking
 # default is off
 enablessl = {$enablessl}
@@ -631,7 +631,7 @@ enablessl = {$enablessl}
 
 #SSL man in the middle
 #CA certificate path
-#Path to the CA certificate to use as a signing certificate for 
+#Path to the CA certificate to use as a signing certificate for
 #generated certificates.
 # default is blank - required if ssl_mitm is enabled.
 #cacertificatepath = '/home/e2/e2install/ca.pem'
@@ -652,31 +652,31 @@ enablessl = {$enablessl}
 # default is blank - required if ssl_mitm is enabled.
 #generatedcertpath = '/home/e2/e2install/generatedcerts/'
 {$generatedcertpath}
-#Warning: if you change the cert start/end time from default on a running 
-#         system you will need to clear the generated certificate 
+#Warning: if you change the cert start/end time from default on a running
+#         system you will need to clear the generated certificate
 #         store and also may get problems on running client browsers
 
 #Generated cert start time (in unix time) - optional
 # defaults to 1417872951 = 6th Dec 2014
-# generatedcertstart = 1417872951 
+# generatedcertstart = 1417872951
 
 #Generated cert end time (in unix time) - optional
 # defaults to generatedcertstart + 10 years
 #genratedcertend =
 # generatedcertstart =
 
-# monitor helper path 
+# monitor helper path
 # If defined this script/binary will be called with start or stop appended as follows:-
 # Note change in V4!!! - No longer detects cache failure
-# At start after e2guardian has started listener and worker threads with 
+# At start after e2guardian has started listener and worker threads with
 # ' start' appended
 # When e2guardian is stopping with ' stop' appended
-# monitorhelper = '/usr/local/bin/mymonitor'  
+# monitorhelper = '/usr/local/bin/mymonitor'
 
-# monitor flag prefix path 
+# monitor flag prefix path
 # If defined path will be used to generate flag files as follows:-
-# 
-# At start after e2guardian has started listener and worker threads with 
+#
+# At start after e2guardian has started listener and worker threads with
 #  'running' appended
 # When e2guardian is stopping with 'paused' appended
 # Note change in V4!!! - No longer detects cache failure
