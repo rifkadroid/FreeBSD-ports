@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
-PORTVERSION=	0.1.6
+PORTVERSION=	0.1.7
 PORTREVISION=
 CATEGORIES=	www
 MASTER_SITES=	# empty
