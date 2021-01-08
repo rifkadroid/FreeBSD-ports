@@ -43,7 +43,7 @@ $tab_array[] = array(gettext("IPs"), false, "/pkg_edit.php?xml=e2guardian_ips.xm
 $tab_array[] = array(gettext("Real Time"), false, "/e2guardian_monitor.php");
 $tab_array[] = array(gettext("Report and Log"), false, "/pkg_edit.php?xml=e2guardian_log.xml&id=0");
 $tab_array[] = array(gettext("Sync"), false, "/pkg_edit.php?xml=e2guardian_sync.xml&id=0");
-$tab_array[] = array(gettext("Help"), true, "/e2guardian_about.php");
+
 display_top_tabs($tab_array);
 
 ?>
@@ -70,10 +70,7 @@ display_top_tabs($tab_array);
                                                         <td width="22%" valign="top" class="vncell"><?=gettext("Wiki");?></td>
                                                         <td width="78%" class="vtable"><a target=_new href='https://github.com/e2guardian/e2guardian/wiki/Configuration'><?=gettext("Configuration Wiki");?></a><br><br>
                                                 </tr>
-						<tr>
-							<td width="22%" valign="top" class="vncell"><?=gettext("Credits ");?></td>
-							<td width="78%" class="vtable"><?=gettext("Package Created by <a target=_new href='http://forum.pfsense.org/index.php?action=profile;u=4710'>Marcello Coutinho</a><br><br>");?></td>
-						</tr>
+
 						</table>
 				</div>
 			</td>
@@ -84,5 +81,3 @@ display_top_tabs($tab_array);
 <?php include("foot.inc"); ?>
 </body>
 </html>
-
-
