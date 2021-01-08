@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
-PORTVERSION=	0.1.3
+PORTVERSION=	0.1.4
 PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	# empty
@@ -18,6 +18,8 @@ RUN_DEPENDS=	squid>=0:www/squid \
 		c-icap-modules>=0:www/c-icap-modules \
 		squidclamav>=0:www/squidclamav \
 		samba413>=0:net/samba413
+
+CONFLITS_WITH=	www/Kontrol-pkg-squid
 
 NO_BUILD=	yes
 NO_MTREE=	yes
