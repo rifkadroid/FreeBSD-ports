@@ -1,14 +1,15 @@
 # $FreeBSD$
 
 PORTNAME=	pfSense-pkg-e2guardian
-PORTVERSION=	0.5
+PORTVERSION=	0.4
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	contato@konntrol.com.br
-COMMENT=	E2guardian package
+MAINTAINER=	coreteam@pfsense.org
+COMMENT=	pfSense E2guardian package
 
 LICENSE=	APACHE20
 
