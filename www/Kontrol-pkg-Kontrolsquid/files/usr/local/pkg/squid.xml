@@ -50,7 +50,7 @@
 		<name>squid</name>
 		<rcfile>squid.sh</rcfile>
 		<executable>squid</executable>
-		<description>Squid Proxy Server Service</description>
+		<description>Kontrol Squid Proxy Service</description>
 	</service>
 	<service>
 		<name>clamd</name>
