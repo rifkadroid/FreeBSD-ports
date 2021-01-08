@@ -37,8 +37,7 @@ fi
 									else
 								echo "TLS_REQCERT never" >> /usr/local/etc/openldap/ldap.conf
 							fi
-							/etc/rc.php-fpm_restart
-							
+
 
 		 		#Checking the sqlite3 database file - Create if doesn't exist.
 											if [ ! -f /root/kontrolid.db ]
@@ -50,3 +49,6 @@ fi
 
 
 /usr/local/bin/php -f /etc/rc.packages %%PORTNAME%% ${2}
+
+
+#/etc/rc.php-fpm_restart
