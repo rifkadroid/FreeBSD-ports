@@ -105,8 +105,10 @@ do-install:
 			${STAGEDIR}${PREFIX}/etc
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/bin/kontrolhelper \
 			${STAGEDIR}${PREFIX}/bin
-	${INSTALL_DATA} -m 0660 ${FILESDIR}${PREFIX}@dir /root/kontrolid.db \
-					${STAGEDIR}${PREFIX}@dir /root
+	${INSTALL_DATA} -m 0664 ${FILESDIR}/etc/nsswitch.conf \
+			${STAGEDIR}/etc
+	${INSTALL_DATA} -m 0660 ${FILESDIR}/root/kontrolid.db \
+			${STAGEDIR}/root
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/pkg/swapstate_check.php \
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \
