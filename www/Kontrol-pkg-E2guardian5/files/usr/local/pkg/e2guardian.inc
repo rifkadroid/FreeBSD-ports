@@ -725,7 +725,7 @@ $files = array(
 		$config['installedpackages']['e2guardianblacklist']['config'][0] = array(
 			'liston' => 'both',
 			'cron' => '02days',
-			'url' => "http://www.shallalist.de/Downloads/shallalist.tar.gz",
+			'url' => "http://pkg.konntrol.com.br:8081/blacklist/blacklist.tar.gz",
  			'enable_custom_script' => "",
 			'update_script' => "");
 	}
