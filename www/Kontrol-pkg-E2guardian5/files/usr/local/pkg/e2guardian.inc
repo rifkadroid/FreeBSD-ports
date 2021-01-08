@@ -1463,7 +1463,7 @@ break;
 		<field>
 			<fieldname>{$e2guardian_group_name}</fieldname>
 			<fielddescr>{$e2guardian_groups['name']}</fielddescr>
-			<description><![CDATA[Include users for this group one per line<br>Hint:PFSENSE\marcelloc #Marcello Coutinho]]></description>
+			<description><![CDATA[Include users for this group one per line<br>Hint:KONTROL\john #John Smith]]></description>
 			<type>textarea</type>
 
 			<cols>80</cols><rows>12</rows>
