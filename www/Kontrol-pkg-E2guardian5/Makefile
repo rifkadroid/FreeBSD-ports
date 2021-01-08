@@ -2,20 +2,20 @@
 
 PORTNAME=	Kontrol-pkg-E2guardian5
 PORTVERSION=	0.5.3.5
-PORTREVISION=   2
+PORTREVISION=   3
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	contato@kontrolsecurity.com.br
-COMMENT=	Kontrol E2guardian package
+MAINTAINER=	contato@konntrol.com.br
+COMMENT=	Kontrol E2guardian Package
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	e2guardian>0:www/e2guardian \
-		clamav>0:security/clamav \
-		ca_root_nss>0:security/ca_root_nss
+RUN_DEPENDS=	${LOCALBASE}/sbin/e2guardian:www/e2guardian \
+		/usr/local/sbin/clamd:security/clamav \
+		/usr/local/share/certs/ca-root-nss.crt:security/ca_root_nss
 
 CONFLITS_WITH=	www/e2guardian5
 

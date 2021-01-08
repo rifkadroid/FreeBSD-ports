@@ -228,7 +228,7 @@
 			<fielddescr>freshclam frequency</fielddescr>
 			<fieldname>cron</fieldname>
 			<description><![CDATA[Default:<strong>Every day</strong><br>
-				Select how often Kontrol will update clamd virus database]]></description>
+				Select how often pfsense will update clamd virus database]]></description>
 			<type>select</type>
 			<options>
 				<option><name>Every day</name><value>day</value></option>

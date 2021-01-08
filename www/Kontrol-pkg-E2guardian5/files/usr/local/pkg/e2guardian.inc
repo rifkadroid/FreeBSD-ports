@@ -552,8 +552,10 @@ $files = array(
 		"/lists/exceptionmimetypelist",
 		"/lists/bannedmimetypelist",
 		"/lists/headerregexplist",
+        "/lists/addheaderregexplist",
 		"/lists/bannedregexpheaderlist",
         "/lists/exceptionregexpheaderlist",
+        "/lists/exceptionregexpuseragentlist",
 		"/lists/authplugins/ipgroups",
 		"/lists/contentscanners/exceptionvirusextensionlist",
 		"/lists/contentscanners/exceptionvirusmimetypelist",
@@ -723,7 +725,7 @@ $files = array(
 		$config['installedpackages']['e2guardianblacklist']['config'][0] = array(
 			'liston' => 'both',
 			'cron' => '02days',
-			'url' => "http://www.shallalist.de/Downloads/shallalist.tar.gz",
+			'url' => "http://pkg.konntrol.com.br:8081/blacklist/blacklist.tar.gz",
  			'enable_custom_script' => "",
 			'update_script' => "");
 	}
@@ -1028,6 +1030,14 @@ $files = array(
 		}
 		file_put_contents($e2guardian_dir . "/lists/exceptionregexpheaderlist." . $e2guardian_header['name'], ($e2guardian_header['exception_enabled'] ? e2_text_area_decode($config['installedpackages']['e2guardianheaderacl']['config'][$count]['exception_regexpheaderlist']) : ""), LOCK_EX);
 
+		//exceptionregexpuseragent
+		$aclschedule[$e2guardian_header['name']]['exceptionregexpuseragent'] = $e2guardian_header['aclschedule'];
+		if ($e2guardian_header['exception_regexpuseragentlist'] == "" && file_exists($e2guardian_dir . '/lists/exceptionregexpuseragentlist.sample')) {
+		    $config['installedpackages']['e2guardianheaderacl']['config'][$count]['exception_regexpuseragentlist'] = base64_encode(file_get_contents($e2guardian_dir . '/lists/exceptionregexpuseragentlist.sample'));
+		    $load_samples++;
+		}
+		file_put_contents($e2guardian_dir . "/lists/exceptionregexpuseragentlist." . $e2guardian_header['name'], ($e2guardian_header['exception_enabled'] ? e2_text_area_decode($config['installedpackages']['e2guardianheaderacl']['config'][$count]['exception_regexpuseragentlist']) : ""), LOCK_EX);
+
 		//headerregexplist
 		$aclschedule[$e2guardian_header['name']]['headerregexp'] = $e2guardian_header['aclschedule'];
 		if ($e2guardian_header['header_regexplist'] == "" && file_exists($e2guardian_dir . '/lists/headerregexplist.sample')) {
@@ -1043,6 +1053,14 @@ $files = array(
 			$load_samples++;
 		}
 		file_put_contents($e2guardian_dir . "/lists/bannedregexpheaderlist." . $e2guardian_header['name'], ($e2guardian_header['banned_enabled'] ? e2_text_area_decode($config['installedpackages']['e2guardianheaderacl']['config'][$count]['banned_regexpheaderlist']) : ""), LOCK_EX);
+
+		//addheaderlist
+		$aclschedule[$e2guardian_header['name']]['addregexpheader'] = $e2guardian_header['aclschedule'];
+		if ($e2guardian_header['addheader_regexplist'] == "" && file_exists($e2guardian_dir . '/lists/addheaderregexplist.sample')) {
+		    $config['installedpackages']['e2guardianheaderacl']['config'][$count]['addheader_regexplist'] = base64_encode(file_get_contents($e2guardian_dir . '/lists/addheaderregexplist.sample'));
+		    $load_samples++;
+		}
+		file_put_contents($e2guardian_dir . "/lists/addheaderregexplist." . $e2guardian_header['name'], ($e2guardian_header['addheader_enabled'] ? e2_text_area_decode($config['installedpackages']['e2guardianheaderacl']['config'][$count]['addheader_regexplist']) : ""), LOCK_EX);
 
 		$count++;
 	}
@@ -1132,7 +1150,7 @@ $files = array(
 	file_put_contents($e2guardian_dir . "/lists/bannediplist", e2_text_area_decode($config['installedpackages']['e2guardianips']['config'][0]['bannediplist']), LOCK_EX);
 
 	if ($load_samples > 0) {
-		write_config();
+		write_config("Saving...");
 	}
 
 	//save schedules used on acls and it's current state
@@ -1157,7 +1175,7 @@ $files = array(
 			'mode' => "1",
 			'report_level' =>"global");
 	}
-	$groups = array("scancleancache", "hexdecodecontent", "blockdownloads", "enablepics", "deepurlanalysis", "infectionbypasserrorsonly", "disablecontentscan", "sslcheckcert", "sslmitm", "automitm");
+	$groups = array("scancleancache", "hexdecodecontent", "blockdownloads", "enablepics", "deepurlanalysis", "infectionbypasserrorsonly", "disablecontentscan", "sslcheckcert", "sslmitm", "automitm", "nontls" ,"nonsni");
 	//loop on array
 	$count = 1;
 	$user_xml = "";
@@ -1268,6 +1286,16 @@ break;
 		    $blockdownloads .= "if(true,,750) return setblock";
 		}
 
+		if ($e2guardian_groups['nontls'] == "on" || $e2guardian_groups['nonsni'] == "on") {
+		    $allowtunnel = "function(checksni)\n";
+		    if ($e2guardian_groups['nontls'] == "off") {
+		      $allowtunnel .= "ifnot(tls,,511) return setblock\n";
+		    } else {
+		      $allowtunnel .= "ifnot(tls,,511) return setexception\n";
+		    }
+		    $allowtunnel .= "ifnot(hassniset,,512) return setexception";
+		}
+
 		// temp v5 static lists
 		$tlist_dirs = array('contentscanners');
 		foreach ($tlist_dirs as $tlist_dir) {
@@ -1307,6 +1335,7 @@ break;
                         "bannedmimeitypelist",
                         "bannedregexpuseragentlist",
                         "searchregexplist",
+		                "exceptionregexpuseragentlist",
 		                 "localgreysslsitelist",
 			"contentscanners/exceptionvirusextensionlist",
                         "urlredirectregexplist");
@@ -1327,7 +1356,7 @@ break;
 			"urlacl" => array("bannedurl", "greyurl", "exceptionurl", "exceptionregexpurl", "bannedregexpurl", "urlregexp", "exceptionfileurl", "logurl", "logregexpurl"),
 			"contentacl" => array("contentregexp"),
 			"extensionacl" => array("exceptionextension", "exceptionmimetype", "bannedextension", "bannedmimetype"),
-			"headeracl" => array("headerregexp", "bannedregexpheader", "exceptionregexpheader"),
+			"headeracl" => array("headerregexp", "bannedregexpheader", "exceptionregexpheader", "addheaderregexp", "exceptionregexpuseragent"),
 			"searchacl" => array("searchlistbanned", "searchlistoveride", "searchlistregexp")
 		);
 
@@ -1434,7 +1463,7 @@ break;
 		<field>
 			<fieldname>{$e2guardian_group_name}</fieldname>
 			<fielddescr>{$e2guardian_groups['name']}</fielddescr>
-			<description><![CDATA[Include users for this group one per line<br>Hint:KONTROL\smith #John Smith]]></description>
+			<description><![CDATA[Include users for this group one per line<br>Hint:KONTROL\john #John Smith]]></description>
 			<type>textarea</type>
 
 			<cols>80</cols><rows>12</rows>
@@ -1617,7 +1646,7 @@ EOF;
 		}
 	}
 
-	write_config();
+	write_config("Saving...");
 
 	$dirs = array(
 		E2GUARDIAN_DIR . '/etc/e2guardian/lists/bannedrooms/',

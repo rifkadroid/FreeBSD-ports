@@ -122,8 +122,8 @@
                         <fielddescr>Log detailed denied</fielddescr>
                         <fieldname>logdeniedcgi</fieldname>
                         <type>checkbox</type>
-                        <description><![CDATA[Create a second log file with detailed errors.(requires e2gerror.php as dynamic page/cgi on this box). 
-				This allows you to use e2guardian log in squid mode to use reporting tools like sarg, squidanalyze, lightsquid and 
+                        <description><![CDATA[Create a second log file with detailed errors.(requires e2gerror.php as dynamic page/cgi on this box).
+				This allows you to use e2guardian log in squid mode to use reporting tools like sarg, squidanalyze, lightsquid and
 				keep trace of detailed erros on a separeted log file.]]></description>
                 </field>
 		<field>
@@ -254,7 +254,7 @@
 			<fieldname>logrotate</fieldname>
 			<description><![CDATA[ Log File Rotation]]></description>
 			<type>checkbox</type>
-		</field>		
+		</field>
         <field>
 			<fielddescr>Log Rotation Cron Minute</fielddescr>
 			<fieldname>cronminute</fieldname>
