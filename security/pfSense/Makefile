@@ -2,7 +2,7 @@
 
 PORTNAME=	pfSense
 DISTVERSION=	2.4.5
-PORTREVISION=	2
+PORTREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -69,6 +69,7 @@ RUN_DEPENDS=	bind-tools>=0:dns/bind-tools \
 		strongswan>=0:security/strongswan \
 		uclcmd>=0:devel/uclcmd \
 		unbound>=0:dns/unbound \
+		base64>=0:converters/base64 \
 		voucher>=0:sysutils/voucher \
 		wol>=0:net/wol \
 		wmi-client>=0:net-mgmt/wmi-client \
