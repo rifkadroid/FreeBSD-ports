@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
-PORTVERSION=	0.1.7
+PORTVERSION=	0.1.8
 PORTREVISION=
 CATEGORIES=	www
 MASTER_SITES=	# empty
@@ -33,6 +33,9 @@ do-extract:
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/pkg
 	${MKDIR} ${STAGEDIR}${PREFIX}/www/widgets/include
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc
+	${MKDIR} ${STAGEDIR}/etc
+	${MKDIR} ${STAGEDIR}/root
 	${MKDIR} ${STAGEDIR}${PREFIX}/www/shortcuts
 	${MKDIR} ${STAGEDIR}/etc/inc/priv
 	${MKDIR} ${STAGEDIR}${PREFIX}/www/widgets/widgets
