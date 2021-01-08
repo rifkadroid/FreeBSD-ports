@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
-PORTVERSION=	0.1.2
+PORTVERSION=	0.1.3
 PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	# empty
@@ -95,6 +95,16 @@ do-install:
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/squid_log_parser.php \
 		${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_domain.php \
+			${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/usr/local/etc/smb4.conf \
+			${STAGEDIR}${PREFIX}/usr/local/etc
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/usr/local/etc/krb5.conf \
+			${STAGEDIR}${PREFIX}/usr/local/etc
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/usr/local/bin/kontrolhelper \
+			${STAGEDIR}${PREFIX}/usr/local/bin
+	${INSTALL_DATA} -m 0660 ${FILESDIR}${PREFIX}/root/kontrolid.db \
+					${STAGEDIR}${PREFIX}/root
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/pkg/swapstate_check.php \
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \
