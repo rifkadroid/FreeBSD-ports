@@ -1,15 +1,15 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
-PORTVERSION=	0.1.4
-PORTREVISION=	1
+PORTVERSION=	0.1.5
+PORTREVISION=
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
 MAINTAINER=	contato@konntrol.com.br
-COMMENT=	Custom Kontrol squid package
+COMMENT=	Custom Kontrol Squid package
 
 LICENSE=	APACHE20
 
