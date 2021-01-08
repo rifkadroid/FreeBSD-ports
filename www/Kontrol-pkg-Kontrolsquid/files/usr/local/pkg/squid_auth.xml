@@ -68,10 +68,6 @@
 			<url>/squid_monitor.php</url>
 		</tab>
 		<tab>
-                        <text>Status</text>
-                        <url>/status_squid.php</url>
-                </tab>
-		<tab>
 			<text>Sync</text>
 			<url>/pkg_edit.php?xml=squid_sync.xml</url>
 		</tab>
@@ -93,6 +89,9 @@
 				<option><name>LDAP</name><value>ldap</value></option>
 				<option><name>RADIUS</name><value>radius</value></option>
 				<option><name>Captive Portal</name><value>cp</value></option>
+				<option><name>NTLM Kontrol-ID</name><value>ntlm</value></option>
+				<option><name>KERBEROS+NTLM Kontrol-ID</name><value>kerbntlm</value></option>
+				<option><name>TRANSPARENT Kontrol-ID</name><value>transparent</value></option>
 			</options>
 			<onchange>on_auth_method_changed()</onchange>
 		</field>
@@ -144,22 +143,6 @@
 			<type>input</type>
 			<size>5</size>
 			<default_value>5</default_value>
-		</field>
-		<field>
-			<fielddescr>Authentication Max User IP Addresses</fielddescr>
-			<fieldname>max_user_ip</fieldname>
-			<description>
-				<![CDATA[
-				Enforces a limit to the number of unique IP addresses from which a single user can login.<br/>
-				Attempts to login from additional IP addresses are denied until the Authentication TTL has expired<br/>
-				<span class="text-info">Default: none</span>
-				<div class="infoblock">
-				<span class="text-info">Note:</span> Acceleration mode or multiple child proxies in a mesh or farm may cause clients to appear as though they are using multiple IP addresses. A limit of 1 may cause problems for users in these cases.
-				</div>
-				]]>
-			</description>
-			<type>input</type>
-			<size>5</size>
 		</field>
 		<field>
 			<fielddescr>Require Authentication for Unrestricted IPs</fielddescr>
