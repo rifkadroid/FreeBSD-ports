@@ -99,14 +99,14 @@ do-install:
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_domain.php \
 			${STAGEDIR}${PREFIX}/www
-	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/usr/local/etc/smb4.conf \
-			${STAGEDIR}${PREFIX}/usr/local/etc
-	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/usr/local/etc/krb5.conf \
-			${STAGEDIR}${PREFIX}/usr/local/etc
-	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/usr/local/bin/kontrolhelper \
-			${STAGEDIR}${PREFIX}/usr/local/bin
-	${INSTALL_DATA} -m 0660 ${FILESDIR}${PREFIX}/root/kontrolid.db \
-					${STAGEDIR}${PREFIX}/root
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/etc/smb4.conf \
+			${STAGEDIR}${PREFIX}/etc
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/etc/krb5.conf \
+			${STAGEDIR}${PREFIX}/etc
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/bin/kontrolhelper \
+			${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} -m 0660 ${FILESDIR}${PREFIX}@dir /root/kontrolid.db \
+					${STAGEDIR}${PREFIX}@dir /root
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/pkg/swapstate_check.php \
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \
