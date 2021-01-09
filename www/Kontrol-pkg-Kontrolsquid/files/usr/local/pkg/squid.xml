@@ -788,7 +788,7 @@
 	<br/>
 				####  TRANSPARENT AUTHENTICATION HELPER-Configure credentials using text MENU - option 4 #### <br/>
 				####  NEEDS SQUID IN TRANSPARENT MODE WITH MITM and SPLICE ENABLED #### <br/>
-				external_acl_type userip children-startup=5 children-max=20 children-idle=5 ttl=10  %SRC /usr/local/bin/kontrol_ID.sh <br/>
+				external_acl_type userip children-startup=5 children-max=20 children-idle=5 ttl=10  %SRC /usr/local/bin/kontrolhelper <br/>
 				acl KONTROLACL external userip <br/>
 				http_access allow KONTROLACL <br/>
 <br/>
