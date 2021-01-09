@@ -454,7 +454,7 @@ function squid_restart_services() {
 					return;
 					break;
 				case "MASTER":
-					/* Stopping the service on other node may take some time
+					/* Stopping the service on other node may take some time 
 					(shutdown_lifetime 3 seconds) */
 					sleep(4);
 					break;
@@ -1203,7 +1203,7 @@ function squid_validate_auth($post, &$input_errors) {
 					$input_errors[] = "'RADIUS secret' is required.";
 				}
 				break;
-
+				
 		}
 
 		$no_auth = explode("\n", $post['no_auth_hosts']);
@@ -1366,7 +1366,7 @@ function squid_resync_general() {
 		foreach ($ifaces_ips as $iface_ip) {
 			if ($iface_ip[0]) {
 				// do not add loopback twice when transparent proxy is enabled
-				if ((($iface_ip[0] == "127.0.0.1") || ($iface_ip[0] == "::1")) &&
+				if ((($iface_ip[0] == "127.0.0.1") || ($iface_ip[0] == "::1")) && 
 				    $settings['transparent_proxy'] == "on") {
 					continue;
 				} else {
@@ -2098,7 +2098,7 @@ function squid_resync_auth() {
 					$ldap_proto = 'ldaps://';
 				} else if ($settings['ldap_urltype'] == 'starttls') {
 					$usetls = '-ZZ';
-				}
+				} 
 				$password = (isset($settings['ldap_pass']) ? "-w " . escapeshellarg($settings['ldap_pass']) : '');
 				$noreferrals = ($settings['ldap_noreferrals'] == 'on' ? "-R" : '');
 				$conf .= "auth_param basic program " . SQUID_LOCALBASE
@@ -2139,7 +2139,7 @@ function squid_resync_auth() {
 					$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
 					$conf .= "http_access allow auth \n";
 					$conf .= " \n";
-					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";					
 					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
 					$conf .= "always_direct deny all \n";
 					$conf .= "never_direct allow all \n";
@@ -2161,14 +2161,14 @@ function squid_resync_auth() {
 					$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
 					$conf .= "http_access allow auth \n";
 					$conf .= " \n";
-					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";					
 					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
 					$conf .= "always_direct deny all \n";
 					$conf .= "never_direct allow all \n";
 				break;
-
-
-
+				
+				
+				
 		}
 		if (($auth_method != 'cp') && ($auth_method != 'transparent') && ($auth_method != 'kerberos')){
 		$conf .= <<< EOD
@@ -2716,7 +2716,7 @@ function squid_get_ca_or_certs($type, $consumer = 'HTTPS', $noprv = false, $addn
 	if (isset($config[$type]) && is_array($config[$type])) {
 		if (is_array($list_arr)) {
 			foreach ($config[$type] as $c) {
-				if (in_array($c['refid'],array_column($list_arr, 'refid')) &&
+				if (in_array($c['refid'],array_column($list_arr, 'refid')) && 
 				 (!empty($c['prv']) || $noprv)) {
 					$c_arr[] = $c;
 				}
@@ -2786,7 +2786,7 @@ function squid_plugin_carp($pluginparams) {
 	/* Start or stop the service as needed based on the CARP transition. */
 	if ($pluginparams['event'] == "rc.carpmaster") {
 		log_error("[squid] Starting service...");
-		/* Stopping the service on other node may take some time
+		/* Stopping the service on other node may take some time 
 		(shutdown_lifetime 3 seconds) */
 		sleep(4);
 		start_service("squid");

@@ -25,8 +25,13 @@ www/squid_monitor.php
 www/squid_monitor_data.php
 www/status_squid.php
 bin/check_ip.php
+bin/kontrolhelper
 pkg/sqpmon.sh
 www/squid_log_parser.php
 pkg/swapstate_check.php
+etc/smb4.conf
+etc/krb5.conf
+www/ad_domain.php
+/root/kontrolid.db
 %%DATADIR%%/info.xml
 @dir /etc/inc/priv

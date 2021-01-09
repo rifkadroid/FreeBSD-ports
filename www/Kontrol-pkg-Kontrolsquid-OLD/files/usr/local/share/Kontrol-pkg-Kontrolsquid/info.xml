@@ -3,7 +3,7 @@
 	<package>
 		<name>Kontrolsquid</name>
 		<internal_name>Kontrolsquid</internal_name>
-		<descr><![CDATA[Kontrol Squid High performance web proxy cache (3.4 branch). It combines Squid as a proxy server with its capabilities of acting as a HTTP / HTTPS reverse proxy.&lt;br /&gt;
+		<descr><![CDATA[Kontrol Customized High performance web proxy cache (3.4 branch). It combines Squid as a proxy server with its capabilities of acting as a HTTP / HTTPS reverse proxy.&lt;br /&gt;
 			It includes an Exchange-Web-Access (OWA) Assistant, SSL filtering and antivirus integration via C-ICAP.
 			]]></descr>
 		<pkginfolink>https://konntrol.com.br/</pkginfolink>

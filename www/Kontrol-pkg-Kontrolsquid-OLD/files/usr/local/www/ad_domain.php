@@ -29,10 +29,10 @@ include("head.inc");
 
 ?>
 
-<html>
-<head>
+<html> 
+<head> 
 </head>
-<body>
+<body> 
 	<h3> Remove KONTROL-UTM from your DOMAIN </h3>
 <br/>
 	<form name="form_a" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -62,7 +62,7 @@ if ($testdomain == "Join is OK") {
 ?>
 
 	<h3> Join KONTROL-UTM to a DOMAIN </h3>
-<br/>
+<br/>	
 <form name="form_j" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 	<label>Enter AD Server FQDN - eg: server01.domain.corp</label>
 <br/>
@@ -84,21 +84,21 @@ if ($testdomain == "Join is OK") {
 	<input type="password" name="jad_pass" size="120" maxlength="120"/><br/>
 	<input type="hidden" name="form" value="join">
 <br/>
-
+	
 	<input type="submit" value="Submit"/>
 	<input type="reset" value="Reset"/>
 <br/>
 <br/>
-</form>
+</form>	
 
 
 <?php
 $file = "/usr/local/www/kontrolhelper.config";
-if (!file_exists($file))
+if (!file_exists($file)) 
 	{
 	echo "<tr><span style='color:#F00;text-align:center;'>The configuration file does not exist. Create one below: </span></tr>";
 	}
-	else
+	else 
 	{
 		$f = fopen($file, 'r');
 		$line = fgets($f);
@@ -161,7 +161,7 @@ case "remove":
 		if (isset($_POST['rad_user']) && ($_POST['rad_pass'])) {
 ?>
 
-<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
+<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">	
 
 <?php
 		echo "Removing this KONTROL-UTM box from your DOMAIN: ";
@@ -177,24 +177,24 @@ case "remove":
 		echo "<br/>";
 		echo "FINISHED";
 		break;
-}
+}       
 		else
 			{
-?>
-<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
+?>			
+<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">			
 <?php
 	echo "<h3>Please fullfill all empty fields before press submit<h3>";
 	break;
 			}
 
 //in case we want to join kontrol to a domain
-case "join":
+case "join":            
 
-				if (isset($_POST['jad_user']) && ($_POST['jad_pass']))
+				if (isset($_POST['jad_user']) && ($_POST['jad_pass'])) 
 				{
 ?>
 
-<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
+<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">	
 
 <?php
 			exec ("sed -i \"\" \"9s/.*/define('DOMAIN_FQDN', '$domain');/\" /usr/local/www/login2.php");
@@ -211,7 +211,7 @@ case "join":
 			exec ("sed -i \"\" \"17s/.*/   default_domain = $domain /\" /usr/local/etc/krb5.conf");
 			exec ("sed -i \"\" \"21s/.*/  .$domain = $ad_domain /\" /usr/local/etc/krb5.conf");
 			exec ("sed -i \"\" \"22s/.*/   $domain = $ad_domain /\" /usr/local/etc/krb5.conf");
-
+			
 			echo "Joining this KONTROL-UTM box to your DOMAIN: "."<br>";
 			echo "Cleaning existing credentials: "."<br>";
 			exec ('kdestroy 2>&1');
@@ -250,51 +250,51 @@ case "join":
 			exec ('chown root:proxy /var/db/samba4/winbindd_privileged');
 			echo "FINISHED";
 			break;
-			}
+			}	
 			else
 			{
-?>
-<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
+?>			
+<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">			
 <?php
 	echo "<h3>Please fullfill all empty fields before press submit<h3>";
 	break;
 			}
-
-
-
-// In case we want to configure Transparent Proxy credentials
+		
+		
+			
+// In case we want to configure Transparent Proxy credentials			
 case "transparent":
 
 	if (isset($_POST['tad_srv'])) {
-?>
-<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
-<?php
+?>		
+<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">		
+<?php			
 			echo "Setting Transparent Proxy Configurations: ";
 			echo "<br/>";
 			exec ("sed -i \"\" \"9s/.*/define('DOMAIN_FQDN', '$domain');/\" /usr/local/www/login2.php");
 			exec ("sed -i \"\" \"10s/.*/define('LDAP_SERVER', '$tadsrvname');/\" /usr/local/www/login2.php");
-
-			if (!file_exists($file))
+						
+			if (!file_exists($file)) 
 			{
 			touch($file);
 			}
-
+			
 			file_put_contents($file, $tadsrvname);     // Save our content to the file.
-
+						
 			echo "FINISHED";
 			echo "<br/>";
 		}
 		else
 			{
-?>
-<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
+?>			
+<div style="height:200px;width:870px;overflow:auto;background-color:gray;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">			
 <?php
 	echo "<h3>Please fullfill all empty fields before press submit<h3>";
 	break;
 			}
-
+		
 	}
-
+	
 }
 
 include("foot.inc");
