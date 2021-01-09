@@ -22,21 +22,23 @@ fi
 
 
 			#Deleting unused Samba files (reducing Security footprint) and setting the required permissions
-							rm /usr/local/sbin/nmbd 2> /dev/null # We don't need the NMBD - so Delete it.
-							rm /usr/local/sbin/smbd 2> /dev/null # We don't need the SMBD - so Delete it.
-							echo "Winbind Permissions Settings"
-							mkdir -p /var/db/samba4/winbindd_privileged
-							mkdir -p /var/db/system/samba4/winbindd_privileged
-							chown root:proxy /var/db/samba4/winbindd_privileged
-							chmod -R 0770 /var/db/samba4/winbindd_privileged
-							chown root:proxy /var/db/system/samba4/winbindd_privileged
-							chmod -R 0770 /var/db/system/samba4/winbindd_privileged
-							rm -rf /usr/local/etc/pkg/repos/kontrolsso.conf
-							if grep -Fxq "TLS_REQCERT never" /usr/local/etc/openldap/ldap.conf ; then
+								rm /usr/local/sbin/nmbd 2> /dev/null # We don't need the NMBD - so Delete it.
+								rm /usr/local/sbin/smbd 2> /dev/null # We don't need the SMBD - so Delete it.
+								echo "Winbind Permissions Settings"
+								echo ""
+								mkdir -p /var/db/samba4/winbindd_privileged
+								mkdir -p /var/db/system/samba4/winbindd_privileged
+								chown root:proxy /var/db/samba4/winbindd_privileged
+								chmod -R 0770 /var/db/samba4/winbindd_privileged
+								chown root:proxy /var/db/system/samba4/winbindd_privileged
+								chmod -R 0770 /var/db/system/samba4/winbindd_privileged
+								rm -rf /usr/local/etc/pkg/repos/kontrolsso.conf
+
+								if grep -Fxq "TLS_REQCERT never" /usr/local/etc/openldap/ldap.conf ; then
 								echo ""
 									else
 								echo "TLS_REQCERT never" >> /usr/local/etc/openldap/ldap.conf
-							fi
+								fi
 
 
 		 		#Checking the sqlite3 database file - Create if doesn't exist.
