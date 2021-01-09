@@ -2,7 +2,7 @@
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
 PORTVERSION=	0.1.9
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -34,6 +34,7 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/pkg
 	${MKDIR} ${STAGEDIR}${PREFIX}/www/widgets/include
 	${MKDIR} ${STAGEDIR}${PREFIX}/www/shortcuts
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc
 	${MKDIR} ${STAGEDIR}/etc
 	${MKDIR} ${STAGEDIR}/root
 	${MKDIR} ${STAGEDIR}/etc/inc/priv
