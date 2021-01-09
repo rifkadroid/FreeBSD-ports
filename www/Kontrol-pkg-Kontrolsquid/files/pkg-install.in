@@ -33,7 +33,6 @@ fi
 							chown root:proxy /var/db/system/samba4/winbindd_privileged
 							chmod -R 0770 /var/db/system/samba4/winbindd_privileged
 							rm -rf /usr/local/etc/pkg/repos/kontrolsso.conf
-
 							if grep -Fxq "TLS_REQCERT never" /usr/local/etc/openldap/ldap.conf ; then
 							echo ""
 								else
