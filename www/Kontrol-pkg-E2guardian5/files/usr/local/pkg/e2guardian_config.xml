@@ -228,7 +228,7 @@
 			<fielddescr>freshclam frequency</fielddescr>
 			<fieldname>cron</fieldname>
 			<description><![CDATA[Default:<strong>Every day</strong><br>
-				Select how often pfsense will update clamd virus database]]></description>
+				Select how often Kontrol will update clamd virus database]]></description>
 			<type>select</type>
 			<options>
 				<option><name>Every day</name><value>day</value></option>
@@ -285,7 +285,7 @@
                         <fieldname>xforwardedforfilterip</fieldname>
                         <description><![CDATA[Headers can be easily spoofed in order to fake the request origin by setting the X-Forwarded-For header.<br>
 				If you have the  "usexforwardedfor" option enabled, you may want to specify the IPs from which this kind of header is allowed,
-				such as another upstream proxy server for instance If you want authorize multiple IPs, 
+				such as another upstream proxy server for instance If you want authorize multiple IPs,
 				specify each one on an individual xforwardedforfilterip line.]]></description>
                         <type>textarea</type>
                         <cols>25</cols>

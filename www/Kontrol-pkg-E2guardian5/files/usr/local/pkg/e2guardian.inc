@@ -2025,7 +2025,7 @@ function e2guardian_validate_input($post, &$input_errors) {
                 $webgui_port = 443;
         }
         if (($post['transparent_proxy'] != 'on') && ($port == $webgui_port)) {
-                $input_errors[] = "You can not run E2guardian on the same port as the pfSense WebGUI";
+                $input_errors[] = "You can not run E2guardian on the same port as the Kontrol WebGUI";
         }
         unset($port, $webgui_port);
 	if ($post['transparent_proxy'] == 'on') {

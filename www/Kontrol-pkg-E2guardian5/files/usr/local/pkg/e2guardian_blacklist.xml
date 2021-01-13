@@ -108,14 +108,14 @@
 			<fielddescr>Update frequency</fielddescr>
 			<fieldname>cron</fieldname>
 			<description><![CDATA[Default:<strong>Never</strong><br>
-				Select how often pfsense will download and apply Blacklist files<br>
+				Select how often Kontrol will download and apply Blacklist files<br>
 				<b>Important.</b> Save config before trying to download or re-apply blacklist.
 				<br>
 				<button class='btn btn-success btn-sm' name='force_download' id='force_download' type='submit' value='force_download'>
 				<i class="fa fa-download icon-embed-btn"></i>
 				Download BlackList
 				</button>
-				 
+
 				<button class="btn btn-success btn-sm" name='force_update' id='force_update' type='submit' value='force_update'>
 				<i class="fa fa-refresh icon-embed-btn"></i>
 				Re-apply current BlackList
@@ -133,7 +133,7 @@
 		<field>
 			<fielddescr>Blacklist URL</fielddescr>
 			<fieldname>url</fieldname>
-			<description><![CDATA[Enter FTP, HTTP or LOCAL (pfSense) URL blacklist archive.<br>
+			<description><![CDATA[Enter FTP, HTTP or LOCAL (Kontrol) URL blacklist archive.<br>
 				File must be in tar.gz or tgz format.]]></description>
 			<type>input</type>
 			<size>80</size>

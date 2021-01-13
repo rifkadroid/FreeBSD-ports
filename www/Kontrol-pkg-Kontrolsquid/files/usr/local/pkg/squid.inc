@@ -757,7 +757,7 @@ function squid_upgrade_config() {
 	if (isset($config['installedpackages']['squid']['config'][0]['patch_cp'])) {
 		if ($config['installedpackages']['squid']['config'][0]['patch_cp'] == "on") {
 			$cp_msg = "Patch Captive Portal feature was removed - see Bug #5594!";
-			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from pfSense GitHub repository if needed.";
+			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from Kontrol GitHub repository if needed.";
 			file_notice("squid", $cp_msg, "Packages", "");
 			log_error("[squid] {$cp_msg}");
 			unset($cp_msg);
