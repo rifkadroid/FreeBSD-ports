@@ -135,12 +135,12 @@
 				<![CDATA[
 				When a virus is found then redirect the user to this URL.
 				<span class="text-info">Example:</span> http://proxy.example.com/blocked.html<br/>
-				<span class="text-info">Leave empty to use the default Squid/pfSense WebGUI URL.</span>
+				<span class="text-info">Leave empty to use the default Squid/Kontrol WebGUI URL.</span>
 				]]>
 			</description>
 			<type>input</type>
 			<size>60</size>
-			
+
 		</field>
 		<field>
 			<fielddescr>Google Safe Browsing</fielddescr>

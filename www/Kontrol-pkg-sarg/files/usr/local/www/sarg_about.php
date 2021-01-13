@@ -68,17 +68,8 @@ include("head.inc");
 				<tr>
 					<td colspan="2" valign="top" class="listtopic"><?=gettext("About Sarg package"); ?></td>
 				</tr>
-				<tr>
-					<td width="22%" valign="top" class="vncell"><?=gettext("Credits ");?></td>
-					<td width="78%" class="vtable"><?=gettext("Package created by <a href='https://forum.pfsense.org/index.php?action=profile;u=4710'>Marcello Coutinho</a><br /><br />");?></td>
-				</tr>
-				<tr>
-					<td width="22%" valign="top" class="vncell"><?=gettext("Donations ");?></td>
-					<td width="78%" class="vtable">
-						<?=gettext("If you like this package, please <a href='https://www.pfsense.org/index.php?option=com_content&task=view&id=47&Itemid=77'>donate to pfSense project</a>.<br /><br />
-						If you want that your donation goes to this package developer, make a note on donation forwarding it to me.<br /><br />");?>
-					</td>
-				</tr>
+
+				
 			</table>
 		</div>
 	</td></tr>

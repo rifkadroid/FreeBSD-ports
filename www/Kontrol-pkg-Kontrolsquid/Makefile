@@ -2,7 +2,7 @@
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
 PORTVERSION=	0.1.9
-PORTREVISION= 3
+PORTREVISION= 4
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
