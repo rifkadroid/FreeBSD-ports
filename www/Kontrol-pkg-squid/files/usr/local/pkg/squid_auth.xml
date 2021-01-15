@@ -8,7 +8,7 @@
  * squid_auth.xml
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2015-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2012-2014 Marcello Coutinho
  * All rights reserved.
  *
@@ -89,6 +89,7 @@
 				<option><name>LDAP</name><value>ldap</value></option>
 				<option><name>RADIUS</name><value>radius</value></option>
 				<option><name>Captive Portal</name><value>cp</value></option>
+				<option><name>TRANSPARENT KontrolAUth</name><value>transparent</value></option>
 			</options>
 			<onchange>on_auth_method_changed()</onchange>
 		</field>

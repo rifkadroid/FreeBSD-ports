@@ -3,7 +3,7 @@
  * squid.inc
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2006-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2013-2016 Marcello Coutinho
  * Copyright (c) 2006 Fernando Lemos
  * Copyright (c) 2012 Martin Fuchs
@@ -182,41 +182,21 @@ function squid_get_server_certs() {
 	return $cert_arr;
 }
 
-/* Handle root CA certificates bundle */
-function squid_check_ca_hashes() {
-	global $config, $g;
+/* Handle extra CA certificates, see https://redmine.pfsense.org/issues/10605 */
+function squid_gen_extra_ca() {
+	global $config;
+	$capath = SQUID_LOCALBASE . '/share/certs';
 
-	// check certificates
-	$cert_count = 0;
-	if (is_dir(SQUID_LOCALBASE . '/share/certs')) {
-		if ($handle = opendir(SQUID_LOCALBASE . '/share/certs')) {
-			while (false !== ($file = readdir($handle))) {
-				if (preg_match ("/\d+.0/", $file)) {
-					$cert_count++;
-				}
-			}
-			closedir($handle);
-		}
-	}
-	if ($cert_count < 10) {
-		// create ca-root hashes from ca-root-nss package
-		log_error("[squid] Creating root certificate bundle hashes from the Mozilla Project...");
-		$cas = file(SQUID_LOCALBASE . '/share/certs/ca-root-nss.crt');
-		$cert = 0;
-		foreach ($cas as $ca) {
-			if (preg_match("/--BEGIN CERTIFICATE--/", $ca)) {
-				$cert = 1;
-			}
-			if ($cert == 1) {
-				$crt .= $ca;
-			}
-			if (preg_match("/-END CERTIFICATE-/", $ca)) {
-				file_put_contents("/tmp/cert.pem", $crt, LOCK_EX);
-				$cert_hash = array();
-				exec("/usr/bin/openssl x509 -hash -noout -in /tmp/cert.pem", $cert_hash);
-				file_put_contents(SQUID_LOCALBASE . "/share/certs/" . $cert_hash[0] . ".0", $crt, LOCK_EX);
-				$crt = "";
-				$cert = 0;
+	unlink_if_exists("{$capath}/*.0");
+
+	if (is_array($config['installedpackages']['squid']['config']) &&
+	    !empty($config['installedpackages']['squid']['config'][0]['extraca'])) {
+		$extraca = $config['installedpackages']['squid']['config'][0]['extraca'];
+		if ($extraca != 'none') {
+			$param = array('caref' => $extraca);
+			$cas = ca_chain_array($param);
+			foreach ($cas as $ca) {
+				ca_setup_capath($ca, $capath);
 			}
 		}
 	}
@@ -454,7 +434,7 @@ function squid_restart_services() {
 					return;
 					break;
 				case "MASTER":
-					/* Stopping the service on other node may take some time 
+					/* Stopping the service on other node may take some time
 					(shutdown_lifetime 3 seconds) */
 					sleep(4);
 					break;
@@ -757,7 +737,7 @@ function squid_upgrade_config() {
 	if (isset($config['installedpackages']['squid']['config'][0]['patch_cp'])) {
 		if ($config['installedpackages']['squid']['config'][0]['patch_cp'] == "on") {
 			$cp_msg = "Patch Captive Portal feature was removed - see Bug #5594!";
-			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from pfSense GitHub repository if needed.";
+			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from Kontrol GitHub repository if needed.";
 			file_notice("squid", $cp_msg, "Packages", "");
 			log_error("[squid] {$cp_msg}");
 			unset($cp_msg);
@@ -817,6 +797,9 @@ function squid_validate_general($post, &$input_errors) {
 		if (!$int_proto_ok) {
 			$input_errors[] = "At least one interface with IPv4 address must be selected.";
 		}
+		if (($post['outgoing_interface'] != 'auto') && !get_interface_ip($post['outgoing_interface'])) {
+			$input_errors[] = "The Outgoing Network Interface must have an IPv4 address.";
+		}
 	} elseif ($post['listenproto'] == 'inet6') {
 		foreach ($post['active_interface'] as $a_int) {
 			if (get_interface_ipv6($a_int)) {
@@ -827,6 +810,9 @@ function squid_validate_general($post, &$input_errors) {
 		if (!$int_proto_ok) {
 			$input_errors[] = "At least one interface with IPv6 address must be selected.";
 		}
+		if (($post['outgoing_interface'] != 'auto') && !get_interface_ipv6($post['outgoing_interface'])) {
+			$input_errors[] = "The Outgoing Network Interface must have an IPv6 address.";
+		}
 	} else {
 		foreach ($post['active_interface'] as $a_int) {
 			if (get_interface_ip($a_int) || get_interface_ipv6($a_int)) {
@@ -836,6 +822,10 @@ function squid_validate_general($post, &$input_errors) {
 		}
 		if (!$int_proto_ok) {
 			$input_errors[] = "At least one interface with IPv4 or IPv6 address must be selected.";
+		}
+		if (($post['outgoing_interface'] != 'auto') && !get_interface_ip($post['outgoing_interface']) &&
+		    !get_interface_ipv6($post['outgoing_interface'])) {
+			$input_errors[] = "The Outgoing Network Interface must have an IPv4 or IPv6 address.";
 		}
 	}
 
@@ -1203,7 +1193,7 @@ function squid_validate_auth($post, &$input_errors) {
 					$input_errors[] = "'RADIUS secret' is required.";
 				}
 				break;
-				
+
 		}
 
 		$no_auth = explode("\n", $post['no_auth_hosts']);
@@ -1231,7 +1221,7 @@ function squid_resync_general() {
 	$conf .= "# Do not edit manually !\n\n";
 	// Check ssl interception
 	if ($settings['ssl_proxy'] == 'on') {
-		squid_check_ca_hashes();
+		squid_gen_extra_ca();
 		$srv_cert = lookup_ca($settings["dca"]);
 		if ($srv_cert != false) {
 			if (base64_decode($srv_cert['prv'])) {
@@ -1254,6 +1244,7 @@ function squid_resync_general() {
 				// cert, key, version, cipher, options, clientca, cafile, capath, crlfile, tls-dh, sslflags, sslcontext
 				$crt_pk = SQUID_CONFBASE . "/serverkey.pem";
 				$crt_capath = SQUID_LOCALBASE . "/share/certs/";
+				$crt_cafile = SQUID_LOCALBASE . "/share/certs/ca-root-nss.crt";
 				$sslproxy_options = "NO_SSLv3";
 				/* XXX: Bug #4453, Bug #6592, Feature #6593, Bug #6563
 				 * http://wiki.squid-cache.org/ConfigExamples/Intercept/SslBumpExplicit#Modern_DH.2FEDH_ciphers_usage
@@ -1284,9 +1275,10 @@ function squid_resync_general() {
 				}
 				file_put_contents($crt_pk, unixnewlines(base64_decode($srv_cert['prv']) . "\n" . base64_decode($srv_cert['crt'])));
 				$sslcrtd_children = ($settings['sslcrtd_children'] ? $settings['sslcrtd_children'] : 5);
-				$ssl_interception .= "ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=" . ($sslcrtd_children*2) . "MB cert={$crt_pk} capath={$crt_capath} cipher={$sslproxy_cipher} {$sslproxy_dhparams} options={$sslproxy_options}\n";
+				$ssl_interception .= "ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=" . ($sslcrtd_children*2) . "MB cert={$crt_pk} cafile={$crt_cafile} capath={$crt_capath} cipher={$sslproxy_cipher} {$sslproxy_dhparams} options={$sslproxy_options}\n";
 				if ($squid4) {
 					$interception_checks = "sslcrtd_program " . SQUID_LOCALBASE . "/libexec/squid/security_file_certgen -s " . SQUID_SSL_DB . " -M 4MB -b 2048\n";
+					$interception_checks .= "tls_outgoing_options cafile={$crt_cafile}\n";
 					$interception_checks .= "tls_outgoing_options capath={$crt_capath}\n";
 					$interception_checks .= "tls_outgoing_options options={$sslproxy_options}\n";
 					$interception_checks .= "tls_outgoing_options cipher={$sslproxy_cipher}\n";
@@ -1295,6 +1287,7 @@ function squid_resync_general() {
 					}
 				} else {
 					$interception_checks = "sslcrtd_program " . SQUID_LOCALBASE . "/libexec/squid/ssl_crtd -s " . SQUID_SSL_DB . " -M 4MB -b 2048\n";
+					$interception_checks .= "sslproxy_cafile {$crt_cafile}\n";
 					$interception_checks .= "sslproxy_capath {$crt_capath}\n";
 					$interception_checks .= "sslproxy_options {$sslproxy_options}\n";
 					$interception_checks .= "sslproxy_cipher {$sslproxy_cipher}\n";
@@ -1366,7 +1359,7 @@ function squid_resync_general() {
 		foreach ($ifaces_ips as $iface_ip) {
 			if ($iface_ip[0]) {
 				// do not add loopback twice when transparent proxy is enabled
-				if ((($iface_ip[0] == "127.0.0.1") || ($iface_ip[0] == "::1")) && 
+				if ((($iface_ip[0] == "127.0.0.1") || ($iface_ip[0] == "::1")) &&
 				    $settings['transparent_proxy'] == "on") {
 					continue;
 				} else {
@@ -1412,6 +1405,16 @@ function squid_resync_general() {
 					}
 				}
 			}
+		}
+	}
+	if (!empty($settings['outgoing_interface']) && ($settings['outgoing_interface'] != 'auto')) {
+		$outip = get_interface_ip($settings['outgoing_interface']);
+		$outipv6 = get_interface_ipv6($settings['outgoing_interface']);
+		if ($outip && ($listenproto != 'inet6')) {
+			$conf .= "tcp_outgoing_address {$outip}\n";
+		}
+		if ($outipv6 && ($listenproto != 'inet')) {
+			$conf .= "tcp_outgoing_address {$outipv6}\n";
 		}
 	}
 	$icp_port = ($settings['icp_port'] ? $settings['icp_port'] : 0);
@@ -2098,7 +2101,7 @@ function squid_resync_auth() {
 					$ldap_proto = 'ldaps://';
 				} else if ($settings['ldap_urltype'] == 'starttls') {
 					$usetls = '-ZZ';
-				} 
+				}
 				$password = (isset($settings['ldap_pass']) ? "-w " . escapeshellarg($settings['ldap_pass']) : '');
 				$noreferrals = ($settings['ldap_noreferrals'] == 'on' ? "-R" : '');
 				$conf .= "auth_param basic program " . SQUID_LOCALBASE
@@ -2126,9 +2129,9 @@ function squid_resync_auth() {
 					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
 					$conf .= "always_direct deny all \n";
 					$conf .= "never_direct allow all \n";
-				break;	
-				
-				
+				break;
+
+
 		}
 		if (($auth_method != 'cp') && ($auth_method != 'transparent') && ($auth_method != 'kerberos')){
 		$conf .= <<< EOD
@@ -2676,7 +2679,7 @@ function squid_get_ca_or_certs($type, $consumer = 'HTTPS', $noprv = false, $addn
 	if (isset($config[$type]) && is_array($config[$type])) {
 		if (is_array($list_arr)) {
 			foreach ($config[$type] as $c) {
-				if (in_array($c['refid'],array_column($list_arr, 'refid')) && 
+				if (in_array($c['refid'],array_column($list_arr, 'refid')) &&
 				 (!empty($c['prv']) || $noprv)) {
 					$c_arr[] = $c;
 				}
@@ -2695,9 +2698,12 @@ function squid_get_ca_or_certs($type, $consumer = 'HTTPS', $noprv = false, $addn
 	return $c_arr;
 }
 
-function squid_get_interface_list($loopback=true) {
+function squid_get_interface_list($loopback=true,$gwgroups=false,$auto=false) {
 	$ifaces = array();
 	$carplist = get_configured_vip_list();
+	if ($auto) {
+		$ifaces[] = array("name" => "Default (auto)", "value" => "auto");
+	}
 	foreach ($carplist as $vid => $vaddr) {
 		$vip = get_configured_vip($vid);
 		$ifaces[] = array("name" => "$vaddr ({$vip['descr']})", "value" => $vid);
@@ -2707,6 +2713,11 @@ function squid_get_interface_list($loopback=true) {
 	}
 	if ($loopback) {
 		$ifaces[] = array("name" => "loopback", "value" => "lo0");
+	}
+	if ($gwgroups) {
+		foreach (return_gateway_groups_array() as $name => $group) {
+			$ifaces[] = array("name" => 'GW Group ' . $name, "value" => $name);
+		}
 	}
 	return ($ifaces);
 }
@@ -2746,7 +2757,7 @@ function squid_plugin_carp($pluginparams) {
 	/* Start or stop the service as needed based on the CARP transition. */
 	if ($pluginparams['event'] == "rc.carpmaster") {
 		log_error("[squid] Starting service...");
-		/* Stopping the service on other node may take some time 
+		/* Stopping the service on other node may take some time
 		(shutdown_lifetime 3 seconds) */
 		sleep(4);
 		start_service("squid");
