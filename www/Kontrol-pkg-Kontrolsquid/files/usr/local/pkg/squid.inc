@@ -3,7 +3,7 @@
  * squid.inc
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2020 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2006-2021 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2013-2016 Marcello Coutinho
  * Copyright (c) 2006 Fernando Lemos
  * Copyright (c) 2012 Martin Fuchs
@@ -182,41 +182,21 @@ function squid_get_server_certs() {
 	return $cert_arr;
 }
 
-/* Handle root CA certificates bundle */
-function squid_check_ca_hashes() {
-	global $config, $g;
+/* Handle extra CA certificates, see https://redmine.pfsense.org/issues/10605 */
+function squid_gen_extra_ca() {
+	global $config;
+	$capath = SQUID_LOCALBASE . '/share/certs';
 
-	// check certificates
-	$cert_count = 0;
-	if (is_dir(SQUID_LOCALBASE . '/share/certs')) {
-		if ($handle = opendir(SQUID_LOCALBASE . '/share/certs')) {
-			while (false !== ($file = readdir($handle))) {
-				if (preg_match ("/\d+.0/", $file)) {
-					$cert_count++;
-				}
-			}
-			closedir($handle);
-		}
-	}
-	if ($cert_count < 10) {
-		// create ca-root hashes from ca-root-nss package
-		log_error("[squid] Creating root certificate bundle hashes from the Mozilla Project...");
-		$cas = file(SQUID_LOCALBASE . '/share/certs/ca-root-nss.crt');
-		$cert = 0;
-		foreach ($cas as $ca) {
-			if (preg_match("/--BEGIN CERTIFICATE--/", $ca)) {
-				$cert = 1;
-			}
-			if ($cert == 1) {
-				$crt .= $ca;
-			}
-			if (preg_match("/-END CERTIFICATE-/", $ca)) {
-				file_put_contents("/tmp/cert.pem", $crt, LOCK_EX);
-				$cert_hash = array();
-				exec("/usr/bin/openssl x509 -hash -noout -in /tmp/cert.pem", $cert_hash);
-				file_put_contents(SQUID_LOCALBASE . "/share/certs/" . $cert_hash[0] . ".0", $crt, LOCK_EX);
-				$crt = "";
-				$cert = 0;
+	unlink_if_exists("{$capath}/*.0");
+
+	if (is_array($config['installedpackages']['squid']['config']) &&
+	    !empty($config['installedpackages']['squid']['config'][0]['extraca'])) {
+		$extraca = $config['installedpackages']['squid']['config'][0]['extraca'];
+		if ($extraca != 'none') {
+			$param = array('caref' => $extraca);
+			$cas = ca_chain_array($param);
+			foreach ($cas as $ca) {
+				ca_setup_capath($ca, $capath);
 			}
 		}
 	}
@@ -513,12 +493,9 @@ function squid_fixup_user() {
 function squid_install_command() {
 	global $config, $g;
 
-	/* Set storage system for nanobsd */
+	/* Set storage system for ramdisk */
 	if (!is_array($config['installedpackages']['squidcache'])) {
 		$config['installedpackages']['squidcache'] = array();
-	}
-	if ($g['platform'] == "nanobsd") {
-		$config['installedpackages']['squidcache']['config'][0]['harddisk_cache_system'] = 'null';
 	}
 
 	// Fix user/group entry permissions
@@ -757,7 +734,7 @@ function squid_upgrade_config() {
 	if (isset($config['installedpackages']['squid']['config'][0]['patch_cp'])) {
 		if ($config['installedpackages']['squid']['config'][0]['patch_cp'] == "on") {
 			$cp_msg = "Patch Captive Portal feature was removed - see Bug #5594!";
-			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from Kontrol GitHub repository if needed.";
+			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from pfSense GitHub repository if needed.";
 			file_notice("squid", $cp_msg, "Packages", "");
 			log_error("[squid] {$cp_msg}");
 			unset($cp_msg);
@@ -817,6 +794,9 @@ function squid_validate_general($post, &$input_errors) {
 		if (!$int_proto_ok) {
 			$input_errors[] = "At least one interface with IPv4 address must be selected.";
 		}
+		if (($post['outgoing_interface'] != 'auto') && !get_interface_ip($post['outgoing_interface'])) {
+			$input_errors[] = "The Outgoing Network Interface must have an IPv4 address.";
+		}
 	} elseif ($post['listenproto'] == 'inet6') {
 		foreach ($post['active_interface'] as $a_int) {
 			if (get_interface_ipv6($a_int)) {
@@ -827,6 +807,9 @@ function squid_validate_general($post, &$input_errors) {
 		if (!$int_proto_ok) {
 			$input_errors[] = "At least one interface with IPv6 address must be selected.";
 		}
+		if (($post['outgoing_interface'] != 'auto') && !get_interface_ipv6($post['outgoing_interface'])) {
+			$input_errors[] = "The Outgoing Network Interface must have an IPv6 address.";
+		}
 	} else {
 		foreach ($post['active_interface'] as $a_int) {
 			if (get_interface_ip($a_int) || get_interface_ipv6($a_int)) {
@@ -836,6 +819,10 @@ function squid_validate_general($post, &$input_errors) {
 		}
 		if (!$int_proto_ok) {
 			$input_errors[] = "At least one interface with IPv4 or IPv6 address must be selected.";
+		}
+		if (($post['outgoing_interface'] != 'auto') && !get_interface_ip($post['outgoing_interface']) &&
+		    !get_interface_ipv6($post['outgoing_interface'])) {
+			$input_errors[] = "The Outgoing Network Interface must have an IPv4 or IPv6 address.";
 		}
 	}
 
@@ -874,13 +861,13 @@ function squid_validate_general($post, &$input_errors) {
 		$webgui_port = 443;
 	}
 	if (($post['transparent_proxy'] != 'on') && ($port == $webgui_port)) {
-		$input_errors[] = "You can not run Squid on the same port as the KONTROL-UTM WebGUI";
+		$input_errors[] = "You can not run Squid on the same port as the pfSense WebGUI";
 	}
 	unset($port, $webgui_port);
 
 	if ($post['transparent_proxy'] == 'on') {
-		if (preg_match("/(local|ldap|radius|ntlm|kerberos)/", $config['installedpackages']['squidauth']['config'][0]['auth_method'])) {
-			$input_errors[] = "Transparent mode cannot be enabled to use that authentication mode";
+		if (preg_match("/(local|ldap|radius|ntlm)/", $config['installedpackages']['squidauth']['config'][0]['auth_method'])) {
+			$input_errors[] = "Transparent mode cannot be enabled while proxy authentication is enabled";
 		}
 		if (empty($post['transparent_active_interface'])) {
 			$input_errors[] = "You must select at least one interface under 'Transparent Proxy Interface(s)' when 'Transparent HTTP Proxy' is enabled.";
@@ -1170,7 +1157,7 @@ function squid_validate_auth($post, &$input_errors) {
 	unset($num_fields);
 
 	$auth_method = $post['auth_method'];
-	if (($auth_method != 'none') && ($auth_method != 'local') && ($auth_method != 'cp')  && ($auth_method != 'transparent') && ($auth_method != 'ntlm') && ($auth_method != 'kerbntlm')) {
+	if (($auth_method != 'none') && ($auth_method != 'local') && ($auth_method != 'cp')) {
 		$server = trim($post['auth_server']);
 		if (empty($server)) {
 			$input_errors[] = "'Authentication server' is required.";
@@ -1181,6 +1168,10 @@ function squid_validate_auth($post, &$input_errors) {
 		$port = trim($post['auth_server_port']);
 		if (!empty($port) && !is_port($port)) {
 			$input_errors[] = "'Authentication server port' must contain a valid port number.";
+		}
+
+		if (!empty($port['max_user_ip']) && !is_numeric($port['max_user_ip'])) {
+			$input_errors[] = "'Authentication Max User IP' must be numeric or empty.";
 		}
 
 		switch ($auth_method) {
@@ -1203,7 +1194,6 @@ function squid_validate_auth($post, &$input_errors) {
 					$input_errors[] = "'RADIUS secret' is required.";
 				}
 				break;
-
 		}
 
 		$no_auth = explode("\n", $post['no_auth_hosts']);
@@ -1227,11 +1217,11 @@ function squid_resync_general() {
 		$settings = array();
 	}
 
-	$conf = "# This file is automatically generated by KONTROL-UTM\n";
+	$conf = "# This file is automatically generated by Kontrol\n";
 	$conf .= "# Do not edit manually !\n\n";
 	// Check ssl interception
 	if ($settings['ssl_proxy'] == 'on') {
-		squid_check_ca_hashes();
+		squid_gen_extra_ca();
 		$srv_cert = lookup_ca($settings["dca"]);
 		if ($srv_cert != false) {
 			if (base64_decode($srv_cert['prv'])) {
@@ -1254,6 +1244,7 @@ function squid_resync_general() {
 				// cert, key, version, cipher, options, clientca, cafile, capath, crlfile, tls-dh, sslflags, sslcontext
 				$crt_pk = SQUID_CONFBASE . "/serverkey.pem";
 				$crt_capath = SQUID_LOCALBASE . "/share/certs/";
+				$crt_cafile = SQUID_LOCALBASE . "/share/certs/ca-root-nss.crt";
 				$sslproxy_options = "NO_SSLv3";
 				/* XXX: Bug #4453, Bug #6592, Feature #6593, Bug #6563
 				 * http://wiki.squid-cache.org/ConfigExamples/Intercept/SslBumpExplicit#Modern_DH.2FEDH_ciphers_usage
@@ -1284,9 +1275,10 @@ function squid_resync_general() {
 				}
 				file_put_contents($crt_pk, unixnewlines(base64_decode($srv_cert['prv']) . "\n" . base64_decode($srv_cert['crt'])));
 				$sslcrtd_children = ($settings['sslcrtd_children'] ? $settings['sslcrtd_children'] : 5);
-				$ssl_interception .= "ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=" . ($sslcrtd_children*2) . "MB cert={$crt_pk} capath={$crt_capath} cipher={$sslproxy_cipher} {$sslproxy_dhparams} options={$sslproxy_options}\n";
+				$ssl_interception .= "ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=" . ($sslcrtd_children*2) . "MB cert={$crt_pk} cafile={$crt_cafile} capath={$crt_capath} cipher={$sslproxy_cipher} {$sslproxy_dhparams} options={$sslproxy_options}\n";
 				if ($squid4) {
 					$interception_checks = "sslcrtd_program " . SQUID_LOCALBASE . "/libexec/squid/security_file_certgen -s " . SQUID_SSL_DB . " -M 4MB -b 2048\n";
+					$interception_checks .= "tls_outgoing_options cafile={$crt_cafile}\n";
 					$interception_checks .= "tls_outgoing_options capath={$crt_capath}\n";
 					$interception_checks .= "tls_outgoing_options options={$sslproxy_options}\n";
 					$interception_checks .= "tls_outgoing_options cipher={$sslproxy_cipher}\n";
@@ -1295,6 +1287,7 @@ function squid_resync_general() {
 					}
 				} else {
 					$interception_checks = "sslcrtd_program " . SQUID_LOCALBASE . "/libexec/squid/ssl_crtd -s " . SQUID_SSL_DB . " -M 4MB -b 2048\n";
+					$interception_checks .= "sslproxy_cafile {$crt_cafile}\n";
 					$interception_checks .= "sslproxy_capath {$crt_capath}\n";
 					$interception_checks .= "sslproxy_options {$sslproxy_options}\n";
 					$interception_checks .= "sslproxy_cipher {$sslproxy_cipher}\n";
@@ -1414,6 +1407,16 @@ function squid_resync_general() {
 			}
 		}
 	}
+	if (!empty($settings['outgoing_interface']) && ($settings['outgoing_interface'] != 'auto')) {
+		$outip = get_interface_ip($settings['outgoing_interface']);
+		$outipv6 = get_interface_ipv6($settings['outgoing_interface']);
+		if ($outip && ($listenproto != 'inet6')) {
+			$conf .= "tcp_outgoing_address {$outip}\n";
+		}
+		if ($outipv6 && ($listenproto != 'inet')) {
+			$conf .= "tcp_outgoing_address {$outipv6}\n";
+		}
+	}
 	$icp_port = ($settings['icp_port'] ? $settings['icp_port'] : 0);
 	$dns_v4_first = ($settings['dns_v4_first'] == "on" ? "on" : "off");
 	$piddir = "{$g['varrun_path']}/squid";
@@ -1479,7 +1482,6 @@ cache_mgr {$email}
 access_log {$logdir_access}
 cache_log {$logdir_cache}
 cache_store_log none
-server_persistent_connections off
 netdb_filename {$logdir}/netdb.state
 pinger_enable {$pinger_helper}
 pinger_program {$pinger_program}
@@ -1583,9 +1585,7 @@ function squid_resync_cache() {
 	$offline_mode = ($settings['enable_offline'] == 'on' ? 'on' : 'off');
 	$conf = '';
 	if (!isset($settings['harddisk_cache_system'])) {
-		if ($g['platform'] == "nanobsd") {
-			$disk_cache_system = 'null';
-		} elseif (!is_array($config['installedpackages']['squidcache']['config'])) {
+		if (!is_array($config['installedpackages']['squidcache']['config'])) {
 			log_error("[squid] 'Local Cache' not configured, disk cache will be disabled.");
 			log_error("[squid] Please, configure and save 'Local Cache' settings before enabling Squid proxy.");
 		} else {
@@ -1645,7 +1645,11 @@ EOD;
 	} elseif (file_exists(SQUID_ACLDIR . '/donotcache.acl')) {
 		unlink(SQUID_ACLDIR . '/donotcache.acl');
 	}
-	$conf .= "cache allow all\n";
+	if ($settings['nocache'] == 'on') {
+		$conf .= "cache deny all\n";
+	} else {
+		$conf .= "cache allow all\n";
+	}
 
 	return $conf.$refresh_conf;
 }
@@ -2022,7 +2026,7 @@ function squid_resync_auth() {
 
 	$transparent_proxy = ($settingsconfig['transparent_proxy'] == 'on');
 	if ($transparent_proxy) {
-		if (preg_match ("/(none|cp|transparent)/", $settings['auth_method'])) {
+		if (preg_match ("/(none|cp)/", $settings['auth_method'])) {
 			$auth_method = $settings['auth_method'];
 		} else {
 			$auth_method = "none";
@@ -2037,7 +2041,7 @@ function squid_resync_auth() {
 			$conf .= "http_access deny sglog\n";
 		}
 	}
-	if ($auth_method == 'none' ) {
+	if ($auth_method == 'none') {
 		// SSL interception ACL options without authentication
 		if ($settingsconfig['ssl_proxy'] == "on") {
 			// Custom SSL/MITM configuration overrides everything
@@ -2075,12 +2079,8 @@ function squid_resync_auth() {
 
 		// Set up the external authentication programs
 		$auth_ttl = ($settings['auth_ttl'] ? $settings['auth_ttl'] : 5);
-		$processes = ($settings['auth_processes'] ? $settings['auth_processes'] : 25);
+		$processes = ($settings['auth_processes'] ? $settings['auth_processes'] : 5);
 		$prompt = ($settings['auth_prompt'] ? $settings['auth_prompt'] : 'Please enter your credentials to access the proxy');
-		$myhostname = strtolower(gethostname());
-		$mydomain = strtoupper( exec ('hostname -d'));
-		//$mydomain = strtoupper($mydomain);
-		//$finalhostname = strtolower($myhostname);
 		switch ($auth_method) {
 			case 'local':
 				$conf .= 'auth_param basic program ' . SQUID_LOCALBASE . '/libexec/squid/basic_ncsa_auth ' . SQUID_PASSWD . "\n";
@@ -2116,61 +2116,60 @@ function squid_resync_auth() {
 				$conf .= "external_acl_type check_cp {$helpers_num} ttl={$auth_ttl} %SRC " . SQUID_BASE . "/bin/check_ip.php\n";
 				$conf .= "acl password external check_cp\n";
 				break;
-			case 'transparent':
-					$conf .= "####  TRANSPARENT AUTHENTICATION HELPER-Configure credentials using text MENU - option 4 #### \n";
-					$conf .= "external_acl_type userip children-startup=50 children-max={$processes} children-idle=10 ttl={$auth_ttl} %SRC /usr/local/bin/kontrolhelper \n";
-					$conf .= "acl KONTROLACL external userip \n";
-					$conf .= "http_access allow KONTROLACL \n";
-					$conf .= "\n";
-					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
-					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
-					$conf .= "always_direct deny all \n";
-					$conf .= "never_direct allow all \n";
-				break;
-			case 'ntlm':
-					$conf .= "#### NTLM AUTHENTICATION ONLY #### \n";
-					$conf .= "auth_param ntlm program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp \n";
-					$conf .= "auth_param ntlm children {$processes} startup=15 idle=5 \n";
-					$conf .= "auth_param ntlm keep_alive off \n";
-					$conf .= "\n";
-					$conf .= "#### STARTING CUSTOM ACLs #### \n";
-					$conf .= "acl auth proxy_auth REQUIRED \n";
-					$conf .= " \n";
-					$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
-					$conf .= "http_access allow auth \n";
-					$conf .= " \n";
-					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
-					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
-					$conf .= "always_direct deny all \n";
-					$conf .= "never_direct allow all \n";
-				break;
-				case 'kerbntlm':
-					$conf .= "#### TRY KERBEROS Authentication #### \n";
-					$conf .= "auth_param negotiate program /usr/local/libexec/squid/negotiate_kerberos_auth -r -i -s HTTP/$myhostname@$mydomain \n";
-					$conf .= "auth_param negotiate children {$processes} startup=15 idle=5 \n";
-					$conf .= "auth_param negotiate keep_alive on \n";
-					$conf .= "\n";
-					$conf .= "#### NTLM AUTHENTICATION In case KERBEROS Failed #### \n";
-					$conf .= "auth_param ntlm program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp \n";
-					$conf .= "auth_param ntlm children {$processes} startup=15 idle=5 \n";
-					$conf .= "auth_param ntlm keep_alive off \n";
-					$conf .= "\n";
-					$conf .= "#### STARTING CUSTOM ACLs #### \n";
-					$conf .= "acl auth proxy_auth REQUIRED \n";
-					$conf .= " \n";
-					$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
-					$conf .= "http_access allow auth \n";
-					$conf .= " \n";
-					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
-					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
-					$conf .= "always_direct deny all \n";
-					$conf .= "never_direct allow all \n";
-				break;
-
+				case 'transparent':
+						$conf .= "####  TRANSPARENT AUTHENTICATION HELPER-Configure credentials using text MENU - option 4 #### \n";
+						$conf .= "external_acl_type userip children-startup=50 children-max={$processes} children-idle=10 ttl={$auth_ttl} %SRC /usr/local/bin/kontrolhelper \n";
+						$conf .= "acl KONTROLACL external userip \n";
+						$conf .= "http_access allow KONTROLACL \n";
+						$conf .= "\n";
+						$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+						$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
+						$conf .= "always_direct deny all \n";
+						$conf .= "never_direct allow all \n";
+					break;
+				case 'ntlm':
+						$conf .= "#### NTLM AUTHENTICATION ONLY #### \n";
+						$conf .= "auth_param ntlm program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp \n";
+						$conf .= "auth_param ntlm children {$processes} startup=15 idle=5 \n";
+						$conf .= "auth_param ntlm keep_alive off \n";
+						$conf .= "\n";
+						$conf .= "#### STARTING CUSTOM ACLs #### \n";
+						$conf .= "acl auth proxy_auth REQUIRED \n";
+						$conf .= " \n";
+						$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
+						$conf .= "http_access allow auth \n";
+						$conf .= " \n";
+						$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+						$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
+						$conf .= "always_direct deny all \n";
+						$conf .= "never_direct allow all \n";
+					break;
+					case 'kerbntlm':
+						$conf .= "#### TRY KERBEROS Authentication #### \n";
+						$conf .= "auth_param negotiate program /usr/local/libexec/squid/negotiate_kerberos_auth -r -i -s HTTP/$myhostname@$mydomain \n";
+						$conf .= "auth_param negotiate children {$processes} startup=15 idle=5 \n";
+						$conf .= "auth_param negotiate keep_alive on \n";
+						$conf .= "\n";
+						$conf .= "#### NTLM AUTHENTICATION In case KERBEROS Failed #### \n";
+						$conf .= "auth_param ntlm program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp \n";
+						$conf .= "auth_param ntlm children {$processes} startup=15 idle=5 \n";
+						$conf .= "auth_param ntlm keep_alive off \n";
+						$conf .= "\n";
+						$conf .= "#### STARTING CUSTOM ACLs #### \n";
+						$conf .= "acl auth proxy_auth REQUIRED \n";
+						$conf .= " \n";
+						$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
+						$conf .= "http_access allow auth \n";
+						$conf .= " \n";
+						$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+						$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
+						$conf .= "always_direct deny all \n";
+						$conf .= "never_direct allow all \n";
+					break;
 
 
 		}
-		if (($auth_method != 'cp') && ($auth_method != 'transparent') && ($auth_method != 'kerberos')){
+		if ($auth_method != 'cp') {
 		$conf .= <<< EOD
 auth_param basic children $processes
 auth_param basic realm $prompt
@@ -2179,6 +2178,16 @@ acl password proxy_auth REQUIRED
 
 EOD;
 		}
+
+		// Authentication TTL
+		$conf .= "authenticate_ip_ttl $auth_ttl minute\n";
+
+		// Authentication Max User IP
+		if (is_numeric($settings['max_user_ip'])) {
+			$conf .= "acl maxip max_user_ip -s {$settings['max_user_ip']}\n";
+			$conf .= "http_access deny maxip\n";
+		}
+
 		// Custom User Options after authentication definition
 		$conf .= "# Custom options after auth\n" . sq_text_area_decode($settingsconfig['custom_options2_squid3']) . "\n\n";
 		// SSL interception ACL options with authentication
@@ -2225,6 +2234,7 @@ EOD;
 		foreach ($password as $acl) {
 			$conf .= "http_access allow password $acl\n";
 		}
+
 	}
 
 	$conf .= "# Default block all to be sure\n";
@@ -2735,9 +2745,12 @@ function squid_get_ca_or_certs($type, $consumer = 'HTTPS', $noprv = false, $addn
 	return $c_arr;
 }
 
-function squid_get_interface_list($loopback=true) {
+function squid_get_interface_list($loopback=true,$gwgroups=false,$auto=false) {
 	$ifaces = array();
 	$carplist = get_configured_vip_list();
+	if ($auto) {
+		$ifaces[] = array("name" => "Default (auto)", "value" => "auto");
+	}
 	foreach ($carplist as $vid => $vaddr) {
 		$vip = get_configured_vip($vid);
 		$ifaces[] = array("name" => "$vaddr ({$vip['descr']})", "value" => $vid);
@@ -2747,6 +2760,11 @@ function squid_get_interface_list($loopback=true) {
 	}
 	if ($loopback) {
 		$ifaces[] = array("name" => "loopback", "value" => "lo0");
+	}
+	if ($gwgroups) {
+		foreach (return_gateway_groups_array() as $name => $group) {
+			$ifaces[] = array("name" => 'GW Group ' . $name, "value" => $name);
+		}
 	}
 	return ($ifaces);
 }
@@ -2790,9 +2808,11 @@ function squid_plugin_carp($pluginparams) {
 		(shutdown_lifetime 3 seconds) */
 		sleep(4);
 		start_service("squid");
+		filter_configure();
 	} elseif (($pluginparams['event'] == "rc.carpbackup") && is_service_running('squid')) {
 		log_error("[squid] Stopping service... (CARP BACKUP/INIT)");
 		squid_stop_monitor();
 		stop_service("squid");
+		filter_configure();
 	}
 }
