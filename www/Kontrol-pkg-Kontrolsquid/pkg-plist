@@ -32,7 +32,9 @@ www/squid_log_parser.php
 pkg/swapstate_check.php
 etc/smb4.conf
 etc/krb5.conf
-www/ad_domain.php
+www/ad_remove.php
+www/ad_join.php
+www/ad_transparent.php
 /root/kontrolid.db
 %%DATADIR%%/info.xml
 @dir /etc/inc/priv
