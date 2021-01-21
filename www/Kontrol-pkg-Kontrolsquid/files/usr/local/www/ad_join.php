@@ -27,6 +27,8 @@
 require_once("guiconfig.inc");
 require_once("functions.inc");
 require_once("interfaces.inc");
+require_once("notices.inc");
+
 
 $pgtitle = array(gettext("Services"), gettext("KONTROL-ID"));
 $shortcut_section = "Join to a Domain";
@@ -86,22 +88,26 @@ if ($_POST)
 				{
 					exec ('rm /etc/krb5.keytab 2>&1');
 				}
-			exec ("net ads join createupn=HTTP/$host_var@$ad_domain -k");
-			exec ('net ads keytab add HTTP 2>&1');
-			exec ("net ads keytab create -k 2>&1");
-			exec ("chown root:proxy /var/db/samba4/winbindd_privileged 2>&1");
-			exec ("chmod -R 0750 /var/db/samba4/winbindd_privileged 2>&1");
-			exec ('killall winbindd 2>&1');
-
+			unset ($join );
+			unset ($msg );
+			$join = exec ('net ads join createupn=HTTP/$host_var@$ad_domain -k');
+			exec ('net ads keytab add HTTP');
+			exec ('net ads keytab create -k');
+			exec ('chown root:proxy /var/db/samba4/winbindd_privileged');
+			exec ('chmod -R 0750 /var/db/samba4/winbindd_privileged');
+			exec ('killall winbindd');
 			exec ('/usr/local/sbin/winbindd --daemon --configfile=/usr/local/etc/smb4.conf 2>&1');
 			exec ('chown root:proxy /etc/krb5.keytab');
 			exec ('chmod 0440 /etc/krb5.keytab 2>&1');
 			exec ('ktutil -k /etc/krb5.keytab list 2>&1');
-			exec ("/usr/local/sbin/pfSsh.php playback svc restart squid");
+			exec ('/usr/local/sbin/pfSsh.php playback svc restart squid');
 			exec ('chown root:proxy /var/db/samba4/winbindd_privileged');
+			$msg = exec ('wbinfo -t');
 			write_config("KONTROL-ID settings saved");
 			$changes_applied = true;
 			$retval = 0;
+			file_notice("Kontrol-ID",$error,"KontrolSquid - " . gettext($join), "");
+			file_notice("Kontrol-ID",$error,"KontrolSquid - " . gettext($msg), "");
 		}
 		else
 		{
