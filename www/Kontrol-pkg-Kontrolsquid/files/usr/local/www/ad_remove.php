@@ -25,7 +25,8 @@
 ##|-PRIV
 
 require_once("guiconfig.inc");
-#require_once("functions.inc");
+require_once("notices.inc");
+
 
 $pgtitle = array(gettext("Services"), gettext("KONTROL-ID"));
 $shortcut_section = "Remove from a Domain";
@@ -39,12 +40,14 @@ if ($_POST)
 		{
 			$rad_user = $_POST["rad_user"];
 			$rad_pass = $_POST["rad_pass"];
-			exec ("net ads leave -U $rad_user%$rad_pass");
+			unset ($remove);
+			$remove = exec ("net ads leave -U $rad_user%$rad_pass");
 			exec ('rm /etc/krb5.keytab 2>/dev/null');
 			exec ('killall winbindd 2>&1');
 			write_config("KONTROL-ID settings saved");
 			$changes_applied = true;
 			$retval = 0;
+			file_notice("Kontrol-ID",$error,"KontrolSquid - " . gettext($remove), "");
 		}
 		else
 		{
