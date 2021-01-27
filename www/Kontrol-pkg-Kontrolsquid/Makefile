@@ -2,7 +2,7 @@
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
 PORTVERSION=	0.1.9
-PORTREVISION=	17
+PORTREVISION=	18
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -17,7 +17,8 @@ RUN_DEPENDS=	squid>=0:www/squid \
 		squid_radius_auth>=0:www/squid_radius_auth \
 		c-icap-modules>=0:www/c-icap-modules \
 		squidclamav>=0:www/squidclamav \
-		samba410>=0:net/samba410
+		samba410>=0:net/samba410 \
+		base64>=0:converters/base64
 
 CONFLITS_WITH=	www/Kontrol-pkg-squid
 
