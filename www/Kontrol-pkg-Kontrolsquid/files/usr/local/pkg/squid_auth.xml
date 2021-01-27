@@ -135,7 +135,7 @@
 			<fieldname>auth_ttl</fieldname>
 			<description>
 				<![CDATA[
-				This specifies for how long (in minutes) the proxy server assumes an externally validated username and password combination to be valid.<br/>
+				This specifies for how long (in Minutes for NTLM/Kerberos | in Seconds for Transparent Auth) the proxy server assumes an externally validated username and password combination to be valid.<br/>
 				When the Time To Live expires, the user will be prompted for credentials again.
 				<span class="text-info">Default: 5</span>
 				]]>
