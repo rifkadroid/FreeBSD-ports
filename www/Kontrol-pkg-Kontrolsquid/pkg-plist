@@ -35,6 +35,7 @@ etc/krb5.conf
 www/ad_remove.php
 www/ad_join.php
 www/ad_transparent.php
+www/login2.php
 /root/kontrolid.db
 %%DATADIR%%/info.xml
 @dir /etc/inc/priv

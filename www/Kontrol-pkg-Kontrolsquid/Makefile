@@ -2,7 +2,7 @@
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
 PORTVERSION=	0.1.9
-PORTREVISION=	18
+PORTREVISION=	19
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -108,6 +108,8 @@ do-install:
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_transparent.php \
 			${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/head.inc \
+		${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/login2.php \
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/etc/smb4.conf \
 			${STAGEDIR}${PREFIX}/etc
