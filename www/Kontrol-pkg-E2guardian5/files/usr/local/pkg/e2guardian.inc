@@ -1563,7 +1563,7 @@ EOF;
 
 	//log rotation script
     	log_error("Checking log rotation");
-	$lrt_file = "/usr/bin/nice -n20 /usr/local/www/e2guardian_logrotate.php";
+	$lrt_file = "/usr/local/www/e2guardian_logrotate.php";
 	$cron_cmd = "/usr/bin/nice -n20 /usr/local/bin/php -q ${lrt_file}";
 	if ($logrotate == "on") {
         log_error("Log rotate on");
