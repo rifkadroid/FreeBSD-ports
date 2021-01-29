@@ -2,14 +2,14 @@
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
 PORTVERSION=	0.1.9
-PORTREVISION=	22
+PORTREVISION=	23
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
 MAINTAINER=	contato@konntrol.com.br
-COMMENT=	Kontrol package squid
+COMMENT=	Kontrol package Squid
 
 LICENSE=	APACHE20
 
