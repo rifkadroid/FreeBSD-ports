@@ -47,5 +47,6 @@ fi
 										fi
 												chmod 0660 /root/kontrolid.db
 												chown squid:proxy /usr/local/bin/kontrolhelper /root/kontrolid.db
-												
+echo "Before rc.packages cmd"												
 /usr/local/bin/php -f /etc/rc.packages %%PORTNAME%% ${2}
+echo "Post rc.packages cmd"
