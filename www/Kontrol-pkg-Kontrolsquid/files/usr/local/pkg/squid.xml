@@ -47,7 +47,7 @@
 		<url>/status_squid.php</url>
 	</menu>
 	<service>
-		<name>Kontrolsquid</name>
+		<name>squid</name>
 		<rcfile>squid.sh</rcfile>
 		<executable>squid</executable>
 		<description>Kontrol Custom Squid Proxy Server Service</description>

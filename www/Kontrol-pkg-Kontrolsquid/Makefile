@@ -2,7 +2,7 @@
 
 PORTNAME=	Kontrol-pkg-Kontrolsquid
 PORTVERSION=	0.1.9
-PORTREVISION=	26
+PORTREVISION=	27
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -20,7 +20,7 @@ RUN_DEPENDS=	squid>=0:www/squid \
 		samba410>=0:net/samba410 \
 		base64>=0:converters/base64
 
-CONFLITS_WITH=	www/Kontrol-pkg-squid
+#CONFLITS_WITH=	www/Kontrol-pkg-squid
 
 NO_BUILD=	yes
 NO_MTREE=	yes
