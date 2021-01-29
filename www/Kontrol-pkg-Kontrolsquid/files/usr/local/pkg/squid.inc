@@ -335,7 +335,7 @@ function squid_install_cron($should_install) {
 		return;
 	}
 
-	$cron_cmd = SQUID_BASE . "/sbin/squid -k rotate -f " . SQUID_CONFFILE;
+	$cron_cmd = SQUID_BASE . "/usr/bin/nice -n20 /sbin/squid -k rotate -f " . SQUID_CONFFILE;
 	/*
 	 * This is here to prevent Squid from filling disk completely on misconfigured boxes.
 	 * When 'Hard Disk Cache System' is set to null, the script silently returns, no need to check here.
@@ -343,10 +343,10 @@ function squid_install_cron($should_install) {
 	 * - if the swap.state file is taking up more than 75% of disk space,
 	 * - or the drive is 90% full and swap.state is larger than 1GB.
 	 */
-	$swapstate_cmd = "/usr/local/pkg/swapstate_check.php";
+	$swapstate_cmd = "/usr/bin/nice -n20 /usr/local/pkg/swapstate_check.php";
 	if (($should_install) && (squid_enabled())) {
 		log_error("[squid] Adding cronjobs ...");
-		install_cron_job("{$cron_cmd}", $should_install, "0", "0", "*", "*", "*", "root");
+		install_cron_job("{$cron_cmd}", $should_install, "10", "0", "*", "*", "*", "root");
 		install_cron_job("{$swapstate_cmd}", $should_install, "15", "0", "*", "*", "*", "root");
 	} else {
 		log_error("[squid] Removing cronjobs ...");
