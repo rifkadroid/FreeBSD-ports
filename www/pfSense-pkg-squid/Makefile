@@ -2,6 +2,7 @@
 
 PORTNAME=	pfSense-pkg-squid
 PORTVERSION=	0.4.45
+PORTREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
