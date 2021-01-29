@@ -737,7 +737,7 @@ function squid_upgrade_config() {
 	if (isset($config['installedpackages']['squid']['config'][0]['patch_cp'])) {
 		if ($config['installedpackages']['squid']['config'][0]['patch_cp'] == "on") {
 			$cp_msg = "Patch Captive Portal feature was removed - see Bug #5594!";
-			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from Kontrol GitHub repository if needed.";
+			$cp_msg .= "Double-check '/etc/inc/captiveportal.inc' contents for sanity! Get a sane copy of the file from pfSense GitHub repository if needed.";
 			file_notice("squid", $cp_msg, "Packages", "");
 			log_error("[squid] {$cp_msg}");
 			unset($cp_msg);
@@ -2119,18 +2119,56 @@ function squid_resync_auth() {
 				$conf .= "external_acl_type check_cp {$helpers_num} ttl={$auth_ttl} %SRC " . SQUID_BASE . "/bin/check_ip.php\n";
 				$conf .= "acl password external check_cp\n";
 				break;
-			case 'transparent':
-					$conf .= "####  TRANSPARENT AUTHENTICATION HELPER-Configure credentials using menu SERVICES / KONTROL Transparent #### \n";
-					$conf .= "external_acl_type userip children-startup=50 children-max={$processes} children-idle=10 ttl={$auth_ttl} %SRC /usr/local/bin/kontrolhelper \n";
-					$conf .= "acl KONTROLACL external userip \n";
-					$conf .= "http_access allow KONTROLACL \n";
-					$conf .= "\n";
-					$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
-					$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
-					$conf .= "always_direct deny all \n";
-					$conf .= "never_direct allow all \n";
-				break;
-
+				case 'transparent':
+						$conf .= "####  TRANSPARENT AUTHENTICATION HELPER-Configure credentials using text MENU - option 4 #### \n";
+						$conf .= "external_acl_type userip children-startup=50 children-max={$processes} children-idle=10 ttl={$auth_ttl} %SRC /usr/local/bin/kontrolhelper \n";
+						$conf .= "acl KONTROLACL external userip \n";
+						$conf .= "http_access allow KONTROLACL \n";
+						$conf .= "\n";
+						$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+						$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
+						$conf .= "always_direct deny all \n";
+						$conf .= "never_direct allow all \n";
+					break;
+				case 'ntlm':
+						$conf .= "#### NTLM AUTHENTICATION ONLY #### \n";
+						$conf .= "auth_param ntlm program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp \n";
+						$conf .= "auth_param ntlm children {$processes} startup=15 idle=5 \n";
+						$conf .= "auth_param ntlm keep_alive off \n";
+						$conf .= "\n";
+						$conf .= "#### STARTING CUSTOM ACLs #### \n";
+						$conf .= "acl auth proxy_auth REQUIRED \n";
+						$conf .= " \n";
+						$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
+						$conf .= "http_access allow auth \n";
+						$conf .= " \n";
+						$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+						$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
+						$conf .= "always_direct deny all \n";
+						$conf .= "never_direct allow all \n";
+					break;
+					case 'kerbntlm':
+						$conf .= "#### TRY KERBEROS Authentication #### \n";
+						$conf .= "auth_param negotiate program /usr/local/libexec/squid/negotiate_kerberos_auth -r -i -s HTTP/$myhostname@$mydomain \n";
+						$conf .= "auth_param negotiate children {$processes} startup=15 idle=5 \n";
+						$conf .= "auth_param negotiate keep_alive on \n";
+						$conf .= "\n";
+						$conf .= "#### NTLM AUTHENTICATION In case KERBEROS Failed #### \n";
+						$conf .= "auth_param ntlm program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp \n";
+						$conf .= "auth_param ntlm children {$processes} startup=15 idle=5 \n";
+						$conf .= "auth_param ntlm keep_alive off \n";
+						$conf .= "\n";
+						$conf .= "#### STARTING CUSTOM ACLs #### \n";
+						$conf .= "acl auth proxy_auth REQUIRED \n";
+						$conf .= " \n";
+						$conf .= "#### STARTING CUSTOM AUTHORIZATION ACL ### \n";
+						$conf .= "http_access allow auth \n";
+						$conf .= " \n";
+						$conf .= "####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### \n";
+						$conf .= "cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange \n";
+						$conf .= "always_direct deny all \n";
+						$conf .= "never_direct allow all \n";
+					break;
 
 		}
 		if (($auth_method != 'cp') && ($auth_method != 'transparent') && ($auth_method != 'kerberos')){
