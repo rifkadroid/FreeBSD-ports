@@ -315,7 +315,7 @@ function squid_install_cron($should_install) {
 		return;
 	}
 
-	$cron_cmd = SQUID_BASE . "/sbin/squid -k rotate -f " . SQUID_CONFFILE;
+	$cron_cmd = SQUID_BASE . "/usr/bin/nice -n20 /sbin/squid -k rotate -f " . SQUID_CONFFILE;
 	/*
 	 * This is here to prevent Squid from filling disk completely on misconfigured boxes.
 	 * When 'Hard Disk Cache System' is set to null, the script silently returns, no need to check here.

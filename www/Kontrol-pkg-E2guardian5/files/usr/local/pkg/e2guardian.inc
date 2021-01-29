@@ -1564,7 +1564,7 @@ EOF;
 	//log rotation script
     	log_error("Checking log rotation");
 	$lrt_file = "/usr/local/www/e2guardian_logrotate.php";
-	$cron_cmd = "/usr/local/bin/php -q ${lrt_file}";
+	$cron_cmd = "/usr/bin/nice -n20 /usr/local/bin/php -q ${lrt_file}";
 	if ($logrotate == "on") {
         log_error("Log rotate on");
 		e2g_check_cron($cron_cmd, "create", $cronminute, $cronhour);
@@ -1607,7 +1607,7 @@ EOF;
 	}
 
 	// Check acl schedules
-	$cron_cmd = "/usr/local/bin/php -q /usr/local/www/e2guardian_scheds.php";
+	$cron_cmd = "/usr/bin/nice -n20 /usr/local/bin/php -q /usr/local/www/e2guardian_scheds.php";
 	if (sizeof($e2g_sched_in_use) > 1) {
 		e2g_check_cron($cron_cmd, "create");
 	} else {
@@ -1621,13 +1621,13 @@ EOF;
 	} else {
 		e2g_check_cron($cron_cmd, "remove");
 	}
-	$cron_cmd = "/usr/local/bin/php /usr/local/www/e2guardian.php fetch_blacklist";
+	$cron_cmd = "/usr/bin/nice -n20 /usr/local/bin/php /usr/local/www/e2guardian.php fetch_blacklist";
 	if ($e2guardian_blacklist['cron']) {
 		e2g_check_cron($cron_cmd, "create", "0", "0", $cron_field[$e2guardian_blacklist['cron']]);
 	} else {
 		e2g_check_cron($cron_cmd, "remove");
 	}
-	$cron_cmd = "/usr/local/bin/php /usr/local/www/e2guardian_ldap.php";
+	$cron_cmd = "/usr/bin/nice -n20 /usr/local/bin/php /usr/local/www/e2guardian_ldap.php";
 	if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 		foreach ($config['installedpackages']['e2guardiangroups']['config'] as $e2guardian_groups) {
 			$e2_group_source = ($e2guardian_groups['groupnamesource'] != "" ? $e2guardian_groups['groupnamesource'] : "name");

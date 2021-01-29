@@ -105,7 +105,7 @@ function sarg_configure_cron() {
 				$new_cron['item'][] = $cron;
 			}
 		}
-		$cron_cmd="/usr/local/bin/php --no-header /usr/local/www/sarg.php";
+		$cron_cmd="/usr/bin/nice -n20 /usr/local/bin/php --no-header /usr/local/www/sarg.php";
 		$sarg_schedule_id = 0;
 		if (is_array($config['installedpackages']['sargschedule']['config'])) {
 			foreach ($config['installedpackages']['sargschedule']['config'] as $sarg_schedule) {
@@ -121,7 +121,7 @@ function sarg_configure_cron() {
 					$cron_found++;
 				}
 				if (preg_match('/(\d+)h/', $sarg_schedule['frequency'], $matches) && $sarg_schedule['enable']) {
-					$new_cron['item'][] = array("minute" => "0",
+					$new_cron['item'][] = array("minute" => "20",
 									"hour" => "*/" . $matches[1],
 									"mday" => "*",
 									"month" => "*",
@@ -132,7 +132,7 @@ function sarg_configure_cron() {
 					$cron_found++;
 				}
 				if (preg_match('/(\d+)d/', $sarg_schedule['frequency'], $matches) && $sarg_schedule['enable']) {
-					$new_cron['item'][] = array("minute" =>	"0",
+					$new_cron['item'][] = array("minute" =>	"20",
 									"hour" => "0",
 									"mday" => "*/" . $matches[1],
 									"month" => "*",
