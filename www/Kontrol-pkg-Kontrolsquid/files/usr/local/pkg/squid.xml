@@ -47,10 +47,10 @@
 		<url>/status_squid.php</url>
 	</menu>
 	<service>
-		<name>squid</name>
+		<name>Kontrolsquid</name>
 		<rcfile>squid.sh</rcfile>
 		<executable>squid</executable>
-		<description>Squid Proxy Server Service</description>
+		<description>Kontrol Custom Squid Proxy Server Service</description>
 	</service>
 	<service>
 		<name>clamd</name>
