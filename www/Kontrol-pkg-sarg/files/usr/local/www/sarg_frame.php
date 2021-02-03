@@ -4,6 +4,7 @@
 	part of pfSense (https://www.pfSense.org/)
 	Copyright (C) 2012 Marcello Coutinho <marcellocoutinho@gmail.com>
 	Copyright (C) 2015 ESF, LLC
+	Copyright KONNTROL Tecnologia Epp - 2016-2021
 	All rights reserved.
 
 	Redistribution and use in source and binary forms, with or without
@@ -28,6 +29,12 @@
 	POSSIBILITY OF SUCH DAMAGE.
 */
 require_once("authgui.inc");
+
+session_start();
+
+//Starting Cache Session - export to PDF process
+ob_start();
+
 
 $uname = posix_uname();
 if ($uname['machine'] == 'amd64') {
@@ -57,7 +64,7 @@ if ($_REQUEST['dir'] != "") {
 } else {
     $dsuffix = "";
 }
-    
+
 $rand = rand(100000000000, 999999999999);
 $report = "";
 
@@ -80,7 +87,7 @@ if ($report != "" ) {
 	$pattern[4] = '/<head>/';
 	$replace[4] = '<head><META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE"><META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">';
 
-	// look for graph files inside reports. 
+	// look for graph files inside reports.
 	if (preg_match_all('/img src="([a-zA-Z0-9._-]+).png/', $report, $images)) {
 		conf_mount_rw();
 		for ($x = 0; $x < count($images[1]); $x++) {
@@ -88,9 +95,18 @@ if ($report != "" ) {
 		}
 		conf_mount_ro();
 	}
+
 	print preg_replace($pattern, $replace, $report);
+
+
+
 } else {
 	print "Error: Could not find report index file.<br />Check and save Sarg settings and try to force Sarg schedule.";
 }
 
+$pdf = ob_get_clean();
+echo $pdf;
+$_SESSION['pdf'] = $pdf;
+
 ?>
+<button class="btn btn-success" onclick=" window.open('sarg_report_pdf.php','_blank')"> Open FullScreen for PDF</button>

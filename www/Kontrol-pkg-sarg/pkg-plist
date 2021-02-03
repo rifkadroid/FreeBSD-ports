@@ -8,6 +8,7 @@ www/sarg.php
 www/sarg_frame.php
 www/sarg_reports.php
 www/sarg_sorttable.js
+www/sarg_report_pdf.php
 /etc/inc/priv/sarg.priv.inc
 %%DATADIR%%/info.xml
 @dir /etc/inc/priv

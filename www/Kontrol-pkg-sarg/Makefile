@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-Sarg
-PORTVERSION=	0.6.17
+PORTVERSION=	0.6.18
 #PORTREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	# empty
@@ -49,6 +49,8 @@ do-install:
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0644 ${FILESDIR}${PREFIX}/www/sarg.php \
 		${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} -m 0644 ${FILESDIR}${PREFIX}/www/sarg_report_pdf.php \
+			${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0644 ${FILESDIR}${DATADIR}/info.xml \
 		${STAGEDIR}${DATADIR}
 	${INSTALL_DATA} -m 0644 ${FILESDIR}${PREFIX}/www/sarg_sorttable.js \
