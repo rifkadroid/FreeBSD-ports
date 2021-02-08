@@ -714,5 +714,5 @@ function write_frr_running_config() {
 			$config['installedpackages']['frrglobalraw']['config'][0][$module . "running"] = base64_encode("# file {$module}.conf does not exist or is empty.");
 		}
 	}
-	write_config(gettext("FRR: Wrote running configuration to pfSense config file."), false, true);
+	write_config(gettext("FRR: Wrote running configuration to Kontrol config file."), false, true);
 }

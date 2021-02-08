@@ -66,7 +66,7 @@
 		<tab>
 			<text>[OSPF6]</text>
 			<url>pkg_edit.php?xml=frr/frr_ospf6.xml</url>
-		</tab>		
+		</tab>
 		<tab>
 			<text>Status</text>
 			<url>/status_frr.php?protocol=bgp</url>
@@ -174,7 +174,7 @@
 		<field>
 			<fielddescr>Redistribute Kernel</fielddescr>
 			<fieldname>redistributekernel</fieldname>
-			<description>Redistribute Kernel routing table/pfSense static routes</description>
+			<description>Redistribute Kernel routing table/Kontrol static routes</description>
 			<type>select_source</type>
 			<source><![CDATA[frr_get_routemap_list(false, true)]]></source>
 			<source_name>name</source_name>

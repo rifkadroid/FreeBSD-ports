@@ -7,7 +7,7 @@
 			Conflicts with Quagga_OSPF and FRR; these packages cannot be installed at the same time.
 		</descr>
 		<version>%%PKGVERSION%%</version>
-		<pkginfolink>https://doc.pfsense.org/index.php/OpenBGPD_package</pkginfolink>
+		<pkginfolink>https://konntrol.com.br/</pkginfolink>
 		<configurationfile>openbgpd.xml</configurationfile>
 	</package>
 </pfsensepkgs>

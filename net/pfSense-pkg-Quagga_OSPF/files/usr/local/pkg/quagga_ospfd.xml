@@ -160,10 +160,10 @@
 		<field>
 			<fielddescr>Redistribute Kernel</fielddescr>
 			<fieldname>redistributekernel</fieldname>
-			<description>Enables the redistribution of kernel routing table (this is required if using pfsense static routes)</description>
+			<description>Enables the redistribution of kernel routing table (this is required if using Kontrol static routes)</description>
 			<type>checkbox</type>
 		</field>
-			
+
 		<field>
 			<fielddescr>SPF Hold Time</fielddescr>
 			<fieldname>spfholdtime</fieldname>

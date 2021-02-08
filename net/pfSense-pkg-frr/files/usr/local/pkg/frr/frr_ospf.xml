@@ -62,7 +62,7 @@
 		<tab>
 			<text>[OSPF6]</text>
 			<url>pkg_edit.php?xml=frr/frr_ospf6.xml</url>
-		</tab>		
+		</tab>
 		<tab>
 			<text>Status</text>
 			<url>/status_frr.php?protocol=ospf</url>
@@ -272,9 +272,9 @@
 		</field>
 
 		<field>
-			<fielddescr>pfSense Kernel Routes</fielddescr>
+			<fielddescr>Kontrol Kernel Routes</fielddescr>
 			<fieldname>redistributekernel</fieldname>
-			<description>Redistribute pfSense Kernel</description>
+			<description>Redistribute Kontrol Kernel</description>
 			<type>checkbox</type>
 			<combinefields>begin</combinefields>
 		</field>
@@ -315,7 +315,7 @@
 			<fielddescr></fielddescr>
 			<description>
 				<![CDATA[
-				Kernel routes are routes in the pfSense kernel routing table, which includes static routes and other non-local routes not obtained from routing protocols.
+				Kernel routes are routes in the Kontrol kernel routing table, which includes static routes and other non-local routes not obtained from routing protocols.
 				]]>
 			</description>
 			<type>info</type>
