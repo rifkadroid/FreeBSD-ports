@@ -790,5 +790,5 @@ function read_frr_running_config() {
 	} else {
 		$config['installedpackages']['frrglobalraw']['config'][0]["frrrunning"] = base64_encode("# file frr.conf does not exist or is empty.");
 	}
-	write_config(gettext("FRR: Saved running configuration into pfSense config file."), false, true);
+	write_config(gettext("FRR: Saved running configuration into Kontrol config file."), false, true);
 }

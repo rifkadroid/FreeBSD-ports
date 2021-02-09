@@ -275,7 +275,7 @@
 		<field>
 			<fielddescr>Redistribute Kernel</fielddescr>
 			<fieldname>redistributekernel</fieldname>
-			<description>Redistribute Kernel routing table/pfSense static routes</description>
+			<description>Redistribute Kernel routing table/Kontrol static routes</description>
 			<type>select_source</type>
 			<source><![CDATA[frr_get_routemap_list(false, true)]]></source>
 			<source_name>name</source_name>
