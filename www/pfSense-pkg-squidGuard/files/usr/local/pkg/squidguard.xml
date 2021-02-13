@@ -88,7 +88,6 @@
 			<sethelp>
 				<![CDATA[
 				<strong><span class="errmsg">Important: </span></strong>Please set up at least one category on the 'Target Categories' tab before enabling.
-				See <a href="https://forum.pfsense.org/index.php?topic=94312.0">this link for details</a>.
 				]]>
 			</sethelp>
 			<type>checkbox</type>
@@ -244,7 +243,7 @@
 			<fielddescr>Blacklist URL</fielddescr>
 			<fieldname>blacklist_url</fieldname>
 			<description>
-				<![CDATA[Enter the path to the blacklist (blacklist.tar.gz) here. You can use FTP, HTTP or LOCAL URL blacklist archive or leave blank. The LOCAL path could be your pfsense (/tmp/blacklist.tar.gz).]]>
+				<![CDATA[Enter the path to the blacklist (blacklist.tar.gz) here. You can use FTP, HTTP or LOCAL URL blacklist archive or leave blank. The LOCAL path could be your Kontrol (/tmp/blacklist.tar.gz).]]>
 			</description>
 			<type>input</type>
 			<size>100</size>
