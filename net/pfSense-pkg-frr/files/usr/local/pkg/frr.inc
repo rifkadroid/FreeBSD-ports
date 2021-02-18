@@ -342,6 +342,10 @@ EOF;
 echo "Stopping FRR"
 	/usr/local/etc/rc.d/frr stop
 
+	if [ -s {$frr_config_base}/frr_md5pw_del.conf ]; then
+		/sbin/setkey -f {$frr_config_base}/frr_md5pw_del.conf
+	fi
+
 	if [ -e /var/run/frr/\watchfrr.pid ]; then
 	echo "Stopping watchfrr"
 	/bin/pkill -F /var/run/frr/watchfrr.pid
@@ -513,6 +517,16 @@ function frr_daemons_running($daemons) {
 function frr_setkey($restart_needed) {
 	global $config, $frr_config_base;
 	$peers = array();
+
+	if (is_array($config['installedpackages']['frr']['config']) &&
+	    empty($config['installedpackages']['frr']['config'][0]['enable'])) {
+		if (file_exists("{$frr_config_base}/frr_md5pw_del.conf")) {
+			mwexec("/sbin/setkey -f {$frr_config_base}/frr_md5pw_del.conf");
+		}
+		unlink_if_exists("{$frr_config_base}/frr_md5pw_del.conf");
+		unlink_if_exists("{$frr_config_base}/frr_md5pw_add.conf");
+		return;
+	}
 
 	/* Build md5 password configuration files based on raw tab list */
 	if (is_array($config['installedpackages']['frrglobalraw']['config'][0]['row'])) {
@@ -765,68 +779,75 @@ function frr_generate_config_integrated() {
 		$frr_conf = &$config['installedpackages']['frr']['config'][0];
 	}
 
-	/* If there is no raw configuration and no GUI configuration, stop. */
-	if (empty($frr_conf)) {
-		frr_package_log("FRR: No config data found.");
-		return;
-	}
 	if (empty($frr_conf['enable'])) {
 		frr_package_log("FRR: FRR master switch is off.");
 		return;
 	}
 
-	frr_package_log("FRR: Rebuild configuration.");
-
-	$integratedconffile = $frr_auto_config_warning;
-	$integratedconffile .= "frr defaults traditional\n";
-	$integratedconffile .= "hostname " . $config['system']['hostname'] . "." . $config['system']['domain'] . "\n";
-
-	/* Management Password */
-	if ($frr_conf['password']) {
-		$integratedconffile .= "password {$frr_conf['password']}\n";
-	}
-	/* Logging Options */
-	if ($frr_conf['logging']) {
-		$integratedconffile .= "log syslog\n";
-	}
-	/* SNMP AgentX Support*/
-	if ($frr_conf['enablesnmpagentx']) {
-		$integratedconffile .= "agentx\n";
-	}
-
-	/* FRR Services */
-	$integratedconffile .= "service integrated-vtysh-config\n";
-	if ($frr_conf['passwordencrypt']) {
-		$integratedconffile .= "service password-encryption\n";
-	}
-	$integratedconffile .= "!\n";
-
-	if (!empty($frr_conf['routerid'])) {
-		if (is_ipaddrv4($frr_conf['routerid'])) {
-			$integratedconffile .= "ip ";
-		} elseif (is_ipaddrv6($frr_conf['routerid'])) {
-			$integratedconffile .= "ipv6 ";
+	if (isset($config['installedpackages']['frrglobalraw']['config'][0]['frr']) &&
+		!empty($config['installedpackages']['frrglobalraw']['config'][0]['frr'])) {
+		// if there is a raw config specified in the config.xml use that instead of the assisted config
+		$integratedconffile = str_replace("\r", "", base64_decode($config['installedpackages']['frrglobalraw']['config'][0]['frr']));
+	} else {
+		/* If there is no raw configuration and no GUI configuration, stop. */
+		if (empty($frr_conf)) {
+			frr_package_log("FRR: No config data found.");
+			return;
 		}
-		$integratedconffile .= "router-id {$frr_conf['routerid']}\n";
-		$integratedconffile .= "!\n";
-	}
 
-	frr_flatten_config_interfaces();
-	$conf_keys = array('staticd', 'interfaces', 'bgpd', 'rpki', 'ospfd', 'ospf6d', 'zebra', 'bfdd');
-	foreach ($conf_keys as $key) {
-		if (empty($frr_integrated_config[$key])) {
-			continue;
+		frr_package_log("FRR: Rebuild configuration.");
+
+		$integratedconffile = $frr_auto_config_warning;
+		$integratedconffile .= "frr defaults traditional\n";
+		$integratedconffile .= "hostname " . $config['system']['hostname'] . "." . $config['system']['domain'] . "\n";
+
+		/* Management Password */
+		if ($frr_conf['password']) {
+			$integratedconffile .= "password {$frr_conf['password']}\n";
 		}
-		$integratedconffile .= $frr_integrated_config[$key];
+		/* Logging Options */
+		if ($frr_conf['logging']) {
+			$integratedconffile .= "log syslog\n";
+		}
+		/* SNMP AgentX Support*/
+		if ($frr_conf['enablesnmpagentx']) {
+			$integratedconffile .= "agentx\n";
+		}
+
+		/* FRR Services */
+		$integratedconffile .= "service integrated-vtysh-config\n";
+		if ($frr_conf['passwordencrypt']) {
+			$integratedconffile .= "service password-encryption\n";
+		}
 		$integratedconffile .= "!\n";
+
+		if (!empty($frr_conf['routerid'])) {
+			if (is_ipaddrv4($frr_conf['routerid'])) {
+				$integratedconffile .= "ip ";
+			} elseif (is_ipaddrv6($frr_conf['routerid'])) {
+				$integratedconffile .= "ipv6 ";
+			}
+			$integratedconffile .= "router-id {$frr_conf['routerid']}\n";
+			$integratedconffile .= "!\n";
+		}
+
+		frr_flatten_config_interfaces();
+		$conf_keys = array('staticd', 'interfaces', 'bgpd', 'rpki', 'ospfd', 'ospf6d', 'zebra', 'bfdd');
+		foreach ($conf_keys as $key) {
+			if (empty($frr_integrated_config[$key])) {
+				continue;
+			}
+			$integratedconffile .= $frr_integrated_config[$key];
+			$integratedconffile .= "!\n";
+		}
+
+		$integratedconffile .= "line vty\n";
+		$integratedconffile .= "!\n";
+		$integratedconffile .= "end\n";
+
+		/* Remove sample configuration files */
+		array_map('unlink', glob("{$frr_config_base}/*.sample*"));
 	}
-
-	$integratedconffile .= "line vty\n";
-	$integratedconffile .= "!\n";
-	$integratedconffile .= "end\n";
-
-	/* Remove sample configuration files */
-	array_map('unlink', glob("{$frr_config_base}/*.sample*"));
 
 	file_put_contents("{$frr_config_base}/frr.conf", $integratedconffile, LOCK_EX);
 	chown("{$frr_config_base}/frr.conf", 'frr');
