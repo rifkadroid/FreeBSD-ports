@@ -1,3 +1,18 @@
 #!/bin/sh
 
+case $2 in
+	DEINSTALL)
+		;;
+
+	POST-DEINSTALL)
+  mv /usr/local/www/head.inc.pkgsave /usr/local/www/head.inc
+		;;
+
+	*)
+		echo "Unexpected Argument $2!"
+		exit 1
+		;;
+esac
+#exit 0
+
 /usr/local/bin/php -f /etc/rc.packages %%PORTNAME%% ${2}
