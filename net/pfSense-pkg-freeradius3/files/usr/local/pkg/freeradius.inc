@@ -2064,6 +2064,11 @@ EOD;
 		sql1
 		{$varsqlconf2authorize}
 	}
+	if (notfound || noop) {
+
+EOD;
+	$varsqlconfauthcounters = <<<EOD
+
 	dailycounter
 	monthlycounter
 	noresetcounter
@@ -2073,6 +2078,11 @@ EOD;
 	} else {
 		$varsqlconfauthorize = <<<EOD
 	### sql DISABLED ###
+	if (true) {
+
+EOD;
+	$varsqlconfauthcounters = <<<EOD
+
 	-daily
 	-weekly
 	-monthly
@@ -2265,15 +2275,15 @@ authorize {
 	}
 #	unix
 	files
-	if ((notfound || noop) && (&control:Auth-Type != Accept)) {
+	if ((notfound || noop) && ("%{%{Control:Auth-Type}:-No-Accept}" != "Accept")) {
 		{$varsqlconfauthorize}
-		if (notfound || noop) {
 			{$varmodulesldapenableauthorize}
 			if (notfound || noop) {
 				reject
 			}
 		}
 	}
+	{$varsqlconfauthcounters}
 	# Formerly checkval
 	if (&request:Calling-Station-Id == &control:Calling-Station-Id) {
 		ok
