@@ -28,7 +28,6 @@ bin/check_ip.php
 pkg/sqpmon.sh
 www/squid_log_parser.php
 pkg/swapstate_check.php
-www/head.inc
 bin/kontrolhelper
 etc/smb4.conf
 etc/krb5.conf
