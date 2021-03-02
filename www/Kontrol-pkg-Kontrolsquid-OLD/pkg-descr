@@ -1,6 +1,0 @@
-Kontrol Custom Squid High performance web proxy cache. It combines Squid as a proxy
-server with its capabilities of acting as a HTTP / HTTPS reverse proxy.
-It includes an Exchange-Web-Access (OWA) Assistant, SSL filtering and
-antivirus integration via C-ICAP.
-
-WWW: https://konntrol.com.br/
