@@ -339,7 +339,6 @@
 			<options>
 				<option><name>None (Do Nothing)</name><value>none</value></option>
 				<option><name>Match AS Path</name><value>match</value></option>
-				<option><name>Set</name><value>set</value></option>
 				<option><name>Set Exclude</name><value>setexclude</value></option>
 				<option><name>Set Prepend</name><value>setprepend</value></option>
 				<option><name>Set Prepend Last-AS</name><value>setprependlast</value></option>
@@ -500,6 +499,23 @@
 			<description>
 				The tag number to set or match, an integer 1-4294967295.
 			</description>
+		</field>
+		<field>
+			<name>RPKI</name>
+			<type>listtopic</type>
+		</field>
+		<field>
+			<fielddescr>Validate BGP Updates</fielddescr>
+			<fieldname>rpki_state</fieldname>
+			<description>Match RKPI State</description>
+			<type>select</type>
+			<default_value>none</default_value>
+			<options>
+				<option><name>None (Do not match)</name><value>none</value></option>
+				<option><name>Prefix not found</name><value>notfound</value></option>
+				<option><name>Invalid prefix</name><value>invalid</value></option>
+				<option><name>Valid prefix</name><value>valid</value></option>
+			</options>
 		</field>
 	</fields>
 	<custom_php_resync_config_command>
