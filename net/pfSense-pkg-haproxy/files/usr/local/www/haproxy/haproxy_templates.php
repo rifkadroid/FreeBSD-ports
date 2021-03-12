@@ -257,7 +257,7 @@ haproxy_display_top_tabs_active($haproxy_tab_array['haproxy'], "templates");
 				As an basic example you can use the link below to create a 'stats' frontend/backend page which offers with more options like setting user/password and 'admin mode' when you go to the backend settings.<br/>
 				TEMPLATE: Create stats example configuration using a frontend/backend combination with ssl<br/>
 				<br/>
-				After applying the changes made by the template use this link to visit the stats page: <a target="_blank" href="https://<?=get_interface_ip("lan");?>:444">https://pfSense-LAN-ip:444/</a>
+				After applying the changes made by the template use this link to visit the stats page: <a target="_blank" href="https://<?=get_interface_ip("lan");?>:444">https://Kontrol-LAN-ip:444/</a>
 			</div>
 		</div>
 		<br/>
