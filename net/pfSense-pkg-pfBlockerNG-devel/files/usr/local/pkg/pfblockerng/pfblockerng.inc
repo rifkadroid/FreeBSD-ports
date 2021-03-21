@@ -384,6 +384,9 @@ function pfb_filter_service() {
 		exit
 	fi
 
+	# Ensure all processes are stopped
+	rc_stop
+
 	# clog is not required for pfSense 2.5 and above
 	filter_type='tail_pfb'
 	if [ -e "/usr/local/sbin/clog_pfb" ]; then
@@ -433,7 +436,7 @@ EOF;
 	# Terminate pfBlockerNG Firewall filter Daemon (clog) and filter Daemon, if found
 	/usr/bin/logger -p daemon.info -t "\${filter_type}" "[pfBlockerNG] Firewall Filter Service stopped"
 	/usr/bin/logger -p daemon.info -t php_pfb "[pfBlockerNG] filterlog daemon stopped"
-	pidnum="\$(/bin/ps -wax | /usr/bin/grep '[c]log_pfb -f /var/log/filter.log\|[t]ail_pfb -n0 /var/log/filter.log\|[p]fblockerng.inc filterlog' | /usr/bin/awk '{print \$1}')"
+	pidnum="\$(/bin/ps -wax | /usr/bin/grep '[c]log_pfb -f /var/log/filter.log\|[t]ail_pfb -n0 -F /var/log/filter.log\|[p]fblockerng.inc filterlog' | /usr/bin/awk '{print \$1}')"
 	if [ ! -z "\${pidnum}" ]; then
 		for i in \${pidnum}; do
 			/bin/kill -9 "\${i}"
@@ -457,6 +460,9 @@ function pfb_dnsbl_service() {
 	if [ "\${dnsblcheck}" != 'on' ]; then
 		exit
 	fi
+
+	# Ensure all processes are stopped
+	rc_stop
 
 	# Start DNSBL Lighttpd webserver (Unbound/Python mode) and DNSBL HTTPS Daemon (Unbound mode only)
 	if [ -e '/var/unbound/pfb_dnsbl_lighty.conf' ]; then
@@ -1963,7 +1969,6 @@ function pfb_unbound_python($mode) {
 
 		$python_tld = 'off';
 		if ($pfb['dnsbl_pytld'] == 'on') {
-
 			$python_tlds = '';
 			if (!empty($pfb['dnsblconfig']['pfb_pytlds_gtld'])) {
 				$python_tld = 'on';
@@ -2482,9 +2487,9 @@ function tld_analysis() {
 				$s_info = trim($eparts[2]);
 
 				if ($pfb['dnsbl_v6'] == 'on') {
-					// Determine if DNSBL Logging is disabled and switch to '::/0'
+					// Determine if DNSBL Logging is disabled and switch to '::0'
 					if (strpos($s_info, ' A 0.0.0.0') !== FALSE) {
-						$s_info6 = str_replace(' A 0.0.0.0', ' AAAA ::/0', $s_info);
+						$s_info6 = str_replace(' A 0.0.0.0', ' AAAA ::0', $s_info);
 					} else {
 						$s_info6 = str_replace(' A ', ' AAAA ::', $s_info);
 					}
@@ -7244,10 +7249,10 @@ function sync_package_pfblockerng($cron='') {
 								$list['logging'] = 'enabled';
 							}
 
-							// If Null Blocking mode is selected, use '0.0.0.0|::/0', otherwise utilize DNSBL WebServer/DNSBL VIP
+							// If Null Blocking mode is selected, use '0.0.0.0|::0', otherwise utilize DNSBL WebServer/DNSBL VIP
 							if ($list['logging'] == 'disabled') {
 								$sinkhole_type4 = '0.0.0.0';
-								$sinkhole_type6 = '::/0';
+								$sinkhole_type6 = '::0';
 								$logging_type	= '2';	// Null Blocking no logging
 							}
 							elseif ($list['logging'] == 'disabled_log') {
