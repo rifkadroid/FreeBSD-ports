@@ -359,7 +359,7 @@ function pfb_update_check($header, $list_url, $pfbfolder, $pfborig, $pflex, $for
 			$local_tds = gmdate('D, j M Y H:i:s T', @filemtime($local_file));
 			$log = "  Local  timestamp: {$local_tds}\t";
 			pfb_logger("{$log}", 1);
-	
+
 			if ("{$remote_tds}" != "{$local_tds}") {
 				$pfb['cron_update'] = TRUE;
 			}
@@ -420,7 +420,7 @@ function pfblockerng_download_extras($timeout=600, $type='') {
 		$feed['username']	= $feed['username'] ?: '';
 		$feed['password']	= $feed['password'] ?: '';
 
-		if (!pfb_download($feed['url'], $file_dwn, FALSE, "{$feed['folder']}/{$feed['file']}", '', $logtype, '', $timeout, $feed['type'], 
+		if (!pfb_download($feed['url'], $file_dwn, FALSE, "{$feed['folder']}/{$feed['file']}", '', $logtype, '', $timeout, $feed['type'],
 		    $feed['username'], $feed['password'])) {
 
 			$log = "\nFailed to Download {$feed['file']}\n";
@@ -572,7 +572,7 @@ function pfblockerng_uc_countries() {
 	$maxmind_cont = "{$pfb['geoipshare']}/GeoLite2-Country-Locations-{$pfb['maxmind_locale']}.csv";
 	if (!file_exists($maxmind_cont)) {
 		$log = " [ MAXMIND UPDATE FAIL, Language File Missing, using previous Country code database ] [ NOW ]\n";
-		pfb_logger("{$log}", 4); 
+		pfb_logger("{$log}", 4);
 		return;
 	}
 
@@ -923,7 +923,7 @@ function pfblockerng_uc_countries() {
 
 	// Collect Country ISO data and sort to Continent arrays (IPv4 and IPv6)
 	foreach (array('4', '6') as $type) {
-	
+
 		$log = " Processing ISO IPv{$type} Continent/Country Data [ NOW ]\n";
 		pfb_logger("{$log}", 4);
 
@@ -951,7 +951,7 @@ function pfblockerng_uc_countries() {
 
 					// Is Anonymous Proxy?
 					if ($cc[4] == 1) {
-	
+
 						if (!empty($cc[1])) {
 							$iso = "A1_{$pfb_geoip['country']['proxy']['iso'][0]}";
 						}
@@ -1134,7 +1134,7 @@ function pfblockerng_uc_countries() {
 							else {
 								$log = "\n Missing ISO data: {$geoip['continent']}";
 								pfb_logger("{$log}", 4);
-								
+
 							}
 						}
 						else {
@@ -1625,7 +1625,7 @@ $action_txt = "Default: <strong>Disabled</strong>
 
 			<strong><u>'Alias' Rules:</u></strong><br />
 			<strong>'Alias'</strong> rules create an <a href=\"/firewall_aliases.php\">alias</a> for the list (and do nothing else).
-			This enables a pfBlockerNG list to be used by name, in any firewall rule or pfSense function, as desired.
+			This enables a pfBlockerNG list to be used by name, in any firewall rule or Kontrol function, as desired.
 				<ul>
 					<li><strong>Options - Alias Deny,&nbsp; Alias Permit,&nbsp; Alias Match,&nbsp; Alias Native</strong></li>
 					<li>'Alias Deny' can use De-Duplication and Reputation Processes if configured.</li>
@@ -2003,7 +2003,7 @@ $section->addInput(new Form_StaticText(
 	. 'perform on all Lists together.'
 	. '</div>'
 ));
-	
+
 $section->addInput(new Form_Checkbox(
 	'enable_pdup',
 	'pMAX',

@@ -62,7 +62,7 @@ if (isset($_POST['del_x'])) {
 			if ($if_real == "") {
 				rmdir_recursive("{$suricatalogdir}suricata_{$if_real}{$suricata_uuid}");
 				rmdir_recursive("{$suricatadir}suricata_{$suricata_uuid}_*");
-				syslog(LOG_NOTICE, "Deleted the Suricata instance on a previously removed pfSense interface per user request...");
+				syslog(LOG_NOTICE, "Deleted the Suricata instance on a previously removed Kontrol interface per user request...");
 			}
 			else {
 				// Delete the interface sub-directories and then the instance itself
@@ -114,7 +114,7 @@ if (isset($_POST['del_x'])) {
 		if ($if_real == "") {
 			rmdir_recursive("{$suricatalogdir}suricata_{$if_real}{$suricata_uuid}");
 			rmdir_recursive("{$suricatadir}suricata_{$suricata_uuid}_*");
-			syslog(LOG_NOTICE, "Deleted the Suricata instance on a previously removed pfSense interface per user request...");
+			syslog(LOG_NOTICE, "Deleted the Suricata instance on a previously removed Kontrol interface per user request...");
 		}
 		else {
 			// Delete the interface sub-directories and then the instance itself

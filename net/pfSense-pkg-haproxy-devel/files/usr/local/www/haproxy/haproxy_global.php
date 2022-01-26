@@ -82,7 +82,7 @@ haproxy_config_init();
 if ($_POST) {
 	unset($input_errors);
 	$pconfig = $_POST;
-	
+
 	if ($_POST['calculate_certificate_chain']) {
 		$changed = haproxy_recalculate_certifcate_chain();
 		if ($changed > 0)
@@ -139,7 +139,7 @@ if ($_POST) {
 			} else {
 				$haproxycfg['config'][0]['enable'] = 'off';
 			}
-			
+
 			touch($d_haproxyconfdirty_path);
 			write_config("haproxy-devel: Global settings saved");
 		}
@@ -308,7 +308,7 @@ $section->addInput(new Form_Checkbox(
 	Note: when this option is selected, connections will be closed when haproxy is restarted.
 	Otherwise the existing connections will be served by the old haproxy process until they are closed.
 	Checking this option will interrupt existing connections on a restart (which happens when the configuration is applied,
-	but possibly also when pfSense detects an interface coming up or a change in its ip-address.)
+	but possibly also when Kontrol detects an interface coming up or a change in its ip-address.)
 EOD
 );
 
@@ -348,7 +348,7 @@ $form->add($section);
 
 $section = new Form_Section('Logging');
 $section->addInput(new Form_Input('remotesyslog', 'Remote syslog host', 'text', $pconfig['remotesyslog']
-))->setHelp('To log to the local pfSense systemlog fill the host with the value <b>/var/run/log</b>, however if a lot of messages are generated logging is likely to be incomplete. (Also currently no informational logging gets shown in the systemlog.)');
+))->setHelp('To log to the local Kontrol systemlog fill the host with the value <b>/var/run/log</b>, however if a lot of messages are generated logging is likely to be incomplete. (Also currently no informational logging gets shown in the systemlog.)');
 $section->addInput(new Form_Select(
 	'logfacility',
 	'Syslog facility',
@@ -474,7 +474,7 @@ $section->addInput(new Form_Checkbox(
 	'Sync HAProxy configuration to backup CARP members via XMLRPC.',
 	$pconfig['enablesync']
 ))->setHelp(<<<EOD
-	Note: The synchronisation host and password are those configured in pfSense main <a href="/system_hasync.php">"System: High Availability Sync"</a> settings.
+	Note: The synchronisation host and password are those configured in Kontrol main <a href="/system_hasync.php">"System: High Availability Sync"</a> settings.
 EOD
 );
 $form->add($section);

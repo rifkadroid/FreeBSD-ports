@@ -374,32 +374,32 @@ if ($_POST['save'] && !$input_errors) {
 		}
 		else {
 			// Adding new interface, so set required interface configuration defaults
-			$frag3_eng = array( "name" => "default", "bind_to" => "all", "policy" => "bsd", 
-					    "timeout" => 60, "min_ttl" => 1, "detect_anomalies" => "on", 
+			$frag3_eng = array( "name" => "default", "bind_to" => "all", "policy" => "bsd",
+					    "timeout" => 60, "min_ttl" => 1, "detect_anomalies" => "on",
 					    "overlap_limit" => 0, "min_frag_len" => 0 );
 
-			$stream5_eng = array( "name" => "default", "bind_to" => "all", "policy" => "bsd", "timeout" => 30, 
-					      "max_queued_bytes" => 1048576, "detect_anomalies" => "off", "overlap_limit" => 0, 
-					      "max_queued_segs" => 2621, "require_3whs" => "off", "startup_3whs_timeout" => 0, 
-					      "no_reassemble_async" => "off", "max_window" => 0, "use_static_footprint_sizes" => "off", 
-					      "check_session_hijacking" => "off", "dont_store_lg_pkts" => "off", "ports_client" => "default", 
+			$stream5_eng = array( "name" => "default", "bind_to" => "all", "policy" => "bsd", "timeout" => 30,
+					      "max_queued_bytes" => 1048576, "detect_anomalies" => "off", "overlap_limit" => 0,
+					      "max_queued_segs" => 2621, "require_3whs" => "off", "startup_3whs_timeout" => 0,
+					      "no_reassemble_async" => "off", "max_window" => 0, "use_static_footprint_sizes" => "off",
+					      "check_session_hijacking" => "off", "dont_store_lg_pkts" => "off", "ports_client" => "default",
 					      "ports_both" => "default", "ports_server" => "none" );
 
-			$http_eng = array( "name" => "default", "bind_to" => "all", "server_profile" => "all", "enable_xff" => "off", 
-					   "log_uri" => "off", "log_hostname" => "off", "server_flow_depth" => 65535, "enable_cookie" => "on", 
-					   "client_flow_depth" => 1460, "extended_response_inspection" => "on", "no_alerts" => "off", 
-					   "unlimited_decompress" => "on", "inspect_gzip" => "on", "normalize_cookies" =>"on", 
-					   "normalize_headers" => "on", "normalize_utf" => "on", "normalize_javascript" => "on", 
+			$http_eng = array( "name" => "default", "bind_to" => "all", "server_profile" => "all", "enable_xff" => "off",
+					   "log_uri" => "off", "log_hostname" => "off", "server_flow_depth" => 65535, "enable_cookie" => "on",
+					   "client_flow_depth" => 1460, "extended_response_inspection" => "on", "no_alerts" => "off",
+					   "unlimited_decompress" => "on", "inspect_gzip" => "on", "normalize_cookies" =>"on",
+					   "normalize_headers" => "on", "normalize_utf" => "on", "normalize_javascript" => "on",
 					   "allow_proxy_use" => "off", "inspect_uri_only" => "off", "max_javascript_whitespaces" => 200,
 					   "post_depth" => -1, "max_headers" => 0, "max_spaces" => 0, "max_header_length" => 0, "ports" => "default",
 					   "decompress_swf" => "off", "decompress_pdf" => "off" );
 
-			$ftp_client_eng = array( "name" => "default", "bind_to" => "all", "max_resp_len" => 256, 
-						 "telnet_cmds" => "no", "ignore_telnet_erase_cmds" => "yes", 
+			$ftp_client_eng = array( "name" => "default", "bind_to" => "all", "max_resp_len" => 256,
+						 "telnet_cmds" => "no", "ignore_telnet_erase_cmds" => "yes",
 						 "bounce" => "yes", "bounce_to_net" => "", "bounce_to_port" => "" );
 
-			$ftp_server_eng = array( "name" => "default", "bind_to" => "all", "ports" => "default", 
-						 "telnet_cmds" => "no", "ignore_telnet_erase_cmds" => "yes", 
+			$ftp_server_eng = array( "name" => "default", "bind_to" => "all", "ports" => "default",
+						 "telnet_cmds" => "no", "ignore_telnet_erase_cmds" => "yes",
 						 "ignore_data_chan" => "no", "def_max_param_len" => 100 );
 
 			$natent['max_attribute_hosts'] = '10000';
@@ -555,8 +555,8 @@ if ($_POST['save'] && !$input_errors) {
 		/* If using Inline IPS and the current interface is a VLAN, advise  */
 		/* advise user that VLAN Hardware Filtering should be disabled.     */
 		if ($natent['enable'] == 'on' && $natent['ips_mode'] == 'ips_mode_inline' && interface_is_vlan(get_real_interface($natent['interface']))) {
-			$vlan_warn_msg = gettext('NOTICE:  When using Inline IPS Mode with VLAN interfaces, hardware-level VLAN filtering should be disabled with most network cards. Follow the steps in the Netgate documentation ') . 
-					 '<a target="_blank" href="https://docs.netgate.com/pfsense/en/latest/hardware/tuning-and-troubleshooting-network-cards.html#intel-ix-4-cards">' . gettext('here') . 
+			$vlan_warn_msg = gettext('NOTICE:  When using Inline IPS Mode with VLAN interfaces, hardware-level VLAN filtering should be disabled with most network cards. Follow the steps in the Kontrol documentation ') .
+					 '<a target="_blank" href="https://github.com/kontrol-be/en/latest/hardware/tuning-and-troubleshooting-network-cards.html#intel-ix-4-cards">' . gettext('here') .
 					 '</a>' . gettext(' to disable hardware VLAN filtering.');
 		}
 
@@ -602,7 +602,7 @@ if ($savemsg) {
 // If using Inline IPS, check that CSO, TSO and LRO are all disabled
 if ($pconfig['enable'] == 'on' && $pconfig['ips_mode'] == 'ips_mode_inline' && (!isset($config['system']['disablechecksumoffloading']) || !isset($config['system']['disablesegmentationoffloading']) || !isset($config['system']['disablelargereceiveoffloading']))) {
 	print_info_box(gettext('WARNING! IPS inline mode requires that Hardware Checksum Offloading, Hardware TCP Segmentation Offloading and Hardware Large Receive Offloading ' .
-				'all be disabled for proper operation. This firewall currently has one or more of these Offloading settings NOT disabled. Visit the ') . '<a href="/system_advanced_network.php">' . 
+				'all be disabled for proper operation. This firewall currently has one or more of these Offloading settings NOT disabled. Visit the ') . '<a href="/system_advanced_network.php">' .
 			        gettext('System > Advanced > Networking') . '</a>' . gettext(' tab and ensure all three of these Offloading settings are disabled.'));
 }
 
@@ -652,15 +652,15 @@ $section->addInput(new Form_Select(
 	'alertsystemlog_facility',
 	'System Log Facility',
 	$pconfig['alertsystemlog_facility'],
-	array(  "log_auth" => gettext("LOG_AUTH"), "log_authpriv" => gettext("LOG_AUTHPRIV"), "log_daemon" => gettext("LOG_DAEMON"), "log_user" => gettext("LOG_USER"), 
-		"log_local0" => gettext("LOG_LOCAL0"), "log_local1" => gettext("LOG_LOCAL1"), "log_local2" => gettext("LOG_LOCAL2"), "log_local3" => gettext("LOG_LOCAL3"), 
+	array(  "log_auth" => gettext("LOG_AUTH"), "log_authpriv" => gettext("LOG_AUTHPRIV"), "log_daemon" => gettext("LOG_DAEMON"), "log_user" => gettext("LOG_USER"),
+		"log_local0" => gettext("LOG_LOCAL0"), "log_local1" => gettext("LOG_LOCAL1"), "log_local2" => gettext("LOG_LOCAL2"), "log_local3" => gettext("LOG_LOCAL3"),
 		"log_local4" => gettext("LOG_LOCAL4"), "log_local5" => gettext("LOG_LOCAL5"), "log_local6" => gettext("LOG_LOCAL6"), "log_local7" => gettext("LOG_LOCAL7") )
 ))->setHelp('Select system log Facility to use for reporting. Default is LOG_AUTH.');
 $section->addInput(new Form_Select(
 	'alertsystemlog_priority',
 	'System Log Priority',
 	$pconfig['alertsystemlog_priority'],
-	array(  'log_emerg' => gettext('LOG_EMERG'), 'log_crit' => gettext('LOG_CRIT'), 'log_alert' => gettext('LOG_ALERT'), 'log_err' => gettext('LOG_ERR'), 
+	array(  'log_emerg' => gettext('LOG_EMERG'), 'log_crit' => gettext('LOG_CRIT'), 'log_alert' => gettext('LOG_ALERT'), 'log_err' => gettext('LOG_ERR'),
 		'log_warning' => gettext('LOG_WARNING'), 'log_notice' => gettext('LOG_NOTICE'), 'log_info' => gettext('LOG_INFO'), 'log_debug' => gettext('LOG_DEBUG') )
 ))->setHelp('Select system log Priority (Level) to use for reporting. Default is LOG_ALERT.');
 $section->addInput(new Form_Checkbox(
@@ -714,12 +714,12 @@ $group->add(new Form_Select(
 	'IPS Mode',
 	$pconfig['ips_mode'],
 	array( "ips_mode_legacy" => "Legacy Mode", "ips_mode_inline" => "Inline Mode" )
-))->setHelp('Select blocking mode operation.  Legacy Mode inspects copies of packets while Inline Mode inserts the Snort inspection ' . 
+))->setHelp('Select blocking mode operation.  Legacy Mode inspects copies of packets while Inline Mode inserts the Snort inspection ' .
 		'engine into the network stack between the NIC and the OS. Default is Legacy Mode.');
-$group->setHelp('Legacy Mode uses the PCAP engine to generate copies of packets for inspection as they traverse the interface.  Some "leakage" of packets will occur before ' . 
-		'Snort can determine if the traffic matches a rule and should be blocked.  Inline mode instead intercepts and inspects packets before they are handed ' . 
-		'off to the host network stack for further processing.  Packets matching DROP rules are simply discarded (dropped) and not passed to the host ' . 
-		'network stack.  No leakage of packets occurs with Inline Mode.  WARNING:  Inline Mode only works with NIC drivers which properly support Netmap! ' . 
+$group->setHelp('Legacy Mode uses the PCAP engine to generate copies of packets for inspection as they traverse the interface.  Some "leakage" of packets will occur before ' .
+		'Snort can determine if the traffic matches a rule and should be blocked.  Inline mode instead intercepts and inspects packets before they are handed ' .
+		'off to the host network stack for further processing.  Packets matching DROP rules are simply discarded (dropped) and not passed to the host ' .
+		'network stack.  No leakage of packets occurs with Inline Mode.  WARNING:  Inline Mode only works with NIC drivers which properly support Netmap! ' .
 		'Supported drivers: ' . implode(', ', $netmapifs) . '. If problems are experienced with Inline Mode, switch to Legacy Mode instead.');
 $section->add($group);
 $section->addInput(new Form_Checkbox(
@@ -743,18 +743,18 @@ $modal = new Modal('Important Information About IPS Inline Mode Blocking', 'ips_
 
 $modal->addInput(new Form_StaticText (
 	null,
-	'<span class="help-block">' . 
-	gettext('When using Inline IPS Mode blocking, you must manually change the rule action ') . 
-	gettext('from ALERT to DROP for every rule which you wish to block traffic when triggered.') . 
-	'<br/><br/>' . 
-	gettext('The default action for rules is ALERT.  This will produce alerts but will not ') . 
-	gettext('block traffic when using Inline IPS Mode for blocking. ') . 
-	'<br/><br/>' . 
-	gettext('Use the "dropsid.conf" feature on the SID MGMT tab to select rules whose action ') . 
-	gettext('should be changed from ALERT to DROP.  If you run the Snort Subscriber Rules and have ') . 
-	gettext('an IPS policy selected on the CATEGORIES tab, then rules defined as DROP by the ') . 
-	gettext('selected IPS policy will have their action automatically changed to DROP when the ') . 
-	gettext('"IPS Policy Mode" selector is configured for "Policy".') . 
+	'<span class="help-block">' .
+	gettext('When using Inline IPS Mode blocking, you must manually change the rule action ') .
+	gettext('from ALERT to DROP for every rule which you wish to block traffic when triggered.') .
+	'<br/><br/>' .
+	gettext('The default action for rules is ALERT.  This will produce alerts but will not ') .
+	gettext('block traffic when using Inline IPS Mode for blocking. ') .
+	'<br/><br/>' .
+	gettext('Use the "dropsid.conf" feature on the SID MGMT tab to select rules whose action ') .
+	gettext('should be changed from ALERT to DROP.  If you run the Snort Subscriber Rules and have ') .
+	gettext('an IPS policy selected on the CATEGORIES tab, then rules defined as DROP by the ') .
+	gettext('selected IPS policy will have their action automatically changed to DROP when the ') .
+	gettext('"IPS Policy Mode" selector is configured for "Policy".') .
 	'</span>'
 ));
 
@@ -765,8 +765,8 @@ $section->addInput(new Form_Select(
 	'performance',
 	'Search Method',
 	$pconfig['performance'],
-	array('ac-bnfa' => gettext('AC-BNFA'), 'ac-split' => gettext('AC-SPLIT'), 'lowmem' => gettext('LOWMEM'), 'ac-std' => gettext('AC-STD'), 
-		  'ac' => gettext('AC'), 'ac-nq' => gettext('AC-NQ'), 'ac-bnfa-nq' => gettext('AC-BNFA-NQ'), 'lowmem-nq' => gettext('LOWMEM-NQ'), 
+	array('ac-bnfa' => gettext('AC-BNFA'), 'ac-split' => gettext('AC-SPLIT'), 'lowmem' => gettext('LOWMEM'), 'ac-std' => gettext('AC-STD'),
+		  'ac' => gettext('AC'), 'ac-nq' => gettext('AC-NQ'), 'ac-bnfa-nq' => gettext('AC-BNFA-NQ'), 'lowmem-nq' => gettext('LOWMEM-NQ'),
 		  'ac-banded' => gettext('AC-BANDED'), 'ac-sparsebands' => gettext('AC-SPARSEBANDS'), 'acs' => gettext('ACS') )
 ))->setHelp('Choose a fast pattern matcher algorithm.  Default is AC-BNFA.');
 $section->addInput(new Form_Checkbox(
@@ -1042,10 +1042,10 @@ events.push(function(){
 		ajaxRequest = $.ajax({
 			url: "/snort/snort_interfaces_edit.php",
 			type: "post",
-			data: { ajax: "ajax", 
-			        list: listName, 
-				type: listType, 
-				id: $('#id').val(), 
+			data: { ajax: "ajax",
+			        list: listName,
+				type: listType,
+				id: $('#id').val(),
 				action: $('#action').val()
 			}
 		});

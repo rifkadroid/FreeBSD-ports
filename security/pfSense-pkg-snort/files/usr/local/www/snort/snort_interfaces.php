@@ -110,7 +110,7 @@ if (isset($_POST['del_x'])) {
 			if ($if_real == "") {
 				rmdir_recursive("{$snortlogdir}/snort_*{$snort_uuid}");
 				rmdir_recursive("{$snortdir}/snort_{$snort_uuid}_*");
-				syslog(LOG_NOTICE, "Deleted the Snort instance on a previously removed pfSense interface per user request...");
+				syslog(LOG_NOTICE, "Deleted the Snort instance on a previously removed Kontrol interface per user request...");
 			}
 			else {
 				$if_friendly = convert_friendly_interface_to_friendly_descr($snortcfg['interface']);
@@ -124,7 +124,7 @@ if (isset($_POST['del_x'])) {
 			// Finally delete the interface's config entry entirely
 			unset($a_nat[$rulei]);
 		}
-	  
+
 		/* If all the Snort interfaces are removed, then unset the interfaces config array. */
 		if (empty($a_nat))
 			unset($config['installedpackages']['snortglobal']['rule']);
@@ -160,7 +160,7 @@ else {
 		if ($if_real == "") {
 			rmdir_recursive("{$snortlogdir}/snort_*{$snort_uuid}");
 			rmdir_recursive("{$snortdir}/snort_{$snort_uuid}_*");
-			syslog(LOG_NOTICE, "Deleted the Snort instance on a previously removed pfSense interface per user request...");
+			syslog(LOG_NOTICE, "Deleted the Snort instance on a previously removed Kontrol interface per user request...");
 		}
 		else {
 			$if_friendly = convert_friendly_interface_to_friendly_descr($a_nat[$delbtn_list]['interface']);
@@ -408,7 +408,7 @@ if ($savemsg)
 						<?php endif; ?>
 						<a style="cursor:pointer;" class="fa fa-trash no-confirm icon-primary" id="Xldel_<?=$i?>" title="<?=gettext('Delete this Snort interface mapping'); ?>"></a>
 						<button style="display: none;" class="btn btn-xs btn-warning" type="submit" id="ldel_<?=$i?>" name="ldel_<?=$i?>" value="ldel_<?=$i?>" title="<?=gettext('Delete this Snort interface mapping'); ?>">Delete this Snort interface mapping</button>
-					</td>	
+					</td>
 				</tr>
 				<?php endforeach; ob_end_flush(); ?>
 				</tbody>
@@ -543,7 +543,7 @@ if ($savemsg)
 				}
 			}
 		}
-	}	
+	}
 
 	function snort_iface_toggle(elem, action, id) {
 		// Peel off the first part of the control name
@@ -600,4 +600,3 @@ unset($a_nat);
 
 include("foot.inc");
 ?>
-
