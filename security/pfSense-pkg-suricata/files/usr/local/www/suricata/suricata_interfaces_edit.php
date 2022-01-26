@@ -682,7 +682,7 @@ if (isset($_POST["save"]) && !$input_errors) {
 			$natent['libhtp_policy']['item'][] = $default;
 
 			// Enable the basic default rules for the interface
-			$natent['rulesets'] = "app-layer-events.rules||decoder-events.rules||dnp3-events.rules||dns-events.rules||files.rules||http-events.rules||ipsec-events.rules||kerberos-events.rules||" . 
+			$natent['rulesets'] = "app-layer-events.rules||decoder-events.rules||dnp3-events.rules||dns-events.rules||files.rules||http-events.rules||ipsec-events.rules||kerberos-events.rules||" .
 					      "modbus-events.rules||nfs-events.rules||ntp-events.rules||smb-events.rules||smtp-events.rules||stream-events.rules||tls-events.rules";
 
 			// Adding a new interface, so set flag to build new rules
@@ -743,7 +743,7 @@ if ($savemsg2) {
 // If using Inline IPS, check that CSO, TSO and LRO are all disabled
 if ($pconfig['enable'] == 'on' && $pconfig['ips_mode'] == 'ips_mode_inline' && (!isset($config['system']['disablechecksumoffloading']) || !isset($config['system']['disablesegmentationoffloading']) || !isset($config['system']['disablelargereceiveoffloading']))) {
 	print_info_box(gettext('WARNING! IPS inline mode requires that Hardware Checksum Offloading, Hardware TCP Segmentation Offloading and Hardware Large Receive Offloading ' .
-				'all be disabled for proper operation. This firewall currently has one or more of these Offloading settings NOT disabled. Visit the ') . '<a href="/system_advanced_network.php">' . 
+				'all be disabled for proper operation. This firewall currently has one or more of these Offloading settings NOT disabled. Visit the ') . '<a href="/system_advanced_network.php">' .
 			        gettext('System > Advanced > Networking') . '</a>' . gettext(' tab and ensure all three of these Offloading settings are disabled.'));
 }
 
@@ -805,7 +805,7 @@ $section->addInput(new Form_Input(
 	'Description',
 	'text',
 	$pconfig['descr']
-))->setHelp('Enter a meaningful description here for your reference. The default is the pfSense interface friendly description.');
+))->setHelp('Enter a meaningful description here for your reference. The default is the Kontrol interface friendly description.');
 
 $form->add($section);
 
@@ -823,8 +823,8 @@ $section->addInput(new Form_Select(
 	'alertsystemlog_facility',
 	'Log Facility',
 	$pconfig['alertsystemlog_facility'],
-	array(  "auth" => "AUTH", "authpriv" => "AUTHPRIV", "daemon" => "DAEMON", "kern" => "KERN", "security" => "SECURITY", 
-		"syslog" => "SYSLOG", "user" => "USER", "local0" => "LOCAL0", "local1" => "LOCAL1", "local2" => "LOCAL2", 
+	array(  "auth" => "AUTH", "authpriv" => "AUTHPRIV", "daemon" => "DAEMON", "kern" => "KERN", "security" => "SECURITY",
+		"syslog" => "SYSLOG", "user" => "USER", "local0" => "LOCAL0", "local1" => "LOCAL1", "local2" => "LOCAL2",
 		"local3" => "LOCAL3", "local4" => "LOCAL4", "local5" => "LOCAL5", "local6" => "LOCAL6", "local7" => "LOCAL7" )
 ))->setHelp('Select system log Facility to use for reporting. Default is LOCAL1.');
 
@@ -995,8 +995,8 @@ $section->addInput(new Form_Select(
 	'eve_systemlog_facility',
 	'EVE Syslog Output Facility',
 	$pconfig['eve_systemlog_facility'],
-	array(  "auth" => "AUTH", "authpriv" => "AUTHPRIV", "daemon" => "DAEMON", "kern" => "KERN", "security" => "SECURITY", 
-		"syslog" => "SYSLOG", "user" => "USER", "local0" => "LOCAL0", "local1" => "LOCAL1", "local2" => "LOCAL2", 
+	array(  "auth" => "AUTH", "authpriv" => "AUTHPRIV", "daemon" => "DAEMON", "kern" => "KERN", "security" => "SECURITY",
+		"syslog" => "SYSLOG", "user" => "USER", "local0" => "LOCAL0", "local1" => "LOCAL1", "local2" => "LOCAL2",
 		"local3" => "LOCAL3", "local4" => "LOCAL4", "local5" => "LOCAL5", "local6" => "LOCAL6", "local7" => "LOCAL7" )
 ))->setHelp('Select EVE syslog output facility.');
 
@@ -1500,11 +1500,11 @@ $group->add(new Form_Select(
 	'IPS Mode',
 	$pconfig['ips_mode'],
 	array( "ips_mode_legacy" => "Legacy Mode", "ips_mode_inline" => "Inline Mode" )
-))->setHelp('Select blocking mode operation.  Legacy Mode inspects copies of packets while Inline Mode inserts the Suricata inspection engine ' . 
+))->setHelp('Select blocking mode operation.  Legacy Mode inspects copies of packets while Inline Mode inserts the Suricata inspection engine ' .
 		'into the network stack between the NIC and the OS. Default is Legacy Mode.');
-$group->setHelp('Legacy Mode uses the PCAP engine to generate copies of packets for inspection as they traverse the interface.  Some "leakage" of packets will occur before ' . 
-		'Suricata can determine if the traffic matches a rule and should be blocked.  Inline mode instead intercepts and inspects packets before they are handed ' . 
-		'off to the host network stack for further processing.  Packets matching DROP rules are simply discarded (dropped) and not passed to the host ' . 
+$group->setHelp('Legacy Mode uses the PCAP engine to generate copies of packets for inspection as they traverse the interface.  Some "leakage" of packets will occur before ' .
+		'Suricata can determine if the traffic matches a rule and should be blocked.  Inline mode instead intercepts and inspects packets before they are handed ' .
+		'off to the host network stack for further processing.  Packets matching DROP rules are simply discarded (dropped) and not passed to the host ' .
 		'network stack.  No leakage of packets occurs with Inline Mode.  WARNING:  Inline Mode only works with NIC drivers which properly support Netmap! ' .
 		'Supported drivers: ' . implode(', ', $netmapifs) . '. If problems are experienced with Inline Mode, switch to Legacy Mode instead.');
 $section->add($group);
@@ -1514,7 +1514,7 @@ $section->addInput(new Form_Input(
 	'Netmap Threads',
 	'text',
 	$pconfig['ips_netmap_threads']
-))->setHelp('Enter the number of netmap threads to use. Default is "auto" and is recommended. When set to "auto", Suricata will query the system for the number of supported netmap queues, ' . 
+))->setHelp('Enter the number of netmap threads to use. Default is "auto" and is recommended. When set to "auto", Suricata will query the system for the number of supported netmap queues, ' .
 	    ' and it will use a matching number of netmap theads. The NIC hosting this interface registered ' . suricata_get_supported_netmap_queues($if_real) . ' queue(s) with the kernel.');
 
 $section->addInput(new Form_Checkbox(
@@ -1547,18 +1547,18 @@ $modal = new Modal('Important Information About IPS Inline Mode Blocking', 'ips_
 
 $modal->addInput(new Form_StaticText (
 	null,
-	'<span class="help-block">' . 
-	gettext('When using Inline IPS Mode blocking, you must manually change the rule action ') . 
-	gettext('from ALERT to DROP for every rule which you wish to block traffic when triggered.') . 
-	'<br/><br/>' . 
-	gettext('The default action for rules is ALERT.  This will produce alerts but will not ') . 
-	gettext('block traffic when using Inline IPS Mode for blocking. ') . 
-	'<br/><br/>' . 
-	gettext('Use the "dropsid.conf" feature on the SID MGMT tab to select rules whose action ') . 
-	gettext('should be changed from ALERT to DROP.  If you run the Snort rules and have ') . 
-	gettext('an IPS policy selected on the CATEGORIES tab, then rules defined as DROP by the ') . 
-	gettext('selected IPS policy will have their action automatically changed to DROP when the ') . 
-	gettext('"IPS Policy Mode" selector is configured for "Policy".') . 
+	'<span class="help-block">' .
+	gettext('When using Inline IPS Mode blocking, you must manually change the rule action ') .
+	gettext('from ALERT to DROP for every rule which you wish to block traffic when triggered.') .
+	'<br/><br/>' .
+	gettext('The default action for rules is ALERT.  This will produce alerts but will not ') .
+	gettext('block traffic when using Inline IPS Mode for blocking. ') .
+	'<br/><br/>' .
+	gettext('Use the "dropsid.conf" feature on the SID MGMT tab to select rules whose action ') .
+	gettext('should be changed from ALERT to DROP.  If you run the Snort rules and have ') .
+	gettext('an IPS policy selected on the CATEGORIES tab, then rules defined as DROP by the ') .
+	gettext('selected IPS policy will have their action automatically changed to DROP when the ') .
+	gettext('"IPS Policy Mode" selector is configured for "Policy".') .
 	'</span>'
 ));
 
@@ -1570,14 +1570,14 @@ $section->addInput(new Form_Select(
 	'Run Mode',
 	$pconfig['runmode'],
 	array('autofp' => 'AutoFP', 'workers' => 'Workers', 'single' => 'Single')
-))->setHelp('Choose a Suricata run mode setting. Default is "AutoFP" and is the recommended setting for most cases.  "Workers" uses multiple worker threads, each of which single-handedly processes the packets it acquires (i.e., each thread runs all thread modules). ' . 
+))->setHelp('Choose a Suricata run mode setting. Default is "AutoFP" and is the recommended setting for most cases.  "Workers" uses multiple worker threads, each of which single-handedly processes the packets it acquires (i.e., each thread runs all thread modules). ' .
 	    '"Single" uses only a single thread for all operations on a packet and is intended for use only in testing or development instances.');
 $section->addInput(new Form_Select(
 	'autofp_scheduler',
 	'AutoFP Scheduler Type',
 	$pconfig['autofp_scheduler'],
 	array('hash' => 'Hash', 'ippair' => 'IP Pair')
-))->setHelp('Choose the kind of flow load balancer used by the flow pinned autofp mode.  "Hash" assigns the flow to a thread using the 5-7 tuple hash. ' . 
+))->setHelp('Choose the kind of flow load balancer used by the flow pinned autofp mode.  "Hash" assigns the flow to a thread using the 5-7 tuple hash. ' .
 	    '"IP Pair" assigns the flow to a thread using addresses only. This setting is applicable only when the Run Mode is set to "autofp".');
 $section->addInput(new Form_Input(
 	'max_pending_packets',
@@ -1706,7 +1706,7 @@ $group->add(new Form_Button(
 	'fa-file-text-o'
 ))->removeClass('btn-primary')->addClass('btn-info')->addClass('btn-sm')->setAttribute('data-target', '#passlist')->setAttribute('data-toggle', 'modal');
 
-$group->setHelp('The default Pass List adds Gateways, DNS servers, locally-attached networks, the WAN IP, VPNs and VIPs.  Create a Pass List with an alias to customize whitelisted IP addresses.  ' . 
+$group->setHelp('The default Pass List adds Gateways, DNS servers, locally-attached networks, the WAN IP, VPNs and VIPs.  Create a Pass List with an alias to customize whitelisted IP addresses.  ' .
 		'This option will only be used when block offenders is on.  Choosing "none" will disable Pass List generation.');
 
 $section->add($group);

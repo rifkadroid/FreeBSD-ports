@@ -162,7 +162,7 @@ foreach (array('existing', 'actual') as $pftype) {
 }
 
 // Default cURL options
-$pfb['curl_defaults'] = array(  CURLOPT_USERAGENT	=> 'pfSense/pfBlockerNG cURL download agent-' . system_get_uniqueid(),
+$pfb['curl_defaults'] = array(  CURLOPT_USERAGENT	=> 'Kontrol/pfBlockerNG cURL download agent-' . system_get_uniqueid(),
 				CURLOPT_SSL_CIPHER_LIST	=> 'TLSv1.3, TLSv1.2',
 				CURLOPT_FOLLOWLOCATION	=> true,
 				CURLOPT_SSL_VERIFYPEER	=> true,
@@ -399,7 +399,7 @@ function pfb_filter_service() {
 	# Ensure all processes are stopped
 	rc_stop
 
-	# clog is not required for pfSense 2.5 and above
+	# clog is not required for Kontrol 2.5 and above
 	filter_type='tail_pfb'
 	if [ -e "/usr/local/sbin/clog_pfb" ]; then
 		filter_type='clog_pfb'
@@ -439,7 +439,7 @@ function pfb_filter_service() {
 EOF;
 	$rc['stop']	= <<<EOF
 
-	# clog is not required for pfSense 2.5 and above
+	# clog is not required for Kontrol 2.5 and above
 	filter_type='tail_pfb'
 	if [ -e "/usr/local/sbin/clog_pfb" ]; then
 		filter_type='clog_pfb'
@@ -563,7 +563,7 @@ if (isset($argv[1])) {
 			ignore_user_abort(TRUE);
 			set_time_limit(0);
 			if (!file_exists('/var/log/filter.log')) {
-				log_error('[pfBlockerNG] pfSense Firewall log missing');
+				log_error('[pfBlockerNG] Kontrol Firewall log missing');
 				exit;
 			}
 			pfb_daemon_filterlog();
@@ -601,7 +601,7 @@ function pfbng_text_area_decode($text, $mode=FALSE, $type=TRUE, $idn=FALSE) {
 					if (strpos($line, '#') !== FALSE) {
 						$tmpline = preg_split('/(?=#)/', $line);
 						if (substr($tmpline[0], 0, 1) == '.') {
-							// idn_to_ascii() returns empty string if it starts with '.' 
+							// idn_to_ascii() returns empty string if it starts with '.'
 							$tmpline[0] = idn_to_ascii(ltrim($tmpline[0], '.'));
 							if (!empty($tmpline[0])) {
 								$tmpline[0] = '.' . $tmpline[0];
@@ -1381,7 +1381,7 @@ function pfb_create_dnsbl_cert() {
 	error_reporting($old_err_level);
 	$privatekey	= base64_decode($cert['prv']);
 	$publickey	= base64_decode($cert['crt']);
- 
+
 	@file_put_contents("{$pfb['dnsbl_cert']}", "{$privatekey}{$publickey}", LOCK_EX);
 }
 
@@ -1814,7 +1814,7 @@ function pfb_unbound_dnsbl($mode) {
 					}
 				} else {
 					$u_update = TRUE;
-					$u_msg .= "  Removed DNSBL Unbound mode\n"; 
+					$u_msg .= "  Removed DNSBL Unbound mode\n";
 					unset($conf[$key]);
 				}
 			}
@@ -1841,7 +1841,7 @@ function pfb_unbound_dnsbl($mode) {
 
 			// Remove any DNSBL VIPs added to unbound.conf on 'disable'
 			elseif ((strpos($line, 'interface:') !== FALSE) && ($mode == 'disabled') &&
-			    !empty($pfb['dnsbl_vip']) && (strpos($line, $pfb['dnsbl_vip']) !== FALSE)) { 
+			    !empty($pfb['dnsbl_vip']) && (strpos($line, $pfb['dnsbl_vip']) !== FALSE)) {
 				$u_update = TRUE;
 				$u_msg .= "  Removed DNSBL VIP from Unbound Interface settings\n";
 				unset($conf[$key]);
@@ -5205,7 +5205,7 @@ function pfb_dnsbl_parse($mode='daemon', $domain, $src_ip, $req_agent) {
 					}
 					else {
 						$pfb_feed = pfb_parse_line(exec("{$pfb['grep']} -sHm1 '{$dquery}' {$pfb['dnsdir']}/*.txt 2>&1"));
-					
+
 						// Collect Alias Group name
 						if (!empty($pfb_feed)) {
 							$pfb_group	= pfb_parse_line(exec("{$pfb['grep']} -sHm1 '{$dquery}' {$pfb['dnsalias']}/* 2>&1"));
@@ -5609,7 +5609,7 @@ function pfb_log_event($type, $domain, $src_ip, $req_agent) {
 
 	$log = "{$type},{$datereq},{$details},{$dup_entry}\n";
 	@file_put_contents($pfb['dnslog'], "{$log}", FILE_APPEND | LOCK_EX);
-	
+
 	// Write to Unified Log
 	@file_put_contents($pfb['unilog'], "{$log}", FILE_APPEND | LOCK_EX);
 
@@ -6035,11 +6035,11 @@ function pfBlockerNG_clearsqlite($mode, $totalqueries = 0) {
 		$todo[] = array(3, 'Clear Resolver queries', 'UPDATE resolver SET totalqueries = :totalqueries, queries = 0 WHERE row = 0;');
 	}
 	elseif ($mode == 'clearip') {
-		$lastipclear = date('M j H:i:s', time()); 
+		$lastipclear = date('M j H:i:s', time());
 		$todo[] = array(6, 'Reset IP last clear timestamp', 'UPDATE lastclear SET lastipclear = :lastipclear WHERE row = 0;');
 	}
 	elseif ($mode == 'cleardnsbl') {
-		$lastdnsblclear = date('M j H:i:s', time()); 
+		$lastdnsblclear = date('M j H:i:s', time());
 		$todo[] = array(1, 'Clear Widget counters', 'UPDATE dnsbl SET counter = 0;');
 		$todo[] = array(3, 'Clear Resolver queries', 'UPDATE resolver SET totalqueries = 0, queries = 0;');
 		$todo[] = array(6, 'Reset DNSBL last clear timestamp', 'UPDATE lastclear SET lastdnsblclear = :lastdnsblclear WHERE row = 0;');
@@ -6475,11 +6475,11 @@ function sync_package_pfblockerng($cron='') {
 		$pfb['dnsbl_py_blacklist']	= FALSE;
 
 		$log = "\n [ ALERT ]\n"
-			. " DNSBL Python mode is only compatible with pfSense versions 2.4.5 and above!\n"
+			. " DNSBL Python mode is only compatible with Kontrol versions 2.4.5 and above!\n"
 			. " DNSBL has been automatically downgraded to the DNSBL Unbound mode!\n\n";
 		pfb_logger("{$log}", 1);
 
-		$log = "[pfBlockerNG]: Terminating DNSBL Python mode due pfSense version less than 2.4.5.";
+		$log = "[pfBlockerNG]: Terminating DNSBL Python mode due Kontrol version less than 2.4.5.";
 		@file_put_contents('/var/log/pfblockerng/py_error.log', $log, FILE_APPEND);
 	}
 
@@ -6855,7 +6855,7 @@ function sync_package_pfblockerng($cron='') {
 					}
 					if (file_exists($pfb['unbound_py_zone'])) {
 						$found = TRUE;
-					} 
+					}
 					if (!$found) {
 						$dnsbl_missing = TRUE;
 					}

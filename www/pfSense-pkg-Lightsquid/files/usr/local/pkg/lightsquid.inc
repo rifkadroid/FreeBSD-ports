@@ -145,7 +145,7 @@ function lightsquid_write_webconfig() {
 		$lightsquid_config['lighttpd_ls_user'] = "admin";
 	}
 	if (empty($lightsquid_config['lighttpd_ls_password'])) {
-		$lightsquid_config['lighttpd_ls_password'] = "pfsense";
+		$lightsquid_config['lighttpd_ls_password'] = "kontrol";
 	}
 
 	touch($lighttpd_ls_auth_path);
