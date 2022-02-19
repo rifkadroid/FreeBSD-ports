@@ -634,7 +634,8 @@ function frr_zebra_generate_nullroutes() {
 	/* Check FRR configuration network list for null route entries */
 	foreach ($config['installedpackages']['frr']['config'][0]['row'] as $redistr) {
 		if (isset($redistr['nullroute']) && is_subnet($redistr['routevalue'])) {
-			$nullroutes .= "ip route {$redistr['routevalue']} Null0\n";
+			$ipproto = is_subnetv4($redistr['routevalue']) ? 'ip' : 'ipv6';
+			$nullroutes .= "{$ipproto} route {$redistr['routevalue']} Null0\n";
 		}
 	}
 	if (!empty($nullroutes)) {
@@ -684,7 +685,8 @@ function frr_zebra_generate_staticroutes() {
 					continue 2;
 			}
 			if (!empty($target)) {
-				$staticroutes .= "ip route {$redistr['routevalue']} {$target}\n";
+				$ipproto = is_subnetv4($redistr['routevalue']) ? 'ip' : 'ipv6';
+				$staticroutes .= "{$ipproto} route {$redistr['routevalue']} {$target}\n";
 			}
 		}
 	}
@@ -698,6 +700,10 @@ function frr_zebra_generate_staticroutes() {
 /* Generate a convenience list of accept filters */
 function frr_zebra_generate_acceptfilters() {
 	global $config, $frr_config_base;
+	$seq = 10;
+	$seq6 = 10;
+	$noaccept = '';
+	$noaccept6 = '';
 
 	/* Check OSPF Interfaces for automatic accept filters */
 	if (is_array($config['installedpackages']['frrospfdinterfaces']['config'])) {
@@ -708,20 +714,25 @@ function frr_zebra_generate_acceptfilters() {
 			}
 			if (!empty($conf['acceptfilter']) && is_ipaddrv4($subnet) && is_numericint($interface_subnet)) {
 				$noaccept = $noaccept ?: "";
-				$noaccept .= "ip prefix-list ACCEPTFILTER deny {$subnet}/{$interface_subnet}\n";
-				$noaccept .= "ip prefix-list ACCEPTFILTER deny {$interface_ip}/32\n";
+				$noaccept .= "ip prefix-list ACCEPTFILTER seq {$seq} deny {$subnet}/{$interface_subnet}\n";
+				$seq += 10;
+				$noaccept .= "ip prefix-list ACCEPTFILTER seq {$seq} deny {$interface_ip}/32\n";
+				$seq += 10;
 			}
 		}
 	}
 
 	/* Check FRR configuration network list for accept filter entries */
 	if (is_array($config['installedpackages']['frr']['config'][0]['row'])) {
-		$seq = 10;
 		foreach ($config['installedpackages']['frr']['config'][0]['row'] as $redistr) {
 			if (isset($redistr['acceptfilter'])) {
-				$noaccept = $noaccept ?: "";
-				$noaccept .= "ip prefix-list ACCEPTFILTER seq {$seq} deny {$redistr['routevalue']}\n";
-				$seq += 10;
+				if (is_subnetv4($redistr['routevalue'])) {
+					$noaccept .= "ip prefix-list ACCEPTFILTER seq {$seq} deny {$redistr['routevalue']}\n";
+					$seq += 10;
+				} else {
+					$noaccept6 .= "ipv6 prefix-list ACCEPTFILTER6 seq {$seq6} deny {$redistr['routevalue']}\n";
+					$seq6 += 10;
+				}
 			}
 		}
 	}
@@ -735,9 +746,17 @@ function frr_zebra_generate_acceptfilters() {
 		$noaccept .= "!\n";
 		$noaccept .= "ip protocol ospf route-map ACCEPTFILTER\n";
 		$noaccept .= "!\n";
-		$noaccept .= "ipv6 protocol bgp route-map ACCEPTFILTER\n";
+	}
+	if (!empty($noaccept6)) {
+		$noaccept .= $noaccept6;
+		$noaccept .= "ipv6 prefix-list ACCEPTFILTER6 seq {$seq6} permit any\n";
 		$noaccept .= "!\n";
-		$noaccept .= "ipv6 protocol ospf6 route-map ACCEPTFILTER\n";
+		$noaccept .= "route-map ACCEPTFILTER6 permit 10\n";
+		$noaccept .= " match ipv6 address prefix-list ACCEPTFILTER6\n";
+		$noaccept .= "!\n";
+		$noaccept .= "ipv6 protocol bgp route-map ACCEPTFILTER6\n";
+		$noaccept .= "!\n";
+		$noaccept .= "ipv6 protocol ospf6 route-map ACCEPTFILTER6\n";
 		$noaccept .= "!\n";
 	}
 	return $noaccept;

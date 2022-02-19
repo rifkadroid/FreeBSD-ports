@@ -107,6 +107,16 @@ function frr_global_validate_input() {
 	if (!empty($_POST['routerid']) && !is_ipaddrv4($_POST['routerid'])) {
 		$input_errors[] = "Router ID must be an address.";
 	}
+	foreach ($_POST as $key => $value) {
+		$matches = array();
+		if (preg_match("/^routevalue(\d+)$/", $key, $matches)) {
+			if (isset($_POST["routevalue{$matches[1]}"]) &&
+			    !empty($_POST["routevalue{$matches[1]}"]) &&
+			    !is_subnet($_POST["routevalue{$matches[1]}"])) {
+				$input_errors[] = "Route in row {$matches[1]} must be a subnet.";
+			}
+		}
+	}
 }
 
 /* Read in rowhelper data from $_POST, sort it by sequence number, and put it back in POST. */
@@ -233,9 +243,9 @@ function frr_global_prefixes_validate_input() {
 		$input_errors[] = "Prefix List name may only contain the characters a-z, A-Z, 0-9, '-', '_' and '.'";
 	}
 
-	/* Do not allow a name of: ACCEPTFILTER */
-	if ($_POST['name'] == 'ACCEPTFILTER') {
-		$input_errors[] = "Prefix List name 'ACCEPTFILTER' is not allowed.";
+	/* Do not allow a name of: ACCEPTFILTER and ACCEPTFILTER6 */
+	if (($_POST['name'] == 'ACCEPTFILTER') || ($_POST['name'] == 'ACCEPTFILTER6')) {
+		$input_errors[] = "Prefix List name 'ACCEPTFILTER' and 'ACCEPTFILTER6' is not allowed.";
 	}
 
 	foreach ($_POST as $key => $value) {
