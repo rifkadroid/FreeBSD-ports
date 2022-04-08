@@ -4,7 +4,7 @@
  *
  * part of pfSense (https://www.pfsense.org)
  * Copyright (c) 2015-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (c) 2015-2021 BBcan177@gmail.com
+ * Copyright (c) 2015-2022 BBcan177@gmail.com
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -433,6 +433,13 @@ if (file_exists('/var/db/pfblockerng/dnsbl.sqlite') && !file_exists($pfb['dnsbl_
 	@chgrp($pfb['dnsbl_info'], 'unbound');
 }
 unlink_if_exists('/var/db/pfblockerng/dnsbl.sqlite');
+
+// Update unbound python files
+if ($pfb['dnsbl_mode'] == 'dnsbl_python') {
+	@copy("/usr/local/pkg/pfblockerng/pfb_unbound.py", $g['unbound_chroot_path']);
+	@copy("/usr/local/pkg/pfblockerng/pfb_unbound_include.inc", $g['unbound_chroot_path']);
+	@copy("/usr/local/pkg/pfblockerng/pfb_py_hsts.txt", $g['unbound_chroot_path']);
+}
 
 if ($ufound) {
 	$final = pfb_stop_start_unbound('');

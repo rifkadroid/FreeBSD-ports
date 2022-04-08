@@ -20,6 +20,7 @@
  * limitations under the License.
  */
 
+require_once('util.inc');
 require_once('guiconfig.inc');
 require_once('globals.inc');
 require_once('/usr/local/pkg/pfblockerng/pfblockerng.inc');
@@ -407,6 +408,10 @@ if ($_POST && isset($_POST['save'])) {
 			$config['installedpackages'][$conf_type]['config'][$rowid]['agateway_out']	= $_POST['agateway_out']	?: 'default';
 
 			$config['installedpackages'][$conf_type]['config'][$rowid]['suppression_cidr']	= $_POST['suppression_cidr']	?: 'Disabled';
+			$config['installedpackages'][$conf_type]['config'][$rowid]['srcint']		= $_POST['srcint']		?: '';
+			$config['installedpackages'][$conf_type]['config'][$rowid]['script_pre']	= $_POST['script_pre']		?: '';
+			$config['installedpackages'][$conf_type]['config'][$rowid]['script_post']	= $_POST['script_post']		?: '';
+
 			$config['installedpackages'][$conf_type]['config'][$rowid]['whois_convert']	= $_POST['whois_convert']	?: '';
 		}
 		else {
@@ -528,6 +533,9 @@ else {
 		$pconfig['agateway_out']	= $rowdata[$rowid]['agateway_out'];
 
 		$pconfig['suppression_cidr']	= $rowdata[$rowid]['suppression_cidr'];
+		$pconfig['srcint']		= $rowdata[$rowid]['srcint'];
+		$pconfig['script_pre']		= $rowdata[$rowid]['script_pre'];
+		$pconfig['script_post']		= $rowdata[$rowid]['script_post'];
 
 		$pconfig['whois_convert']	= $rowdata[$rowid]['whois_convert'];
 	}
@@ -957,9 +965,7 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 			<br />Click here for more info -->
 			<div class=\"infoblock alert-info clearfix\">
 				Select the <strong>Action</strong> for Firewall Rules on lists you have selected.<br /><br />
-
 				<strong><u>'Disabled' Rules:</u></strong> Disables selection and does nothing to selected Alias.<br /><br />
-
 				<strong><u>'Deny' Rules:</u></strong><br />
 				'Deny' rules create high priority 'block' or 'reject' rules on the stated interfaces. They don't change the 'pass' rules on other
 				interfaces. Typical uses of 'Deny' rules are:<br />
@@ -976,7 +982,6 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 							sessions to be created in the other direction.
 						</li>
 					</ul>
-
 				<strong><u>'Permit' Rules:</u></strong><br />
 				'Permit' rules create high priority 'pass' rules on the stated interfaces. They are the opposite of Deny rules, and don't create
 				any 'blocking' effect anywhere. They have priority over all Deny rules. Typical uses of 'Permit' rules are:<br />
@@ -988,7 +993,6 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 							or pre-created blocklist blocks a few IPs that should be accessible.
 						</li>
 					</ul>
-
 				<strong><u>'Match' Rules:</u></strong><br />
 				'Match' or 'Log' only the traffic on the stated interfaces. This does not Block or Reject. It just Logs the traffic.
 				<ul>
@@ -998,7 +1002,6 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 					<li><strong>Match Inbound/Match Outbound</strong> - Matches all traffic in one direction only.
 					</li>
 				</ul>
-
 				<strong><u>'Alias' Rules:</u></strong><br />
 				<strong>'Alias'</strong> rules create an <a href=\"/firewall_aliases.php\">alias</a> for the list (and do nothing else).
 				This enables a pfBlockerNG list to be used by name, in any firewall rule or pfSense function, as desired.
@@ -1007,7 +1010,6 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 						<li>'Alias Deny' can use De-Duplication and Reputation Processes if configured.</li>
 						<li>'Alias Permit' and 'Alias Match' will be saved in the Same folder as the other Permit/Match Auto-Rules</li>
 						<li>'Alias Native' lists are kept in their Native format without any modifications.</li></ul>
-
 				<span class=\"text-danger\">Note: </span><ul>
 					When manually creating 'Alias' type firewall rules; Prefix the Firewall rule Description with <strong>pfb_</strong>
 					This will ensure that that Dashboard widget reports those statistics correctly. <strong>Do not</strong> 
@@ -1190,31 +1192,10 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 		$section->add($group);
 		$form->add($section);
 	}
-
-	if ($gtype == 'ipv4') {
-
-		// Print Advanced Tunables section
-		$section = new Form_Section('Advanced Tuneables', 'advancedtunable', COLLAPSIBLE|SEC_CLOSED);
-		$section->addInput(new Form_StaticText(
-			NULL,
-			'These are \'Advanced\' settings and are typically best left at Default settings!')
-		);
-
-		$list = array('Disabled' => 'Disabled') + array_combine(range(1, 17, -1), range(1, 17, -1));
-
-		$section->addInput(new Form_Select(
-			'suppression_cidr',
-			'Suppression CIDR Limit',
-			$pconfig['suppression_cidr'],
-			$list
-		))->setHelp('When suppression is enabled, this option will limit the CIDR block for this entire IPv4 Alias'
-				. '(Excluding the Custom List IP addresses)<br />Default: <strong>Disabled</strong> (No CIDR limit)')
-		  ->setAttribute('style', 'width: auto');
-
-		$form->add($section);
-	}
 }
-else {
+
+if ($gtype == 'dnsbl') {
+
 	$section->addInput(new Form_Select(
 		'order',
 		'Group Order',
@@ -1265,6 +1246,104 @@ else {
 
 	$form->add($section);
 }
+
+// Print Advanced Tunables section
+$section = new Form_Section('Advanced Tuneables', 'advancedtunable', COLLAPSIBLE|SEC_CLOSED);
+$section->addInput(new Form_StaticText(
+	NULL,
+	'These are \'Advanced\' settings and are typically best left at Default settings!')
+);
+
+if ($gtype == 'ipv4') {
+
+	$list = array('Disabled' => 'Disabled') + array_combine(range(1, 17, -1), range(1, 17, -1));
+	$section->addInput(new Form_Select(
+		'suppression_cidr',
+		'Suppression CIDR Limit',
+		$pconfig['suppression_cidr'],
+		$list
+	))->setHelp('When suppression is enabled, this option will limit the CIDR block for this entire IPv4 Alias'
+		. '(Excluding the Custom List IP addresses)<br />Default: <strong>Disabled</strong> (No CIDR limit)')
+	  ->setAttribute('style', 'width: auto');
+}
+
+if ($gtype == 'ipv4' || $gtype == 'ipv6') {
+
+	$interfaces_list	= get_interface_list();
+	$src_interfaces		= array('lo0' => 'Localhost');
+
+	foreach ($interfaces_list as $key => $value) {
+		$src_interfaces = array_merge(array($key => strtoupper($interfaces_list[$key]['friendly'])), $src_interfaces);
+	}
+	$src_interfaces = array_merge(array('' => 'Default'), $src_interfaces);
+	
+	$section->addInput(new Form_Select(
+		'srcint',
+		'cURL Interface',
+		$pconfig['srcint'],
+		$src_interfaces
+	))->setHelp('Use this interface when downloadling lists. This option sets <code>CURLOPT_INTERFACE</code>'
+		. ' to the value selected above for all Feeds in this Alias.')
+	  ->setAttribute('style', 'width: auto');
+}
+
+// Collect pre/post processing scripts
+$listpre = $listpost = array();
+$indexdir = '/usr/local/pkg/pfblockerng/';
+if (is_dir("{$indexdir}")) {
+
+	if ($gtype == 'ipv4' || $gtype == 'ipv6') {
+		$list_prefix = 'ip';
+	} else {
+		$list_prefix = 'dnsbl';
+	}
+
+	$list = glob("{$indexdir}/{$list_prefix}_pre_*.{sh,py}", GLOB_BRACE);
+	if (!empty($list)) {
+		foreach ($list as $line) {
+			$file = pathinfo($line, PATHINFO_BASENAME);
+			$l = array($file => $file);
+			$listpre = array_merge($listpre, $l);
+		}
+	}
+
+	$list = glob("{$indexdir}/{$list_prefix}_post_*.{sh,py}", GLOB_BRACE);
+	if (!empty($list)) {
+		foreach ($list as $line) {
+			$file = pathinfo($line, PATHINFO_BASENAME);
+			$l = array($file => $file);
+			$listpost = array_merge($listpost, $l);
+		}
+	}
+}
+
+$listpre = array_merge(array('' => 'None'), $listpre);
+$listpre_size = count($listpre) ?: '1';
+
+$listpost = array_merge(array('' => 'None'), $listpost);
+$listpost_size = count($listpost) ?: '1';
+
+$section->addInput(new Form_Select(
+	'script_pre',
+	'Pre-process Script',
+	$pconfig['script_pre'],
+	$listpre
+))->sethelp("Pre-processing Shell script after download.<br />"
+	. "Script location: /usr/local/pkg/pfblockerng/<strong>ip_pre_SCRIPT NAME.sh|py</strong> or <strong>dnsbl_pre_SCRIPT NAME.sh|py</strong>")
+  ->setAttribute('style', 'width: auto')
+  ->setAttribute('size', $listpre_size);
+
+$section->addInput(new Form_Select(
+	'script_post',
+	'Post-process Script',
+	$pconfig['script_post'],
+	$listpost
+))->sethelp("Post-processing Shell script after download.<br />"
+	. "Script location: /usr/local/pkg/pfblockerng/<strong>ip_post_SCRIPT NAME.sh|py</strong> or <strong>dnsbl_post_SCRIPT name.sh|py</strong>")
+  ->setAttribute('style', 'width: auto')
+  ->setAttribute('size', $listpost_size);
+
+$form->add($section);
 
 if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 
