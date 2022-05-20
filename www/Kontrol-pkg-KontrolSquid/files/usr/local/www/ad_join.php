@@ -90,9 +90,8 @@ if ($_POST)
 				}
 			unset ($join );
 			unset ($msg );
-			$join = exec ('net ads join createupn=HTTP/$host_var@$ad_domain -k');
-			exec ('net ads keytab add HTTP');
-			exec ('net ads keytab create -k');
+			$join = exec ("net ads join createupn=HTTP/$host_var@$ad_domain -k");
+			exec ("net ads setspn add HTTP/$host_var@$ad_domain");
 			exec ('chown root:proxy /var/db/samba4/winbindd_privileged');
 			exec ('chmod -R 0750 /var/db/samba4/winbindd_privileged');
 			exec ('killall winbindd');
