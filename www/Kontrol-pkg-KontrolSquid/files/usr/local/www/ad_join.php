@@ -83,7 +83,7 @@ if ($_POST)
 			exec ("sed -i \"\" \"21s/.*/  .$domain = $ad_domain /\" /usr/local/etc/krb5.conf");
 			exec ("sed -i \"\" \"22s/.*/   $domain = $ad_domain /\" /usr/local/etc/krb5.conf");
 			exec ('kdestroy 2>&1');
-			exec ("echo $jad_pass | kinit $jad_user 2>&1");
+			exec ("echo '$jad_pass' | kinit $jad_user 2>&1");
 				if (file_exists("/etc/krb5.keytab"))
 				{
 					exec ('rm /etc/krb5.keytab 2>&1');

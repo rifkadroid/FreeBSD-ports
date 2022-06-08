@@ -41,7 +41,7 @@ if ($_POST)
 			$rad_user = $_POST["rad_user"];
 			$rad_pass = $_POST["rad_pass"];
 			unset ($remove);
-			$remove = exec ("net ads leave -U $rad_user%$rad_pass");
+			$remove = exec ("net ads leave -U $rad_user%'$rad_pass'");
 			exec ('rm /etc/krb5.keytab 2>/dev/null');
 			exec ('killall winbindd 2>&1');
 			write_config("KONTROL-ID settings saved");
