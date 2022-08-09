@@ -187,6 +187,7 @@
     SUBDIR += blahtexml
     SUBDIR += blas
     SUBDIR += blasfeo
+    SUBDIR += blaspp
     SUBDIR += blaze
     SUBDIR += blazeiterative
     SUBDIR += blis
@@ -201,6 +202,7 @@
     SUBDIR += cadical
     SUBDIR += cado-nfs
     SUBDIR += calc
+    SUBDIR += calcium
     SUBDIR += calcoo
     SUBDIR += cantor
     SUBDIR += casadi
@@ -244,6 +246,7 @@
     SUBDIR += concorde
     SUBDIR += convertall
     SUBDIR += coq
+    SUBDIR += cosma
     SUBDIR += couenne
     SUBDIR += coxeter3
     SUBDIR += cppad
@@ -306,6 +309,7 @@
     SUBDIR += fastops
     SUBDIR += fcl
     SUBDIR += fcl05
+    SUBDIR += fenics-basix
     SUBDIR += fflas-ffpack
     SUBDIR += fftw
     SUBDIR += fftw-float
@@ -373,7 +377,6 @@
     SUBDIR += hexcalc
     SUBDIR += heyoka
     SUBDIR += highs
-    SUBDIR += hipmcl
     SUBDIR += hmat-oss
     SUBDIR += hpcombi
     SUBDIR += hpipm
@@ -385,7 +388,6 @@
     SUBDIR += ignition-math
     SUBDIR += igraph
     SUBDIR += iml
-    SUBDIR += intervaltree
     SUBDIR += intx
     SUBDIR += ipopt
     SUBDIR += ised
@@ -401,6 +403,7 @@
     SUBDIR += kahip
     SUBDIR += kalgebra
     SUBDIR += kalker
+    SUBDIR += kamis
     SUBDIR += kbruch
     SUBDIR += kcalc
     SUBDIR += kfr
@@ -413,6 +416,7 @@
     SUBDIR += lapack++
     SUBDIR += lapack95
     SUBDIR += lapacke
+    SUBDIR += lapackpp
     SUBDIR += laspack
     SUBDIR += latte-integrale
     SUBDIR += lcalc
@@ -851,11 +855,15 @@
     SUBDIR += py-cypari2
     SUBDIR += py-deap
     SUBDIR += py-dionysus
+    SUBDIR += py-docplex
     SUBDIR += py-ducc0
     SUBDIR += py-ecos
     SUBDIR += py-faiss
     SUBDIR += py-fastcluster
     SUBDIR += py-fastdtw
+    SUBDIR += py-fenics-basix
+    SUBDIR += py-fenics-ffcx
+    SUBDIR += py-fenics-ufl
     SUBDIR += py-flax
     SUBDIR += py-fpylll
     SUBDIR += py-fraction
@@ -952,6 +960,7 @@
     SUBDIR += py-random2
     SUBDIR += py-roman
     SUBDIR += py-rpy2
+    SUBDIR += py-rustworkx
     SUBDIR += py-rvlib
     SUBDIR += py-scikit-umfpack
     SUBDIR += py-scs
@@ -972,11 +981,13 @@
     SUBDIR += py-statsmodels
     SUBDIR += py-svgmath
     SUBDIR += py-sym
+    SUBDIR += py-symengine
     SUBDIR += py-sympy
     SUBDIR += py-theano
     SUBDIR += py-timple
     SUBDIR += py-topologic
     SUBDIR += py-triangle
+    SUBDIR += py-umap-learn
     SUBDIR += py-uncertainties
     SUBDIR += py-unyt
     SUBDIR += py-vincenty
@@ -1050,6 +1061,7 @@
     SUBDIR += spooles-mpich
     SUBDIR += spot
     SUBDIR += sprng
+    SUBDIR += ssht
     SUBDIR += stan
     SUBDIR += stanmath
     SUBDIR += stp
@@ -1086,6 +1098,7 @@
     SUBDIR += teyjus
     SUBDIR += timbl
     SUBDIR += tiny-bignum-c
+    SUBDIR += tlapack
     SUBDIR += tmv
     SUBDIR += tomsfastmath
     SUBDIR += topaz
@@ -1094,6 +1107,7 @@
     SUBDIR += triangle
     SUBDIR += trlan
     SUBDIR += trlib
+    SUBDIR += ttmath
     SUBDIR += tvmet
     SUBDIR += ump
     SUBDIR += units

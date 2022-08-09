@@ -5,6 +5,67 @@ they are unavoidable.
 You should get into the habit of checking this file for changes each time
 you update your ports collection, before attempting any port upgrades.
 
+20220807:
+  AFFECTS: users of news/inn
+  AUTHOR: kbowling@FreeBSD.org
+
+  The inn port has been updated to 2.7 release.  Users upgrading from
+  prior versions should read through the announcement for any manual
+  upgrading steps that apply to your environment.
+
+  https://lists.isc.org/pipermail/inn-announce/2022-July/000015.html
+
+20220711:
+  AFFECTS: users of security/stunnel
+  AUTHOR: zi@FreeBSD.org
+
+  The stunnel port has been updated to drop privileges to the stunnel
+  user by default.
+
+  As a result of this change, the pid file location has changed.  If
+  you have a running copy of stunnel, you should stop the process
+  before performing the upgrade.  Alternatively, you will need to
+  # pkill stunnel;service stunnel start
+  after the upgrade has been completed.
+
+202207XYZ:
+  AFFECTS: users of devel/maven-wrapper and devel/maven
+  AUTHOR: michaelo@apache.org
+
+  The environment variable M2_HOME has been replaced with more common
+  MAVEN_HOME which can be used to pass a custom Maven home directory.
+
+20220629:
+  AFFECTS: updating x11-servers/xorg-server from a port
+  AUTHOR: se@FreeBSD.org
+
+  The xorg-server port now has a library dependency on x11/libxcvt,
+  which cannot be installed when the previous version of xorg-server
+  is present.  To be able to update xorg-server from a port, the
+  previous version needs to be manually deinstalled to allow libxcvt
+  to be installed.
+
+20220628:
+  AFFECTS: users of Erlang and Elixir
+  AUTHOR: dch@FreeBSD.org
+
+  For more than a decade, the Elixir Mix tool and the Erlang rebar
+  or erlang.mk build tools have been the defacto way of installing
+  and managing packages for specific applications.
+
+  All main-stream applications, from Riak, CouchDB, RabbitMQ, Phoenix,
+  and Elixir, expect that packages are fetched and compiled into an OTP
+  Release, with in-built version locking, external package management.
+
+  There is no point in maintaining a large number of libraries, that
+  are used neither for development, nor operations.
+
+  Users are directed to https://rebar3.org/ https://erlang.mk/ or
+  https://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html
+  to fetch custom packages.
+
+  https://www.freebsd.org/status/report-2021-07-2021-09/#_freebsd_erlang_ecosystem_ports_update
+
 20220626:
   AFFECTS: users of python
   AUTHOR: thierry@FreeBSD.org
