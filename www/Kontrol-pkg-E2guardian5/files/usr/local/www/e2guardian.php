@@ -183,7 +183,7 @@ function read_lists($log_notice=true, $uw="") {
 	}
 	write_config("Saving...");
 	if ($log_notice == true && $uw == "") {
-		file_notice("E2guardian",$error,"E2guardian" . gettext("Blacklist applied, check site and URL access lists for categories"), "");
+		file_notice("E2guardian", "E2Guardian Blacklist applied, check site and URL access lists for categories", "E2guardian BlackList Updated.");
 	} else {
 		$uw .= "done\n";
 		update_output_window($uw);
