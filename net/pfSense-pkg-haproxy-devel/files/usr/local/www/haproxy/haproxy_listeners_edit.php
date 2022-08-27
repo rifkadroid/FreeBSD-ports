@@ -861,7 +861,7 @@ $section->addInput(new Form_StaticText(
 	<<<EOT
 	SSL Offloading will reduce web servers load by maintaining and encrypting connection with users on internet while sending and retrieving data without encrytion to internal servers.
 	Also more ACL rules and http logging may be configured when this option is used.
-	Certificates can be imported into the <a href="/system_camanager.php" target="_blank">pfSense "Certificate Authority Manager"</a>
+	Certificates can be imported into the <a href="/system_camanager.php" target="_blank">Kontrol "Certificate Authority Manager"</a>
 	Please be aware this possibly will not work with all web applications. Some applications will require setting the SSL checkbox on the backend server configurations so the connection to the webserver will also be a encrypted connection, in that case there will be a slight overall performance loss."
 EOT
 ));

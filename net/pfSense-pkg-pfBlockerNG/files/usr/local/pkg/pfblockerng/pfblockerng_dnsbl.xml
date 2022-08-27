@@ -124,7 +124,7 @@
 					To debug issues with 'False Positives', the following tools below can be used:<br /><ol>
 
 				<li>Browser Dev mode (F12) and goto 'Console' to review any error messages.</li>
-				<li>Execute the following command from pfSense Shell (Changing the interface 're1' to the pfSense Lan Interface):<br />
+				<li>Execute the following command from Kontrol Shell (Changing the interface 're1' to the Kontrol Lan Interface):<br />
 				&emsp;<strong>tcpdump -nnvli re1 port 53 | grep -B1 'A 10.10.10.1'</strong></li>
 				<li>Packet capture software such as Wireshark.</li></ol></div>]]>
 			</description>
@@ -709,7 +709,7 @@
 				This List is stored as 'Base64' format in the config.xml file.<br /><br />
 				<span class="text-danger">Note: </span>These entries are only Whitelisted when Feeds are downloaded or on a
 				<span class="text-danger">'Force Reload'.</span><br />
-				Use the Alerts Tab '+' Whitelist Icon to immediately remove a Domain from Unbound DNSBL.</div>]]> 
+				Use the Alerts Tab '+' Whitelist Icon to immediately remove a Domain from Unbound DNSBL.</div>]]>
 			</description>
 			<type>textarea</type>
 			<cols>90</cols>

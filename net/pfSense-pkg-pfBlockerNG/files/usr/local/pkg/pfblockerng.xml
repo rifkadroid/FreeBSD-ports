@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+Kontrol<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE packagegui SYSTEM "../schema/packages.dtd">
 <?xml-stylesheet type="text/xsl" href="../xsl/package.xsl"?>
 <packagegui>
@@ -62,7 +62,7 @@
 		<tab>
 			<text>Alerts</text>
 			<url>/pfblockerng/pfblockerng_alerts.php</url>
-		</tab>	
+		</tab>
 		<tab>
 			<text>Reputation</text>
 			<url>/pkg_edit.php?xml=/pfblockerng/pfblockerng_reputation.xml</url>
@@ -313,7 +313,7 @@
 			<fieldname>maxmind_key</fieldname>
 			<type>input</type>
 			<description><![CDATA[To utilize the MaxMind GeoIP functionality, you must first register for a free MaxMind user account.
-				Visit the following <a href="https://www.maxmind.com/en/geolite2/signup" target="_blank">Link to Register</a> 
+				Visit the following <a href="https://www.maxmind.com/en/geolite2/signup" target="_blank">Link to Register</a>
 				for a free MaxMind user account. <strong>Utilize the GeoIP Update version 3.1.1 or newer registration option.</strong>]]>
 			</description>
 		</field>
@@ -323,7 +323,7 @@
 			<type>select</type>
 			<description><![CDATA[Select the localized name data from the Language options available.<br />
 				Changes to the Locale will be executed in the background, and will take a few minutes to complete.<br />
-				Upon completion, a pfSense Notice will be generated.]]>
+				Upon completion, a Kontrol Notice will be generated.]]>
 			</description>
 			<options>
 				<option><name>English</name><value>en</value></option>
@@ -438,10 +438,10 @@
 			<type>select</type>
 			<options>
 				<option><name>| pfB_Block/Reject | All other Rules | (original format)</name><value>order_0</value></option>
-				<option><name>| pfSense Pass/Match | pfB_Pass/Match | pfB_Block/Reject | pfSense Block/Reject |</name><value>order_1</value></option>
-				<option><name>| pfB_Pass/Match | pfSense Pass/Match | pfB_Block/Reject | pfSense Block/Reject |</name><value>order_2</value></option>
-				<option><name>| pfB_Pass/Match | pfB_Block/Reject | pfSense Pass/Match | pfSense Block/Reject |</name><value>order_3</value></option>
-				<option><name>| pfB_Pass/Match | pfB_Block/Reject | pfSense Block/Reject | pfSense Pass/Match |</name><value>order_4</value></option>
+				<option><name>| Kontrol Pass/Match | pfB_Pass/Match | pfB_Block/Reject | Kontrol Block/Reject |</name><value>order_1</value></option>
+				<option><name>| pfB_Pass/Match | Kontrol Pass/Match | pfB_Block/Reject | Kontrol Block/Reject |</name><value>order_2</value></option>
+				<option><name>| pfB_Pass/Match | pfB_Block/Reject | Kontrol Pass/Match | Kontrol Block/Reject |</name><value>order_3</value></option>
+				<option><name>| pfB_Pass/Match | pfB_Block/Reject | Kontrol Block/Reject | Kontrol Pass/Match |</name><value>order_4</value></option>
 			</options>
 			<default_value>order_0</default_value>
 		</field>
@@ -513,7 +513,7 @@
 			if ($new_geoip_locale != $ex_geoip_locale) {
 				exec('/bin/ps -wx', $result_cron);
 				if (!preg_grep("/pfblockerng[.]php\s+?(uc|gc|ugc)/", $result_cron)) {
-					// Execute MaxMind update and generate pfSense Notice message on completion
+					// Execute MaxMind update and generate Kontrol Notice message on completion
 					mwexec_bg("/usr/local/bin/php /usr/local/www/pfblockerng/pfblockerng.php ugc {$ex_geoip_locale} {$new_geoip_locale} >> {$pfb['extraslog']} 2>&1");
 				} else {
 					$input_errors[] = 'MaxMind GeoIP conversion already in process!';

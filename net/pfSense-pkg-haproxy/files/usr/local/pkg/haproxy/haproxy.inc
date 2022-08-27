@@ -551,7 +551,7 @@ function haproxy_custom_php_install_command() {
 
 # rc_fast=yes workaround for pfSense that calls start when it
 # means restart (for a wan-ip change for example..)
-# this way it doesnt check for a already running process 
+# this way it doesnt check for a already running process
 # and just fires of the start procedure again. which will
 # take care to restart haproxy gracefully
 rc_fast=yes
@@ -698,7 +698,7 @@ function write_backend($configpath, $fd, $name, $pool, $backendsettings) {
 	if ($ipversion == "ipv6") {
 		$idoffset += 20000;
 	}
-	
+
 	fwrite ($fd, "backend " . $name . "\n");
 	// https is an alias for tcp for clarity purposes
 	if ($frontendtype == "https") {
@@ -791,8 +791,8 @@ function write_backend($configpath, $fd, $name, $pool, $backendsettings) {
 				}
 			}
 			fwrite ($fd, "\t" . $cookie . $cookie_parameters . "\n");
-			
-			
+
+
 			if (!empty($pool["haproxy_cookie_dynamic_cookie_key"])) {
 				fwrite ($fd, "\tdynamic-cookie-key " . $pool["haproxy_cookie_dynamic_cookie_key"] . "\n");
 			}
@@ -1045,7 +1045,7 @@ function write_backend($configpath, $fd, $name, $pool, $backendsettings) {
 		}
 		$casesensitive = $aclitem['casesensitive'] == 'yes' ? "" : " -i";
 		$expr = str_replace("{casesensitive}", $casesensitive, $expr);
-		
+
 		$config_acls ["\tacl\t\t\t" . $aclname . "\t" .  $expr . "\n"] = 1;
 	}
 	// Write acl's first, so they may be used by advanced text options written by user.
@@ -1574,7 +1574,7 @@ function haproxy_writeconf($configpath) {
 			fwrite ($fd, "\ttimeout retry {$tmp}\n");
 			$tmp = !empty($a_global['resolver_holdvalid']) ? $a_global['resolver_holdvalid'] : '10s';
 			fwrite ($fd, "\ttimeout resolve {$tmp}\n");
-            
+
 			fwrite ($fd, "\n");
 		}
 	}
@@ -1842,7 +1842,7 @@ function haproxy_writeconf($configpath) {
 			}
 
 			fwrite ($fd, "\ttimeout client\t\t{$bind['client_timeout']}\n");
-			
+
 			$a_errorfiles = getarraybyref($bind, 'a_errorfiles', 'item');
 			foreach($a_errorfiles as $errorfile) {
 				if (!is_array($a_files_cache)) {// load only once
@@ -2164,7 +2164,7 @@ function use_transparent_clientip_proxying() {
 }
 
 function haproxy_get_transparent_backends(){
-	global $config;	
+	global $config;
 	$a_backends = getarraybyref($config, 'installedpackages', 'haproxy', 'ha_pools', 'item');
 	$transparent_backends = array();
 	foreach ($a_backends as $backend) {
@@ -2875,8 +2875,8 @@ function haproxy_find_create_certificate($certificatename) {
 
 	$new_cert = array();
 	$dn = array(
-		"organizationName" => "haproxy-pfsense",
-		"commonName"       => "haproxy-pfsense"
+		"organizationName" => "haproxy-kontrol",
+		"commonName"       => "haproxy-kontrol"
 	);
 	$new_cert = array();
 	ca_create($new_cert, 1024, 2000, $dn);
@@ -2889,9 +2889,9 @@ function haproxy_find_create_certificate($certificatename) {
 
 function haproxy_config_init(){
 	global $config;
-	return; 
+	return;
 	// this dont work.. i cant know who is calling my functions and uninitialilzing my arrays in between..
-/*	
+/*
 	if (!is_array($config['installedpackages'])) {
 		$config['installedpackages'] = array();
 	}
@@ -2975,7 +2975,7 @@ function find_frontends_using_backend($backendname) {
 		if ($used) {
 			$result[] = $frontend['name'];
 		}
-	}				
+	}
 	return $result;
 }
 
@@ -3021,6 +3021,6 @@ function rename_backend_references($oldvalue, $newvalue) {
 		}
 	}
 	unset($frontend);
-	
+
 	//TODO: acl's with backendservercount/backend should also be renamed..
 }

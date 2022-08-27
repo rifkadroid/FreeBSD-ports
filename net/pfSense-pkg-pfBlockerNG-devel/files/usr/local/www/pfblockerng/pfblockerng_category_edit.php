@@ -1004,7 +1004,7 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 				</ul>
 				<strong><u>'Alias' Rules:</u></strong><br />
 				<strong>'Alias'</strong> rules create an <a href=\"/firewall_aliases.php\">alias</a> for the list (and do nothing else).
-				This enables a pfBlockerNG list to be used by name, in any firewall rule or pfSense function, as desired.
+				This enables a pfBlockerNG list to be used by name, in any firewall rule or Kontrol function, as desired.
 					<ul>
 						<li><strong>Options - Alias Deny,&nbsp; Alias Permit,&nbsp; Alias Match,&nbsp; Alias Native</strong></li>
 						<li>'Alias Deny' can use De-Duplication and Reputation Processes if configured.</li>
@@ -1012,7 +1012,7 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 						<li>'Alias Native' lists are kept in their Native format without any modifications.</li></ul>
 				<span class=\"text-danger\">Note: </span><ul>
 					When manually creating 'Alias' type firewall rules; Prefix the Firewall rule Description with <strong>pfb_</strong>
-					This will ensure that that Dashboard widget reports those statistics correctly. <strong>Do not</strong> 
+					This will ensure that that Dashboard widget reports those statistics correctly. <strong>Do not</strong>
 					prefix with (pfB_) as those Rules will be auto-removed by package when 'Auto' rules are defined.</ul>
 			</div>";
 }
@@ -1276,7 +1276,7 @@ if ($gtype == 'ipv4' || $gtype == 'ipv6') {
 		$src_interfaces = array_merge(array($key => strtoupper($interfaces_list[$key]['friendly'])), $src_interfaces);
 	}
 	$src_interfaces = array_merge(array('' => 'Default'), $src_interfaces);
-	
+
 	$section->addInput(new Form_Select(
 		'srcint',
 		'cURL Interface',

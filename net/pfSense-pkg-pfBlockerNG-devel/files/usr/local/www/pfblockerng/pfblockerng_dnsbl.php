@@ -218,7 +218,7 @@ if ($_POST) {
 
 		// Python TLD Allow (Add default TLD Allows + ARPA + pfSense TLD
 		if (!empty($_POST['pfb_pytlds_gtld'])) {
-			$pfb['dconfig']['pfb_pytlds_gtld']	= "arpa,{$local_tld}," . implode(',', (array)$_POST['pfb_pytlds_gtld']); 
+			$pfb['dconfig']['pfb_pytlds_gtld']	= "arpa,{$local_tld}," . implode(',', (array)$_POST['pfb_pytlds_gtld']);
 		} else {
 			$pfb['dconfig']['pfb_pytlds_gtld']	= implode(',', $default_tlds);
 		}
@@ -330,7 +330,7 @@ if ($_POST) {
 
 		// DNSBL Python mode is only available for pfSense 2.4.5 and above
 		if ($_POST['dnsbl_mode'] == 'dnsbl_python' && substr(trim(file_get_contents('/etc/version')), 0, 5) < '2.4.5') {
-			$input_errors[] = 'DNSBL Python mode is compatable with pfSense versions 2.4.5 and above.';
+			$input_errors[] = 'DNSBL Python mode is compatable with Kontrol versions 2.4.5 and above.';
 		}
 
 		if (!$input_errors) {
@@ -412,7 +412,7 @@ $dnsbl_text = '<div class="infoblock">
 			To debug issues with \'False Positives\', the following tools below can be used:<br />
 			<ol>
 				<li>Browser Dev mode (F12) and goto \'Console\' to review any error messages.</li>
-				<li>Execute the following command from pfSense Shell (Changing the interface \'re1\' to the pfSense Lan Interface):<br />
+				<li>Execute the following command from Kontrol Shell (Changing the interface \'re1\' to the Kontrol Lan Interface):<br />
 					&emsp;<strong>tcpdump -nnvli re1 port 53 | grep -B1 \'A 10.10.10.1\'</strong></li>
 				<li>Packet capture software such as Wireshark.</li>
 			</ol>
@@ -487,9 +487,9 @@ $section->addInput(new Form_Select(
 		. '<strong>Unbound Mode</strong>:<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode will utilize Unbound local-zone/local-data entries for DNSBL (requires more memory).<br />'
 		. '<strong>Unbound Python Mode</strong>:<br />'
-		. '&emsp;&emsp;&emsp;&emsp;This mode is only available for pfSense version 2.4.5 and above.<br />'
+		. '&emsp;&emsp;&emsp;&emsp;This mode is only available for Kontrol version 2.4.5 and above.<br />'
 		. '&emsp;&emsp;&emsp;&emsp;Python DNSBL mode is <strong>not</strong> compatable with the DNS Resolver DHCP Registration option (Unbound will Crash)!<br />'
-		. '&emsp;&emsp;&emsp;&emsp;Python DNSBL mode is <strong>not</strong> compatable with the DNS Resolver OpenVPN Client Registration (pfSense < 2.5)!<br />'
+		. '&emsp;&emsp;&emsp;&emsp;Python DNSBL mode is <strong>not</strong> compatable with the DNS Resolver OpenVPN Client Registration (Kontrol < 2.5)!<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode will utilize the python integration of Unbound for DNSBL.<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode will allow logging of DNS Replies, and more advanced DNSBL Blocking features.<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode requires substantially less memory </div>'
@@ -511,7 +511,7 @@ $section->addInput(new Form_Checkbox(
 	'on'
 ))->setHelp('Enabling this option will allow sending python_control commands (via DNS TXT) to the Python integration.'
 	. '<div class="infoblock" style="width: 90%;">'
-	. 'The python_control feature is limited to DNS TXT records sent from pfSense localhost (127.0.0.1) only!<br />'
+	. 'The python_control feature is limited to DNS TXT records sent from Kontrol localhost (127.0.0.1) only!<br />'
 	. 'This is a temporary intervention, and will be reset on a restart of the Resolver<br />'
 	. 'These commands can be incorporated in CRON/Scheduler tasks or run manually as required<br />'
 	. 'All events are logged to the Reports Tab (Gear icon)<br /><br />'
@@ -2157,7 +2157,7 @@ $tld_info = array();
 $tld_info['gTLD']	= 'List of Generic Top-Level-Domains (gTLD)';
 $tld_info['ccTLD']	= 'List of Country code Top-Level-Domains (ccTLD)';
 $tld_info['iTLD']	= 'List of Internationalized (IDN) Top-Level-Domains (iTLD)';
-$tld_info['bgTLD']	= 'List of Branded Generic Top-Level-Domains (bgTLD)'; 
+$tld_info['bgTLD']	= 'List of Branded Generic Top-Level-Domains (bgTLD)';
 
 $section->addInput(new Form_Checkbox(
 	'pfb_pytld',
@@ -2167,7 +2167,7 @@ $section->addInput(new Form_Checkbox(
 	'on'
 ))->setHelp('Enable the Python TLD Allow feature (1,546 TLDs available). This will block all TLDs that are not specifically selected.'
 		. '<div id="dnsbl_python_tld_allow_text">'
-		. '<strong>By default</strong> \'ARPA\' and the pfSense TLD \'' . strtoupper($local_tld) . '\' are allowed.<br />'
+		. '<strong>By default</strong> \'ARPA\' and the Kontrol TLD \'' . strtoupper($local_tld) . '\' are allowed.<br />'
 		. 'If no TLDs are selected, the following are added by default [ COM, NET, ORG, EDU, CA, CO, IO ]<br /><br />'
 		. 'Detailed TLD listings : <a target=_blank href="http://www.iana.org/domains/root/db">Root Zone Top-Level Domains.</a><br />'
 		. 'Changes to this option will require a Force Update to take effect.<br /><br />'
@@ -2206,7 +2206,7 @@ foreach (array('gTLD', 'ccTLD', 'iTLD', 'bgTLD') as $key => $tld_type) {
 	  ->addClass('pfb_python')
 	  ->setWidth(4);
 
-	if ($key == 1 || $key == 3) { 
+	if ($key == 1 || $key == 3) {
 		$section->add($group);
 	}
 }
@@ -2897,7 +2897,7 @@ $list_action_text = 'Default: <strong>Disabled</strong>
 
 				<strong><u>\'Alias\' Rule:</u></strong><br />
 				<strong>\'Alias\'</strong> rules create an <a href="/firewall_aliases.php">alias</a> for the list (and do nothing else).
-				This enables a pfBlockerNG list to be used by name, in any firewall rule or pfSense function, as desired.
+				This enables a pfBlockerNG list to be used by name, in any firewall rule or Kontrol function, as desired.
 			</div>';
 
 $section->addInput(new Form_Select(
@@ -3169,7 +3169,7 @@ function enable_python_gp() {
 }
 
 function enable_dnsblip() {
-	var dnsblip = $('#action').prop('checked'); 
+	var dnsblip = $('#action').prop('checked');
 	hideInput('aliaslog', !dnsblip);
 	hideInput('dnsbl_ip_text_in', !dnsblip);
 	hideInput('dnsbl_ip_text_out', !dnsblip);

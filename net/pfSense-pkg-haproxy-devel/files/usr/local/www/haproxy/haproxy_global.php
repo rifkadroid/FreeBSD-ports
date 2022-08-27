@@ -82,7 +82,7 @@ haproxy_config_init();
 if ($_POST) {
 	unset($input_errors);
 	$pconfig = $_POST;
-	
+
 	if ($_POST['calculate_certificate_chain']) {
 		$changed = haproxy_recalculate_certifcate_chain();
 		if ($changed > 0)
@@ -138,7 +138,7 @@ if ($_POST) {
 			} else {
 				$haproxycfg['config'][0]['enable'] = 'off';
 			}
-			
+
 			touch($d_haproxyconfdirty_path);
 			write_config("haproxy-devel: Global settings saved");
 		}
@@ -464,7 +464,7 @@ $section->addInput(new Form_Checkbox(
 	'Sync HAProxy configuration to backup CARP members via XMLRPC.',
 	$pconfig['enablesync']
 ))->setHelp(<<<EOD
-	Note: The synchronisation host and password are those configured in pfSense main <a href="/system_hasync.php">"System: High Availability Sync"</a> settings.
+	Note: The synchronisation host and password are those configured in Kontrol main <a href="/system_hasync.php">"System: High Availability Sync"</a> settings.
 EOD
 );
 $form->add($section);

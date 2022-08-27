@@ -1132,7 +1132,7 @@ EOT
 <<<EOT
 
 	Connect transparently to the backend server's so the connection seams to come straight from the client ip address.
-	To work properly this requires the reply traffic to pass through pfSense by means of correct routing.<br/>
+	To work properly this requires the reply traffic to pass through Kontrol by means of correct routing.<br/>
 	When using IPv6 only routable ip addresses can be used, host names or link-local addresses (FE80) will not work.<br/>
 	(uses the option "source 0.0.0.0 usesrc clientip" or "source ipv6@ usesrc clientip")
 	<br/><br/>
@@ -1256,7 +1256,7 @@ events.push(function() {
 	});
 
 	updatevisibility();
-	
+
 	// make sure enabled/disabled visable/hidden states of items dependant on these boxes are correct when loading the page.
 	$('[id^=table_aclsexpression]').change();
 });

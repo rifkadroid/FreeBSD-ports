@@ -911,7 +911,7 @@ EOF;
 
 		// Update config.xml, if changes required
 		if ($pfbupdate) {
-			$log = "Saving pfSense config...\n";
+			$log = "Saving Kontrol config...\n";
 			pfb_logger("{$log}", 1);
 			if (!is_array($config['nat'])) {
 				$config['nat'] = array();
@@ -924,7 +924,7 @@ EOF;
 			if (!is_array($config['virtualip'])) {
 				$config['virtualip'] = array();
 			}
-			
+
 			if (!is_array($config['virtualip']['vip'])) {
 				$config['virtualip']['vip'] = array();
 			}
@@ -4137,7 +4137,7 @@ function sync_package_pfblockerng($cron='') {
 					if (!is_array($list['row'])) {
 						$list['row'] = array();
 					}
-					
+
 					if ($vtype == '_v4') {
 						$list['vtype'] = '_v4';
 					} else {
@@ -4146,7 +4146,7 @@ function sync_package_pfblockerng($cron='') {
 
 					// Collect list array key location
 					$list['key'] = "{$key}";
-										
+
 					// If only the 'customlist' is defined. Remove the 'List row' data.
 					if (empty($list['row'][0]['url'])) {
 						unset($list['row']);

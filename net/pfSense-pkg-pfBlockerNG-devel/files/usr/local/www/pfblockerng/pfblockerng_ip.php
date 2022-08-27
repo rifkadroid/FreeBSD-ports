@@ -89,7 +89,7 @@ if ($_POST) {
 				mwexec_bg("/usr/local/bin/php /usr/local/www/pfblockerng/pfblockerng.php ugc {$maxmind} {$p_maxmind} >> {$pfb['extraslog']} 2>&1");
 
 				$savemsg = "The MaxMind language locale is being changed from [ {$maxmind} to {$p_maxmind} ]. "
-					. "A pfSense Notice message will be submitted on completion.";
+					. "A Kontrol Notice message will be submitted on completion.";
 			} else {
 				$input_errors[] = 'MaxMind GeoIP conversion already in process!';
 				$input_errors[] = 'Cannot change Language Locale at this time!';
@@ -288,7 +288,7 @@ $section->addInput(new Form_Select(
 		'ja' => 'Japanese', 'zh-CN' => 'Simplified Chinese', 'es' => 'Spanish' ]
 ))->setHelp('Select the localized name data from the Language options available.<br />'
 		. 'Changes to the Locale will be executed in the background, and will take a few minutes to complete.<br />'
-		. 'Upon completion, a pfSense Notice will be generated.')
+		. 'Upon completion, a Kontrol Notice will be generated.')
   ->setAttribute('style', 'width: auto');
 
 $section->addInput(new Form_Checkbox(
@@ -394,10 +394,10 @@ $section->addInput(new Form_Select(
 	'Firewall \'Auto\' Rule Order',
 	$pconfig['pass_order'],
 	[	'order_0' => '| pfB_Pass/Match/Block/Reject | All other Rules | (Default format)',
-		'order_1' => '| pfSense Pass/Match | pfB_Pass/Match | pfB_Block/Reject | pfSense Block/Reject |',
-		'order_2' => '| pfB_Pass/Match | pfSense Pass/Match | pfB_Block/Reject | pfSense Block/Reject |',
-		'order_3' => '| pfB_Pass/Match | pfB_Block/Reject | pfSense Pass/Match | pfSense Block/Reject |',
-		'order_4' => '| pfB_Pass/Match | pfB_Block/Reject | pfSense Block/Reject | pfSense Pass/Match |'
+		'order_1' => '| Kontrol Pass/Match | pfB_Pass/Match | pfB_Block/Reject | Kontrol Block/Reject |',
+		'order_2' => '| pfB_Pass/Match | Kontrol Pass/Match | pfB_Block/Reject | Kontrol Block/Reject |',
+		'order_3' => '| pfB_Pass/Match | pfB_Block/Reject | Kontrol Pass/Match | Kontrol Block/Reject |',
+		'order_4' => '| pfB_Pass/Match | pfB_Block/Reject | Kontrol Block/Reject | Kontrol Pass/Match |'
 	]
 ))->setHelp('Default Order:<strong> | pfB_Block/Reject | All other Rules | (original format)</strong><br />'
 		. '<span class="text-danger"><strong>Note: \'Auto type\' Firewall Rules will be \'ordered\' by this selection.</strong></span>'

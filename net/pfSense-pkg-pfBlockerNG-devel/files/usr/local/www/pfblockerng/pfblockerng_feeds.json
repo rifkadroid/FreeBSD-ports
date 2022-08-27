@@ -648,7 +648,7 @@
 					"feed":		"Lashback",
 					"website":	"https://blacklist.lashback.com/",
 					"url":		"http://www.unsubscore.com/blacklist.txt",
-					"info":		"This is a very large Feed (~1.3M lines). To utilize, increase the pfSense 'Firewall Maximum Table entries' limit to 3-4M.",
+					"info":		"This is a very large Feed (~1.3M lines). To utilize, increase the Kontrol 'Firewall Maximum Table entries' limit to 3-4M.",
 					"header":	"LB_BL"
 				},
 				{
@@ -1212,7 +1212,7 @@
 		},
 		"ADs_Basic": {
 			"info":		"ADs Basic is a minimal collection of ADvertisement Domain Feeds.",
-			"description":	"ADs Basic - Collection of ADvertisement Domain Feeds.", 
+			"description":	"ADs Basic - Collection of ADvertisement Domain Feeds.",
 			"action":	"block",
 			"cron":		"EveryDay",
 			"feeds": [

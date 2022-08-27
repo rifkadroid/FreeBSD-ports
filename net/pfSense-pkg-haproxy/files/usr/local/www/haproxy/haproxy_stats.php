@@ -147,10 +147,10 @@ if (isset($_GET['showstatresolvers'])){
 			<h2 class="panel-title"><?=gettext("Stats")?></h2>
 		</div>
 		<div class="table-responsive panel-body">
-			This page contains a 'stats' page available from haproxy accessible through the pfSense gui.<br/>
+			This page contains a 'stats' page available from haproxy accessible through the Kontrol gui.<br/>
 			<br/>
-			As the page is forwarded through the pfSense gui, this might cause some functionality to not work.<br/>
-			Though the normal haproxy stats page can be tweaked more, and doesn't use a user/pass from pfSense itself.<br/>
+			As the page is forwarded through the Kontrol gui, this might cause some functionality to not work.<br/>
+			Though the normal haproxy stats page can be tweaked more, and doesn't use a user/pass from Kontrol itself.<br/>
 			Some examples are configurable automatic page refresh, only showing certain servers, not providing admin options,<br/>
 			and can be accessed from wherever the associated frontend is accessible.(as long as rules permit access)<br/>
 			To use this or for simply an example how to use SSL-offloading configure stats on either a real backend while utilizing the 'stats uri'.<br/>

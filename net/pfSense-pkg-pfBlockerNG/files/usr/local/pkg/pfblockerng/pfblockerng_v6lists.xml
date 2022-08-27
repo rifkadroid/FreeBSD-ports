@@ -247,7 +247,7 @@
 				<li><strong>Match Inbound/Match Outbound</strong> - Matches all traffic in one direction only.</li></ul>
 				<strong><u>'Alias' Rules:</u></strong><br />
 				<strong>'Alias'</strong> rules create an <a href="/firewall_aliases.php">alias</a> for the list (and do nothing else).
-				This enables a pfBlockerNG list to be used by name, in any firewall rule or pfSense function, as desired.
+				This enables a pfBlockerNG list to be used by name, in any firewall rule or Kontrol function, as desired.
 				<ul><li><strong>Options - Alias Deny,&nbsp; Alias Permit,&nbsp; Alias Match,&nbsp; Alias Native</strong></li>
 				<li>'Alias Deny' can use De-Duplication and Reputation Processes if configured.</li>
 				<li>'Alias Permit' and 'Alias Match' will be saved in the Same folder as the other Permit/Match Auto-Rules</li>
