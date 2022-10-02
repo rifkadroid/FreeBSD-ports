@@ -1,11 +1,11 @@
 PORTNAME=	geoipupdate
-PORTVERSION=	4.9.0
+PORTVERSION=	4.10.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	5
 CATEGORIES=	net geography
 
 MAINTAINER=	adamw@FreeBSD.org
 COMMENT=	Fetch the latest copies of the GeoIP2 databases
+WWW=		https://github.com/maxmind/geoipupdate
 
 LICENSE=	APACHE20 MIT
 LICENSE_COMB=	dual

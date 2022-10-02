@@ -6,7 +6,8 @@ MASTER_SITES=	http://qmmp.ylsoftware.com/files/${PORTNAME}/${PORTVERSION:R}/ \
 PKGNAMESUFFIX=	-qt6
 
 MAINTAINER=	fluffy@FreeBSD.org
-COMMENT=	Additional plug-ins for QMMP (Qt5)
+COMMENT=	Additional plug-ins for QMMP (Qt6)
+WWW=		https://qmmp.ylsoftware.com/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -18,7 +19,7 @@ CONFLICTS=	${PORTNAME}-qt5
 PORTSCOUT=	limit:^1\..*
 
 USES=		cmake pkgconfig qt:6 tar:bzip2
-USE_QT=		base tools_build
+USE_QT=		base tools:build
 USE_LDCONFIG=	yes
 
 OPTIONS_SUB=	yes

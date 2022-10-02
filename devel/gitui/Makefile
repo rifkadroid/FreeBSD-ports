@@ -1,10 +1,12 @@
 PORTNAME=	gitui
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.21.0
+PORTREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Terminal UI for git
+WWW=		https://github.com/extrawurst/gitui
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md

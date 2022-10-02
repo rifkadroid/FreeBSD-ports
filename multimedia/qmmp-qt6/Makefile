@@ -1,12 +1,14 @@
 PORTNAME=	qmmp
-PORTVERSION=	2.1.1
+PORTVERSION=	2.1.2
+PORTREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	http://qmmp.ylsoftware.com/files/${PORTNAME}/${PORTVERSION:R}/ \
 	SF/qmmp-dev/${PORTNAME}/${PORTVERSION:R}/
 PKGNAMESUFFIX=	-qt6
 
 MAINTAINER=	fluffy@FreeBSD.org
-COMMENT=	Qt5-based multimedia player
+COMMENT=	Qt6-based multimedia player
+WWW=		https://qmmp.ylsoftware.com/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -16,7 +18,7 @@ PORTSCOUT=	limit:^1\..*
 
 USES=		cmake gl gnome pathfix pkgconfig qt:6 tar:bzip2
 USE_GL=		gl opengl
-USE_QT=		base_build declarative_build tools_build
+USE_QT=		base:build declarative:build tools:build
 USE_LDCONFIG=	yes
 
 CMAKE_OFF=	USE_MMS
@@ -316,15 +318,9 @@ post-install-DOCS-on:
 		cd ${WRKSRC} && ${INSTALL_MAN} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
 
 post-install-DOXYGEN-on:
-	@${MKDIR} ${STAGEDIR}${DOCSDIR}/html/search ; \
 	cd ${WRKSRC}/doc/html && \
-		${INSTALL_MAN} *.html *.png *.css ${STAGEDIR}${DOCSDIR}/html ; \
-	cd ${WRKSRC}/doc/html/search && \
-		${INSTALL_MAN} *.html *.png *.css *.js ${STAGEDIR}${DOCSDIR}/html/search ; \
-	${RM} ${WRKDIR}/PLIST.doc ; \
-	${FIND} ${STAGEDIR}${DOCSDIR}/html -type f | \
-		${SED} 's|${STAGEDIR}${PREFIX}/||' \
-		>> ${WRKDIR}/PLIST.doc ; \
-	cd ${WRKDIR} ; ${SED} -i -e '/PLIST.doc/ r PLIST.doc' ${TMPPLIST}
+		${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}/html
+	@${FIND} -P ${STAGEDIR}${DOCSDIR}/html -type f 2>/dev/null | \
+		${SED} -ne 's|^${STAGEDIR}${PREFIX}/||p' >> ${TMPPLIST}
 
 .include <bsd.port.mk>

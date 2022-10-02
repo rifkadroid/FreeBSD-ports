@@ -7,9 +7,12 @@ PKGNAMESUFFIX=	${SUFFIX}
 
 MAINTAINER=	jhb@FreeBSD.org
 COMMENT=	Cross GNU Compiler Collection for ${TARGETARCH}
+WWW=		https://gcc.gnu.org/
 
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
+
+IGNORE_FreeBSD_12= Not supported on FreeBSD 12
 
 BUILD_DEPENDS=	${BU_PREFIX}-as:devel/binutils@${BU_FLAVOR} \
 		objdump:devel/binutils
@@ -87,7 +90,7 @@ CONFIGURE_TARGET=	${ARCH}-unknown-${OPSYS:tl}${OSREL}
 .endif
 
 .if ${TARGETARCH:Marm*} || ${TARGETARCH} == "aarch64"
-. if ${COMPILER_TYPE} == clang
+. if ${CHOSEN_COMPILER_TYPE} == clang
 MAKE_ARGS+=CXXFLAGS=-fbracket-depth=512
 . endif
 .endif

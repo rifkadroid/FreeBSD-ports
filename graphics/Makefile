@@ -118,7 +118,6 @@
     SUBDIR += curtail
     SUBDIR += cuttlefish
     SUBDIR += darktable
-    SUBDIR += darktable40
     SUBDIR += dataplot
     SUBDIR += dbow2
     SUBDIR += dc20pack
@@ -141,9 +140,7 @@
     SUBDIR += drawing
     SUBDIR += drawpile
     SUBDIR += drm-510-kmod
-    SUBDIR += drm-54-kmod
     SUBDIR += drm-fbsd12.0-kmod
-    SUBDIR += drm-fbsd13-kmod
     SUBDIR += drm-kmod
     SUBDIR += drm_info
     SUBDIR += dspdfviewer
@@ -277,6 +274,7 @@
     SUBDIR += glosm
     SUBDIR += glpng
     SUBDIR += glslang
+    SUBDIR += glvis
     SUBDIR += glx-utils
     SUBDIR += gmic
     SUBDIR += gmic-qt
@@ -353,6 +351,7 @@
     SUBDIR += icoutils
     SUBDIR += ida
     SUBDIR += iec16022
+    SUBDIR += igt-gpu-tools
     SUBDIR += iiview
     SUBDIR += ikona
     SUBDIR += imageindex
@@ -548,7 +547,6 @@
     SUBDIR += mapyrus
     SUBDIR += matplotlib-cpp
     SUBDIR += matplotplusplus
-    SUBDIR += megapov
     SUBDIR += meh
     SUBDIR += mesa-demos
     SUBDIR += mesa-devel
@@ -841,6 +839,7 @@
     SUBDIR += py-cairosvg
     SUBDIR += py-cartopy
     SUBDIR += py-cogdumper
+    SUBDIR += py-colorcet
     SUBDIR += py-colour
     SUBDIR += py-descartes
     SUBDIR += py-django-easy-thumbnails
@@ -858,6 +857,7 @@
     SUBDIR += py-glfw
     SUBDIR += py-glooey
     SUBDIR += py-gphoto2
+    SUBDIR += py-gprof2dot
     SUBDIR += py-graphlib-backport
     SUBDIR += py-graphviz
     SUBDIR += py-graphy
@@ -869,6 +869,7 @@
     SUBDIR += py-imagesize
     SUBDIR += py-img2pdf
     SUBDIR += py-leather
+    SUBDIR += py-lerc
     SUBDIR += py-mapclassify
     SUBDIR += py-mayavi
     SUBDIR += py-mcomix
@@ -882,6 +883,7 @@
     SUBDIR += py-opencolorio
     SUBDIR += py-openimageio
     SUBDIR += py-openshadinglanguage
+    SUBDIR += py-optimize-images
     SUBDIR += py-osmnet
     SUBDIR += py-pandana
     SUBDIR += py-photocollage

@@ -1,6 +1,6 @@
---- content/app/content_main_runner_impl.cc.orig	2022-07-22 17:30:31 UTC
+--- content/app/content_main_runner_impl.cc.orig	2022-09-24 10:57:32 UTC
 +++ content/app/content_main_runner_impl.cc
-@@ -128,13 +128,13 @@
+@@ -130,13 +130,13 @@
  #include "base/posix/global_descriptors.h"
  #include "content/public/common/content_descriptors.h"
  
@@ -16,7 +16,7 @@
  #include "base/native_library.h"
  #include "base/rand_util.h"
  #include "content/public/common/zygote/sandbox_support_linux.h"
-@@ -173,6 +173,10 @@
+@@ -175,6 +175,10 @@
  #include "media/base/media_switches.h"
  #endif
  
@@ -34,7 +34,7 @@
 -#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
 +#if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_BSD)
  
- #if BUILDFLAG(ENABLE_PLUGINS)
+ #if BUILDFLAG(ENABLE_PPAPI)
  // Loads the (native) libraries but does not initialize them (i.e., does not
 @@ -396,7 +400,7 @@ void PreloadLibraryCdms() {
  }
@@ -66,7 +66,7 @@
    PreSandboxInit();
  #endif
  
-@@ -783,11 +792,10 @@ int ContentMainRunnerImpl::Initialize(ContentMainParam
+@@ -785,11 +794,10 @@ int ContentMainRunnerImpl::Initialize(ContentMainParam
               kFieldTrialDescriptor + base::GlobalDescriptors::kBaseDescriptor);
  #endif  // !BUILDFLAG(IS_ANDROID)
  
@@ -80,7 +80,7 @@
  
  #endif  // !BUILDFLAG(IS_WIN)
  
-@@ -964,6 +972,16 @@ int ContentMainRunnerImpl::Initialize(ContentMainParam
+@@ -972,6 +980,16 @@ int ContentMainRunnerImpl::Initialize(ContentMainParam
    }
  #endif
  
@@ -97,7 +97,7 @@
    delegate_->SandboxInitialized(process_type);
  
  #if BUILDFLAG(USE_ZYGOTE_HANDLE)
-@@ -1021,7 +1039,7 @@ int NO_STACK_PROTECTOR ContentMainRunnerImpl::Run() {
+@@ -1031,7 +1049,7 @@ int NO_STACK_PROTECTOR ContentMainRunnerImpl::Run() {
        mojo::core::InitFeatures();
      }
  
@@ -106,7 +106,7 @@
      // If dynamic Mojo Core is being used, ensure that it's loaded very early in
      // the child/zygote process, before any sandbox is initialized. The library
      // is not fully initialized with IPC support until a ChildProcess is later
-@@ -1054,6 +1072,11 @@ int NO_STACK_PROTECTOR ContentMainRunnerImpl::Run() {
+@@ -1064,6 +1082,11 @@ int NO_STACK_PROTECTOR ContentMainRunnerImpl::Run() {
    content_main_params_.reset();
  
    RegisterMainThreadFactories();

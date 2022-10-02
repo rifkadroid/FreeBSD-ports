@@ -1,5 +1,5 @@
 PORTNAME=	x42-plugins
-DISTVERSION=	20220714 # the version is published here: http://gareus.org/misc/x42-plugins.php
+DISTVERSION=	20220923 # the version is published here: http://gareus.org/misc/x42-plugins.php
 CATEGORIES=	audio
 MASTER_SITES=	http://gareus.org/misc/x42-plugins/
 PKGNAMESUFFIX=	-lv2
@@ -7,6 +7,7 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX} # only to allow USE_GITHUB=nodefault for z
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Collection of LV2 plugins (submodules)
+WWW=		https://github.com/x42/x42-plugins/
 
 LICENSE=	GPLv2
 

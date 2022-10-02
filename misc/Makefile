@@ -32,6 +32,7 @@
     SUBDIR += broot
     SUBDIR += bsod
     SUBDIR += buffer
+    SUBDIR += caffe
     SUBDIR += cheat
     SUBDIR += chef
     SUBDIR += chmlib
@@ -82,6 +83,7 @@
     SUBDIR += dynomite
     SUBDIR += e2fsprogs-libblkid
     SUBDIR += e2fsprogs-libuuid
+    SUBDIR += ecflow
     SUBDIR += edfbrowser
     SUBDIR += edflib
     SUBDIR += elki
@@ -408,8 +410,10 @@
     SUBDIR += py-progressbar
     SUBDIR += py-progressbar2
     SUBDIR += py-pyEDFlib
+    SUBDIR += py-pyct
     SUBDIR += py-pyfiglet
     SUBDIR += py-pykml
+    SUBDIR += py-pypatent
     SUBDIR += py-pyprind
     SUBDIR += py-python-geohash
     SUBDIR += py-python-utils

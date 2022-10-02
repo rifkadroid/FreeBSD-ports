@@ -21,6 +21,7 @@
     SUBDIR += chaiscript
     SUBDIR += chez-scheme
     SUBDIR += chibi-scheme
+    SUBDIR += chicken
     SUBDIR += chicken5
     SUBDIR += cim
     SUBDIR += cjs
@@ -222,7 +223,6 @@
     SUBDIR += p5-ExtUtils-F77
     SUBDIR += p5-Interpolation
     SUBDIR += p5-JSAN
-    SUBDIR += p5-JavaScript-SpiderMonkey
     SUBDIR += p5-JavaScript-Squish
     SUBDIR += p5-JavaScript-Value-Escape
     SUBDIR += p5-List-MoreUtils
@@ -336,7 +336,7 @@
     SUBDIR += smlnj
     SUBDIR += snobol4
     SUBDIR += solidity
-    SUBDIR += spidermonkey17
+    SUBDIR += spidermonkey102
     SUBDIR += spidermonkey78
     SUBDIR += spidermonkey91
     SUBDIR += spl

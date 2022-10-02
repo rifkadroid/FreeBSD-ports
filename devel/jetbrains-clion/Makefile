@@ -1,5 +1,5 @@
 PORTNAME=	clion
-PORTVERSION=	2022.2.1
+PORTVERSION=	2022.2.3
 CATEGORIES=	devel java
 MASTER_SITES=	https://download-cdn.jetbrains.com/cpp/
 PKGNAMEPREFIX=	jetbrains-
@@ -8,6 +8,7 @@ DIST_SUBDIR=	jetbrains
 
 MAINTAINER=	dmitry.wagin@ya.ru
 COMMENT=	JetBrains CLion IDE
+WWW=		https://www.jetbrains.com/clion/
 
 LICENSE=	IntelliJ-CLion
 LICENSE_NAME=	Subscription license agreement for business and organizations

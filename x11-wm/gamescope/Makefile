@@ -1,5 +1,5 @@
 PORTNAME=	gamescope
-DISTVERSION=	3.11.39
+DISTVERSION=	3.11.45-2
 CATEGORIES=	x11-wm wayland
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
@@ -9,6 +9,7 @@ PATCHFILES+=	a618ea074660.patch:-p1 # https://github.com/Plagman/gamescope/issue
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Micro-compositor from SteamOS
+WWW=		https://github.com/Plagman/gamescope
 
 LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

@@ -1,6 +1,5 @@
 PORTNAME=	facter
-PORTVERSION=	4.2.11
-PORTREVISION=	1
+PORTVERSION=	4.2.12
 CATEGORIES=	sysutils rubygems
 MASTER_SITES=	RG
 
@@ -10,6 +9,7 @@ PATCH_DIST_STRIP=-p1
 
 MAINTAINER=	puppet@FreeBSD.org
 COMMENT=	Cross-platform Ruby library for retrieving facts from OS
+WWW=		https://puppetlabs.com/facter
 
 LICENSE=	APACHE20
 

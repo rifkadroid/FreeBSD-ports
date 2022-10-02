@@ -1,10 +1,11 @@
 PORTNAME=	dwave-ocean-sdk
-DISTVERSION=	5.3.0
+DISTVERSION=	5.4.0
 CATEGORIES=	science python # quantum-computing
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	DWave: Meta-package for D-Wave's Ocean tools
+WWW=		https://docs.ocean.dwavesys.com/en/stable/
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -25,7 +26,7 @@ PY_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dimod>0:science/py-dimod@${PY_FLAVOR} \
 BUILD_DEPENDS=	${PY_DEPENDS}
 RUN_DEPENDS=	${PY_DEPENDS}
 
-USES=		python:3.9+
+USES=		python:3.7+
 USE_PYTHON=	distutils autoplist unittest
 
 USE_GITHUB=	yes

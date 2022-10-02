@@ -218,7 +218,6 @@
     SUBDIR += gspoof
     SUBDIR += gssdp
     SUBDIR += gssdp14
-    SUBDIR += gstreamer1-plugins-libmms
     SUBDIR += gstreamer1-plugins-srtp
     SUBDIR += gtk-vnc
     SUBDIR += guacamole-server
@@ -378,7 +377,6 @@
     SUBDIR += libmaxminddb
     SUBDIR += libmdf
     SUBDIR += libmediawiki
-    SUBDIR += libmms
     SUBDIR += libnatpmp
     SUBDIR += libnet
     SUBDIR += libnfs

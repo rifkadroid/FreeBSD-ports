@@ -1,10 +1,12 @@
 PORTNAME=	dufs
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.29.0
+PORTREVISION=	1
 CATEGORIES=	www
 
 MAINTAINER=	ashish@FreeBSD.org
 COMMENT=	HTTP File Server
+WWW=		https://github.com/sigoden/dufs
 
 LICENSE=	MIT APACHE20
 LICENSE_COMB=	dual

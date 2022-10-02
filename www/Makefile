@@ -41,6 +41,7 @@
     SUBDIR += baculum-api
     SUBDIR += baculum-common
     SUBDIR += baculum-web
+    SUBDIR += badwolf
     SUBDIR += baikal
     SUBDIR += bareos-webui
     SUBDIR += bareos18-webui
@@ -113,6 +114,7 @@
     SUBDIR += dolibarr
     SUBDIR += dolibarr13
     SUBDIR += dolibarr14
+    SUBDIR += dolibarr15
     SUBDIR += domoticz
     SUBDIR += dooble
     SUBDIR += drupal7
@@ -324,7 +326,6 @@
     SUBDIR += mattermost-server
     SUBDIR += mattermost-webapp
     SUBDIR += mediawiki135
-    SUBDIR += mediawiki136
     SUBDIR += mediawiki137
     SUBDIR += mediawiki138
     SUBDIR += mergelog
@@ -406,7 +407,6 @@
     SUBDIR += mongoose
     SUBDIR += mongrel2
     SUBDIR += monolith
-    SUBDIR += moodle310
     SUBDIR += moodle311
     SUBDIR += moodle39
     SUBDIR += moodle40
@@ -1402,6 +1402,7 @@
     SUBDIR += pserv
     SUBDIR += publicfile
     SUBDIR += punbb
+    SUBDIR += py-Pituophis
     SUBDIR += py-Tenjin
     SUBDIR += py-WebError
     SUBDIR += py-WebFlash
@@ -1410,6 +1411,7 @@
     SUBDIR += py-aioh2
     SUBDIR += py-aiohttp
     SUBDIR += py-aiohttp-middlewares
+    SUBDIR += py-aiohttp-session
     SUBDIR += py-aiohttp-wsgi
     SUBDIR += py-aiohttp_cors
     SUBDIR += py-aioquic
@@ -1420,7 +1422,6 @@
     SUBDIR += py-azure-storage
     SUBDIR += py-beaker
     SUBDIR += py-beautifulsoup
-    SUBDIR += py-beautifulsoup449
     SUBDIR += py-betamax
     SUBDIR += py-biscuits
     SUBDIR += py-bjoern
@@ -1436,6 +1437,7 @@
     SUBDIR += py-caldav
     SUBDIR += py-cheroot
     SUBDIR += py-cherrypy
+    SUBDIR += py-cinemagoer
     SUBDIR += py-cookies
     SUBDIR += py-crossplane
     SUBDIR += py-css-parser
@@ -1453,6 +1455,7 @@
     SUBDIR += py-dj40-django-mptt
     SUBDIR += py-dj40-django-prometheus
     SUBDIR += py-dj40-django-redis
+    SUBDIR += py-dj40-django-rich
     SUBDIR += py-dj40-django-tables2
     SUBDIR += py-dj40-django-taggit
     SUBDIR += py-dj40-django-timezone-field
@@ -1571,6 +1574,7 @@
     SUBDIR += py-djangorestframework-xml
     SUBDIR += py-draftjs-exporter
     SUBDIR += py-drf-yasg
+    SUBDIR += py-dropbox
     SUBDIR += py-dtflickr
     SUBDIR += py-enmerkar
     SUBDIR += py-fake-useragent
@@ -1719,10 +1723,13 @@
     SUBDIR += py-requests-cache93
     SUBDIR += py-requests-file
     SUBDIR += py-requests-futures
+    SUBDIR += py-requests-futures0
+    SUBDIR += py-requests-gssapi
     SUBDIR += py-requests-mock
     SUBDIR += py-requests-oauthlib
     SUBDIR += py-requests-toolbelt
     SUBDIR += py-requests-unixsocket
+    SUBDIR += py-requests-wsgi-adapter
     SUBDIR += py-requests_ntlm
     SUBDIR += py-respx
     SUBDIR += py-restclient
@@ -1776,13 +1783,13 @@
     SUBDIR += py-websocket-client
     SUBDIR += py-webunit
     SUBDIR += py-werkzeug
+    SUBDIR += py-werkzeug21
     SUBDIR += py-wfuzz
     SUBDIR += py-whitenoise
     SUBDIR += py-wikipedia
     SUBDIR += py-wikitools
     SUBDIR += py-woob
     SUBDIR += py-woob-qt
-    SUBDIR += py-ws4py
     SUBDIR += py-wsaccel
     SUBDIR += py-wsgidav
     SUBDIR += py-yarl
@@ -1841,6 +1848,7 @@
     SUBDIR += rubygem-amazon-ecs
     SUBDIR += rubygem-anemone
     SUBDIR += rubygem-asana
+    SUBDIR += rubygem-asana0
     SUBDIR += rubygem-async-http
     SUBDIR += rubygem-async-pool
     SUBDIR += rubygem-async-rest
@@ -2035,6 +2043,8 @@
     SUBDIR += rubygem-protocol-http
     SUBDIR += rubygem-protocol-http1
     SUBDIR += rubygem-protocol-http2
+    SUBDIR += rubygem-protocol-rack
+    SUBDIR += rubygem-protocol-rack01
     SUBDIR += rubygem-protocol-websocket
     SUBDIR += rubygem-puma
     SUBDIR += rubygem-puma_worker_killer
@@ -2125,6 +2135,7 @@
     SUBDIR += rubygem-sinatra-r18n
     SUBDIR += rubygem-sinatra-respond_to
     SUBDIR += rubygem-sinatra1
+    SUBDIR += rubygem-sitemap_generator
     SUBDIR += rubygem-smashing
     SUBDIR += rubygem-socksify
     SUBDIR += rubygem-stimulus-rails
@@ -2181,6 +2192,7 @@
     SUBDIR += sitecopy
     SUBDIR += slowcgi
     SUBDIR += slowhttptest
+    SUBDIR += smarty
     SUBDIR += smarty2
     SUBDIR += smarty3
     SUBDIR += smb_auth
@@ -2235,6 +2247,7 @@
     SUBDIR += tomcat-devel
     SUBDIR += tomcat-native
     SUBDIR += tomcat10
+    SUBDIR += tomcat101
     SUBDIR += tomcat85
     SUBDIR += tomcat9
     SUBDIR += tomee
@@ -2243,7 +2256,6 @@
     SUBDIR += transmission-web
     SUBDIR += transproxy
     SUBDIR += tt-rss
-    SUBDIR += ttf2eot
     SUBDIR += tuifeed
     SUBDIR += tusc
     SUBDIR += tusd

@@ -3,8 +3,13 @@ DISTVERSION=	${QT6_VERSION}
 CATEGORIES=	devel
 PKGNAMEPREFIX=	qt6-
 
+PATCH_SITES=	https://github.com/qt/qttools/commit/
+PATCHFILES=	65cb9a7c5444669d498aad2e2707b2a47b56f002.diff:-p1
+
+
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Qt declarative framework for dynamic user interfaces
+WWW=		https://qt-project.org
 
 BUILD_DEPENDS=	${LOCALBASE}/include/vulkan/vulkan.h:graphics/vulkan-headers \
 		llvm${LLVM_DEFAULT}>0:devel/llvm${LLVM_DEFAULT}

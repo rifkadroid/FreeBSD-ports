@@ -1,10 +1,11 @@
 PORTNAME=	traefik
-PORTVERSION=	2.8.3
+PORTVERSION=	2.8.7
 CATEGORIES=	net
 MASTER_SITES=	LOCAL/riggs/${PORTNAME}
 
 MAINTAINER=	riggs@FreeBSD.org
 COMMENT=	High availability reverse proxy and load balancer
+WWW=		https://traefik.io/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md

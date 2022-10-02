@@ -1,11 +1,11 @@
 PORTNAME=	flightgear
-PORTVERSION=	2020.3.13
-PORTREVISION=	2
+PORTVERSION=	2020.3.14
 CATEGORIES=	games
 MASTER_SITES=	SF/flightgear/release-${PORTVERSION:R}
 
 MAINTAINER=	martymac@FreeBSD.org
 COMMENT=	FlightGear flight simulator
+WWW=		https://www.flightgear.org/
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING

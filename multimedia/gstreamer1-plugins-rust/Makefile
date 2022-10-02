@@ -1,10 +1,11 @@
 PORTNAME=	gstreamer1-plugins-rust
 DISTVERSION=	0.7.2
-PORTREVISION=	10
+PORTREVISION=	11
 CATEGORIES=	multimedia
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	Various GStreamer plugins written in Rust
+WWW=		https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs
 
 LICENSE=	LGPL21+ MIT
 LICENSE_COMB=	multi

@@ -8,8 +8,9 @@ DISTVERSIONPREFIX=	v
 #PKGNAMESUFFIX=	-git-HEAD
 CATEGORIES=	net-p2p finance
 
-MAINTAINER=	vd@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Private, secure, untraceable, decentralised digital currency (CLI)
+WWW=		https://getmonero.org/
 
 LICENSE=	BSD3CLAUSE
 

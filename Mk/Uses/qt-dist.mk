@@ -1,8 +1,8 @@
 # There are three Qt related USES files with different access to Qt.
 #   - qmake: The port requires Qt's qmake to build -- creates the configure target
 #            - auto includes qt.mk
-#   - qt-dist: The port is a port for an part of Qt5
-#            - auto inclues qt.mk
+#   - qt-dist: The port is a port for a part of Qt
+#            - auto includes qt.mk
 #   - qt.mk  - Dependency handling. USE_QT=foo bar
 #
 #
@@ -28,7 +28,7 @@ _COMMON_DISTS=		3d base charts datavis3d declarative imageformats multimedia \
 _QT5_DISTS=		connectivity gamepad graphicaleffects location quickcontrols \
 			quickcontrols2 script speech webengine webglplugin webview \
 			x11extras xmlpatterns
-_QT6_DISTS=		5compat doc languageserver lottie shadertools
+_QT6_DISTS=		5compat doc languageserver lottie positioning shadertools
 
 _QT_DISTS=		${_COMMON_DISTS} \
 			${_QT${_QT_VER}_DISTS}
@@ -76,7 +76,7 @@ EXTRACT_SUFX?=		.tar.xz
 
 # Qt5 specific master sites
 _QT5_MASTER_SITES_kde=		LOCAL
-_QT5_MASTER_SITE_SUBDIR_kde=	tcberner/KDE/Qt/${_QT_VERSION}
+_QT5_MASTER_SITE_SUBDIR_kde=	kde/KDE/Qt/${_QT_VERSION}
 _QT5_MASTER_SITES=		${MASTER_SITE_QT}
 _QT5_MASTER_SITE_SUBDIR=	official_releases/qt/${_QT_VERSION:R}/${_QT_VERSION}/submodules/
 # Qt6 specific master sites
@@ -112,7 +112,7 @@ _KDE_multimedia=	1
 _KDE_networkauth=	0
 _KDE_quick3d=		1
 _KDE_quickcontrols=	0
-_KDE_quickcontrols2=	5
+_KDE_quickcontrols2=	6
 _KDE_quicktimeline=	0
 _KDE_remoteobjects=	0
 _KDE_script=		0

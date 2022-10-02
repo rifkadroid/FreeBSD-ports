@@ -4,7 +4,8 @@ CATEGORIES=	devel
 PKGNAMEPREFIX=	qt6-
 
 MAINTAINER=	kde@FreeBSD.org
-COMMENT=	Qt5 SXCML module
+COMMENT=	Qt6 Remote Objects module
+WWW=		https://qt.io
 
 BUILD_DEPENDS=	vulkan-headers>0:graphics/vulkan-headers
 

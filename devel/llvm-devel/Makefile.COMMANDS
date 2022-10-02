@@ -49,6 +49,7 @@ LLVM_COMMANDS=	\
 		llvm-readobj \
 		llvm-reduce \
 		llvm-remark-size-diff \
+		llvm-remarkutil \
 		llvm-rtdyld \
 		llvm-sim \
 		llvm-size \
@@ -76,10 +77,8 @@ CLANG_COMMANDS=	\
 		clang-extdef-mapping \
 		clang-format \
 		clang-linker-wrapper \
-		clang-nvlink-wrapper \
 		clang-offload-bundler \
 		clang-offload-packager \
-		clang-offload-wrapper \
 		clang-repl \
 		clang-scan-deps \
 		clang-tblgen \
