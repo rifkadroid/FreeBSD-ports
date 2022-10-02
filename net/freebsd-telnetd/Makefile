@@ -1,10 +1,11 @@
 PORTNAME=	freebsd-telnetd
 DISTVERSIONPREFIX=	v
-DISTVERSION=	14.0
+DISTVERSION=	14.0.2
 CATEGORIES=	net
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	FreeBSD telnetd
+WWW=		https://github.com/cschuber/freebsd-telnetd
 
 LICENSE=	BSD3CLAUSE
 

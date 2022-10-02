@@ -1,10 +1,11 @@
 PORTNAME=	embree
-PORTVERSION=	3.13.4
+PORTVERSION=	3.13.5
 DISTVERSIONPREFIX=	v
 CATEGORIES=	graphics
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Collection of high-performance ray tracing kernels
+WWW=		https://www.embree.org/
 
 LICENSE=	APACHE20
 

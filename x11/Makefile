@@ -67,6 +67,7 @@
     SUBDIR += eterm
     SUBDIR += evilvte
     SUBDIR += evtest
+    SUBDIR += eww
     SUBDIR += fbdesk
     SUBDIR += fbpanel
     SUBDIR += find-cursor
@@ -266,6 +267,7 @@
     SUBDIR += nwg-look
     SUBDIR += nwg-menu
     SUBDIR += nxcomp
+    SUBDIR += openrgb
     SUBDIR += p5-Clipboard
     SUBDIR += p5-X11-GUITest
     SUBDIR += p5-X11-IdleTime
@@ -482,6 +484,7 @@
     SUBDIR += xfce4-terminal
     SUBDIR += xfce4-verve-plugin
     SUBDIR += xfce4-whiskermenu-plugin
+    SUBDIR += xfce4-windowck-plugin
     SUBDIR += xfd
     SUBDIR += xfishtank
     SUBDIR += xforward

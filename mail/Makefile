@@ -496,8 +496,8 @@
     SUBDIR += py-django-mailbox
     SUBDIR += py-django-mailman3
     SUBDIR += py-dkimpy
+    SUBDIR += py-email-reply-parser
     SUBDIR += py-email-validator
-    SUBDIR += py-email_reply_parser
     SUBDIR += py-flanker
     SUBDIR += py-flask-mail
     SUBDIR += py-flufl.bounce
@@ -547,7 +547,6 @@
     SUBDIR += queue-fix
     SUBDIR += queue-repair
     SUBDIR += rainloop
-    SUBDIR += rainloop-community
     SUBDIR += ratelimit-policyd
     SUBDIR += raysfilter
     SUBDIR += razor-agents
@@ -560,9 +559,11 @@
     SUBDIR += roundcube-automatic_addressbook
     SUBDIR += roundcube-calendar-kolab
     SUBDIR += roundcube-carddav
+    SUBDIR += roundcube-classic
     SUBDIR += roundcube-contextmenu
     SUBDIR += roundcube-html5_notifier
     SUBDIR += roundcube-identity_smtp
+    SUBDIR += roundcube-larry
     SUBDIR += roundcube-login_info
     SUBDIR += roundcube-sauserprefs
     SUBDIR += roundcube-thunderbird_labels

@@ -5,7 +5,6 @@
     SUBDIR += ChipmunkPhysics
     SUBDIR += InsightToolkit
     SUBDIR += PETSc
-    SUBDIR += R-cran-AMORE
     SUBDIR += R-cran-DCluster
     SUBDIR += R-cran-Epi
     SUBDIR += R-cran-FAdist
@@ -38,6 +37,7 @@
     SUBDIR += bodr
     SUBDIR += buddy
     SUBDIR += cantera
+    SUBDIR += cardioid
     SUBDIR += cdcl
     SUBDIR += cdf
     SUBDIR += cdk
@@ -68,11 +68,13 @@
     SUBDIR += devisor
     SUBDIR += dftbplus
     SUBDIR += dftd4
+    SUBDIR += dimod
     SUBDIR += dirac
     SUBDIR += dkh
     SUBDIR += dlib-cpp
     SUBDIR += drawxtl
     SUBDIR += dvc
+    SUBDIR += dwave-preprocessing
     SUBDIR += dynare
     SUBDIR += eccodes
     SUBDIR += elk
@@ -170,6 +172,7 @@
     SUBDIR += mdynamix
     SUBDIR += medit
     SUBDIR += meep
+    SUBDIR += mercantile
     SUBDIR += metaphysicl
     SUBDIR += minc2
     SUBDIR += mmdb2
@@ -191,6 +194,7 @@
     SUBDIR += netcdf-cxx
     SUBDIR += netcdf-fortran
     SUBDIR += nifticlib
+    SUBDIR += nlcglib
     SUBDIR += nwchem
     SUBDIR += nwchem-data
     SUBDIR += octopus
@@ -413,6 +417,7 @@
     SUBDIR += rubygem-ruby-netcdf
     SUBDIR += scidavis
     SUBDIR += segyio
+    SUBDIR += serac
     SUBDIR += shelxle
     SUBDIR += siconos
     SUBDIR += siesta
@@ -427,6 +432,7 @@
     SUBDIR += simlib
     SUBDIR += simple-dftd3
     SUBDIR += simsmith
+    SUBDIR += sirius
     SUBDIR += smoldyn
     SUBDIR += sparta
     SUBDIR += spglib

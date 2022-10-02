@@ -131,6 +131,7 @@
     SUBDIR += pr
     SUBDIR += predict
     SUBDIR += py-adafruit-ampy
+    SUBDIR += py-elelabs-zigbee-ezsp-utility
     SUBDIR += py-esptool
     SUBDIR += py-fritzconnection
     SUBDIR += py-hid
@@ -148,6 +149,9 @@
     SUBDIR += qt5-sensors
     SUBDIR += qt5-serialbus
     SUBDIR += qt5-serialport
+    SUBDIR += qt6-sensors
+    SUBDIR += qt6-serialbus
+    SUBDIR += qt6-serialport
     SUBDIR += qtel
     SUBDIR += redsea
     SUBDIR += remserial

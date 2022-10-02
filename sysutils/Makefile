@@ -129,6 +129,7 @@
     SUBDIR += bksh
     SUBDIR += bkt
     SUBDIR += boot-extract
+    SUBDIR += bottom
     SUBDIR += boxbackup-devel
     SUBDIR += bpytop
     SUBDIR += brasero
@@ -661,6 +662,7 @@
     SUBDIR += logstash-forwarder
     SUBDIR += logstash6
     SUBDIR += logstash7
+    SUBDIR += logstash8
     SUBDIR += logtool
     SUBDIR += logwatch
     SUBDIR += loki
@@ -769,6 +771,7 @@
     SUBDIR += most
     SUBDIR += mountsmb2
     SUBDIR += mping
+    SUBDIR += mprocs
     SUBDIR += mptd
     SUBDIR += msiklm
     SUBDIR += msktutil
@@ -1068,10 +1071,12 @@
     SUBDIR += py-hared
     SUBDIR += py-hcloud
     SUBDIR += py-honcho
+    SUBDIR += py-howdoi
     SUBDIR += py-hpilo
     SUBDIR += py-iowait
     SUBDIR += py-ioztat
     SUBDIR += py-jailconf
+    SUBDIR += py-keep
     SUBDIR += py-leviathan
     SUBDIR += py-liquidctl
     SUBDIR += py-mitogen
@@ -1536,6 +1541,7 @@
     SUBDIR += watchfolder
     SUBDIR += watchman
     SUBDIR += watchmen
+    SUBDIR += waynergy
     SUBDIR += webmin
     SUBDIR += weedit
     SUBDIR += wemux

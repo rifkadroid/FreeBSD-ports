@@ -1,11 +1,12 @@
 PORTNAME=	matrix-synapse
-DISTVERSION=	1.65.0
+DISTVERSION=	1.67.0
 CATEGORIES=	net-im python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	ports@skyforge.at
 COMMENT=	Matrix protocol reference homeserver
+WWW=		https://www.matrix.org
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -42,6 +43,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}jsonschema>=3.0.0:devel/py-jsonschema@${PY_F
 		${PYTHON_PKGNAMEPREFIX}ijson>=3.1.4:devel/py-ijson@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}packaging>=16.1:devel/py-packaging@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}matrix-common>=1.2.1:devel/py-matrix-common@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}pydantic>=1.7.4:devel/py-pydantic@${PY_FLAVOR} \
 		${LOCALBASE}/share/certs/ca-root-nss.crt:security/ca_root_nss
 
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}virtualenv>=15.0:devel/py-virtualenv@${PY_FLAVOR} \

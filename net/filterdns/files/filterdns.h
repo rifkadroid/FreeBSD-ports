@@ -24,6 +24,8 @@
 #include <sys/queue.h>
 
 #include <pthread.h>
+#include <pthread_np.h>
+#include <semaphore.h>
 
 #define	_BUF_SIZE	4096
 #define	satosin(sa)	((struct sockaddr_in *)(sa))
@@ -37,11 +39,24 @@
 #define	ADDR_OLD	2
 #define	ADDR_STATIC	4
 
-#define	THR_STARTING	1
-#define	THR_RUNNING	2
-#define	THR_DYING	4
+#define	THR_STOPPED     0
+#define	THR_DYING	1
+#define	THR_STARTING	2
+#define	THR_RUNNING	3
+
 
 #define	ACT_FORCE	1
+
+#define STR(tok) #tok
+#define STRINGIFY(mac) STR(mac)
+#define LOG(level, fmt, ...) {							\
+if (debug >=6) {								\
+	syslog((level), "[%d] (%-20s %20s()): " fmt, pthread_getthreadid_np(),	\
+	    STRINGIFY(__FILE__) ":" STRINGIFY(__LINE__), __func__ 		\
+	    __VA_OPT__(,) __VA_ARGS__);						\
+} else {									\
+	syslog((level), fmt __VA_OPT__(,) __VA_ARGS__);				\
+}}
 
 struct _addr_entry {
 	TAILQ_ENTRY(_addr_entry) entry;
@@ -57,8 +72,7 @@ struct thread_host {
 	int mask;
 	int mask6;
 	pthread_t thr_pid;
-	pthread_cond_t cond;
-	pthread_mutex_t mtx;
+	sem_t sem;
 	uint32_t refcnt;
 	uint32_t state;
 	TAILQ_HEAD(actions, action) actions;
@@ -79,8 +93,8 @@ struct action {
 	char *hostname;
 	uint32_t state;
 	pthread_t thr_pid;
-	pthread_cond_t cond;
-	pthread_mutex_t mtx;
+	sem_t sem;
+	sem_t exit_sem;
 };
 
 int parse_config(char *);

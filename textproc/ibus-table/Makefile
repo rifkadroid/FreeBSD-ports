@@ -1,9 +1,10 @@
 PORTNAME=	ibus-table
-DISTVERSION=	1.16.11
+DISTVERSION=	1.16.12
 CATEGORIES=	textproc
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Table-based input method framework for IBus
+WWW=		https://github.com/kaio/ibus-table
 
 LICENSE=	LGPL20
 LICENSE_FILE=	${WRKSRC}/COPYING

@@ -3,6 +3,7 @@
     SUBDIR += 0d1n
     SUBDIR += 1password-client
     SUBDIR += 1password-client2
+    SUBDIR += 1password-client2-beta
     SUBDIR += 2fa
     SUBDIR += ADMsmb
     SUBDIR += ADMsnmp
@@ -38,6 +39,7 @@
     SUBDIR += aws-c-cal
     SUBDIR += aws-iam-authenticator
     SUBDIR += aws-vault
+    SUBDIR += axc
     SUBDIR += barnyard2
     SUBDIR += barnyard2-sguil
     SUBDIR += bastillion
@@ -118,6 +120,7 @@
     SUBDIR += dehydrated
     SUBDIR += denyhosts
     SUBDIR += destroy
+    SUBDIR += diffcode
     SUBDIR += digestpp
     SUBDIR += dirbuster
     SUBDIR += dirmngr
@@ -280,6 +283,7 @@
     SUBDIR += libmcrypt
     SUBDIR += libnitrokey
     SUBDIR += libntlm
+    SUBDIR += libomemo
     SUBDIR += liboqs
     SUBDIR += libotr
     SUBDIR += libotr3
@@ -317,6 +321,7 @@
     SUBDIR += linux-c7-libtasn1
     SUBDIR += linux-c7-nettle
     SUBDIR += linux-c7-nss
+    SUBDIR += linux-c7-openssl-devel
     SUBDIR += linux-c7-p11-kit
     SUBDIR += linux-c7-trousers
     SUBDIR += logcheck
@@ -526,6 +531,7 @@
     SUBDIR += p5-Crypt-OpenSSL-PKCS10
     SUBDIR += p5-Crypt-OpenSSL-RSA
     SUBDIR += p5-Crypt-OpenSSL-Random
+    SUBDIR += p5-Crypt-OpenSSL-Verify
     SUBDIR += p5-Crypt-OpenSSL-X509
     SUBDIR += p5-Crypt-PBKDF2
     SUBDIR += p5-Crypt-PKCS10
@@ -649,6 +655,7 @@
     SUBDIR += p5-Net-OpenID-Server
     SUBDIR += p5-Net-Radius-Server
     SUBDIR += p5-Net-SAML
+    SUBDIR += p5-Net-SAML2
     SUBDIR += p5-Net-SSH-AuthorizedKeysFile
     SUBDIR += p5-Net-SSL-ExpireDate
     SUBDIR += p5-Net-SSLGlue
@@ -681,6 +688,7 @@
     SUBDIR += p5-Text-Password-Pronounceable
     SUBDIR += p5-Tie-EncryptedHash
     SUBDIR += p5-Tree-Authz
+    SUBDIR += p5-URN-OASIS-SAML2
     SUBDIR += p5-Unix-Passwd-File
     SUBDIR += p5-Unix-setuid
     SUBDIR += p5-Yahoo-BBAuth
@@ -1018,6 +1026,7 @@
     SUBDIR += rkhunter
     SUBDIR += rndpassw
     SUBDIR += rnp
+    SUBDIR += rotate
     SUBDIR += rubygem-acme-client
     SUBDIR += rubygem-aes_key_wrap
     SUBDIR += rubygem-airbrussh
@@ -1080,6 +1089,7 @@
     SUBDIR += rubygem-omniauth-bitbucket
     SUBDIR += rubygem-omniauth-cas
     SUBDIR += rubygem-omniauth-cas3
+    SUBDIR += rubygem-omniauth-cas3-oauth2
     SUBDIR += rubygem-omniauth-dingtalk-oauth2
     SUBDIR += rubygem-omniauth-gitlab
     SUBDIR += rubygem-omniauth-jwt
@@ -1092,6 +1102,7 @@
     SUBDIR += rubygem-openssl-ccm
     SUBDIR += rubygem-openssl-cmac
     SUBDIR += rubygem-openssl-signature_algorithm
+    SUBDIR += rubygem-openssl2
     SUBDIR += rubygem-openvas-omp
     SUBDIR += rubygem-origami
     SUBDIR += rubygem-pbkdf2-ruby
@@ -1144,7 +1155,7 @@
     SUBDIR += rubygem-webauthn
     SUBDIR += rubygem-webpush
     SUBDIR += rustscan
-    SUBDIR += s2n
+    SUBDIR += s2n-tls
     SUBDIR += safesh
     SUBDIR += samhain
     SUBDIR += samhain-client
@@ -1266,7 +1277,10 @@
     SUBDIR += vxquery
     SUBDIR += wapiti
     SUBDIR += wazuh-agent
+    SUBDIR += wazuh-dashboard
+    SUBDIR += wazuh-indexer
     SUBDIR += wazuh-manager
+    SUBDIR += wazuh-server
     SUBDIR += webfwlog
     SUBDIR += weggli
     SUBDIR += whatweb

@@ -3859,6 +3859,7 @@ if (!$alert_summary):
 
 	<?php
 		// Create Unified Report
+		$handle = FALSE;
 		if ($logtype == 'Unified' && file_exists("{$pfb_log}")) {
 	?>
 			<thead>
@@ -3951,7 +3952,9 @@ if (!$alert_summary):
 				}
 			}
 		}
-		@fclose($handle);
+		if ($handle) {
+			@fclose($handle);
+		}
 		unlink_if_exists("{$pfb_log}.rev");
 
 		// Process DNS Reply log and generate output

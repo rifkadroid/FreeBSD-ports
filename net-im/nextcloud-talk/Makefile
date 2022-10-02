@@ -1,5 +1,5 @@
 PORTNAME=	talk
-PORTVERSION=	14.0.4
+PORTVERSION=	14.0.5
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net-im www
 MASTER_SITES=	https://github.com/nextcloud-releases/spreed/releases/download/${DISTVERSIONPREFIX}${DISTVERSION}/
@@ -10,6 +10,7 @@ DIST_SUBDIR=	nextcloud
 
 MAINTAINER=	brnrd@FreeBSD.org
 COMMENT=	Online meeting app for Nextcloud
+WWW=		https://nextcloud.com/talk/
 
 LICENSE=	AGPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING

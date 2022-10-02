@@ -1,11 +1,12 @@
 PORTNAME=	axmldec
 PORTVERSION=	1.2.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	devel
 
 MAINTAINER=	danfe@FreeBSD.org
 COMMENT=	Stand-alone binary AndroidManifest.xml decoder
+WWW=		https://github.com/ytsutano/axmldec
 
 LICENSE=	ISCL
 LICENSE_FILE=	${WRKSRC}/LICENSE.md

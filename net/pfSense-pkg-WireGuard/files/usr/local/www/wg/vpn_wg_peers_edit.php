@@ -234,17 +234,19 @@ $section = new Form_Section('Address Configuration');
 
 $section->addInput(new Form_StaticText(
 	gettext('Hint'),
-	gettext('Allowed IP entries here will be transformed into proper subnet start boundaries prior to validating and saving.')
+	gettext('Allowed IP entries here will be transformed into proper subnet start boundaries prior to validating and saving. ' .
+	        'These entries must be unique between multiple peers on the same tunnel. Otherwise, traffic to the conflicting ' .
+	        'networks will only be routed to the last peer in the list.')
 ));
 
 // Init the addresses array if necessary
-if (!is_array($pconfig['allowedips']['row']) || empty($pconfig['allowedips']['row'])) {
-
-	wg_init_config_arr($pconfig, array('allowedips', 'row', 0));
+if (!is_array($pconfig['allowedips'])
+    || !is_array($pconfig['allowedips']['row'])
+    || empty($pconfig['allowedips']['row'])) {
+		wg_init_config_arr($pconfig, array('allowedips', 'row', 0));
 	
-	// Hack to ensure empty lists default to /128 mask
-	$pconfig['allowedips']['row'][0]['mask'] = '128';
-	
+		// Hack to ensure empty lists default to /128 mask
+		$pconfig['allowedips']['row'][0]['mask'] = '128';
 }
 
 $last = count($pconfig['allowedips']['row']) - 1;

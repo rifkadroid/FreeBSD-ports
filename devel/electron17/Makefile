@@ -1,6 +1,7 @@
 PORTNAME=	electron
 DISTVERSIONPREFIX=	v
 DISTVERSION=	${ELECTRON_VER:S/-beta./.b/}
+PORTREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/tagattie/FreeBSD-Electron/releases/download/v17.4.4/:chromium \
 		https://commondatastorage.googleapis.com/chromium-nodejs/:chromium_node \
@@ -14,9 +15,13 @@ DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	tagattie@FreeBSD.org
 COMMENT=	Build cross-platform desktop apps with JavaScript, HTML, and CSS
+WWW=		https://electronjs.org/
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/electron/LICENSE
+
+DEPRECATED=	EOLed upstream, switch to newer version
+EXPIRATION_DATE=	2022-09-30
 
 FETCH_DEPENDS=		yarn-node16>0:www/yarn-node16
 EXTRACT_DEPENDS=	yarn-node16>0:www/yarn-node16

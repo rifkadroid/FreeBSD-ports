@@ -1,10 +1,12 @@
 PORTNAME=	uim-el
 PORTVERSION=	1.8.9.b.${SNAPDATE}
+PORTREVISION=	1
 CATEGORIES=	textproc
 PKGNAMESUFFIX=	${EMACS_PKGNAMESUFFIX}
 
 MAINTAINER=	nobutaka@FreeBSD.org
 COMMENT?=	Emacs lisp for uim input method library
+WWW=		https://github.com/uim/uim
 
 LICENSE=	BSD3CLAUSE GPLv2+ GPLv3+ LGPL21+ PD
 LICENSE_COMB=	multi

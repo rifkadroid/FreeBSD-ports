@@ -1,5 +1,6 @@
 PORTNAME=	eduke32
 PORTVERSION=	20220204
+PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	http://dukeworld.com/eduke32/synthesis/${PORTVERSION}-${GITREVISION}/:eduke32 \
 		LOCAL/pkubaj/:erp \
@@ -14,6 +15,7 @@ EXTRACT_ONLY=	${PORTNAME}_src_${PORTVERSION}-${GITREVISION}${EXTRACT_SUFX}
 
 MAINTAINER=	pkubaj@FreeBSD.org
 COMMENT=	Duke Nukem 3D Port based on JFDuke and EDuke
+WWW=		https://eduke32.com/
 
 LICENSE=	GPLv2 BUILDLIC
 LICENSE_COMB=	multi

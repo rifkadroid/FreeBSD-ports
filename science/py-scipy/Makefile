@@ -1,5 +1,5 @@
 PORTNAME=	scipy
-DISTVERSION=	1.9.0
+DISTVERSION=	1.9.1
 CATEGORIES=	science python
 MASTER_SITES=	https://docs.scipy.org/doc/scipy-1.8.1/:doc \
 		CHEESESHOP:source \
@@ -11,6 +11,7 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	python@FreeBSD.org
 COMMENT=	Scientific tools for Python
+WWW=		https://www.scipy.org/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt

@@ -1,10 +1,11 @@
 PORTNAME=	libjxl
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.7rc
+DISTVERSION=	0.7.0
 CATEGORIES=	graphics
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	JPEG XL reference encoder/decoder
+WWW=		https://jpeg.org/jpegxl/
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE

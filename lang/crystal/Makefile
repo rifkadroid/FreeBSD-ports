@@ -1,5 +1,5 @@
 PORTNAME=		crystal
-DISTVERSION=		1.5.0
+DISTVERSION=		1.5.1
 CATEGORIES=		lang
 MASTER_SITES=		https://dl.unrelenting.technology/crystal/:bootstrap
 DISTFILES=		${BOOTSTRAP_PATH}:bootstrap
@@ -8,6 +8,7 @@ EXTRACT_ONLY=		${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	greg@unrelenting.technology
 COMMENT=	Language with Ruby-like syntax and static type checking
+WWW=		https://crystal-lang.org
 
 LICENSE=	APACHE20
 

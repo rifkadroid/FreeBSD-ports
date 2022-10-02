@@ -1,18 +1,27 @@
 PORTNAME=	argparse
-PORTVERSION=	2.5
 DISTVERSIONPREFIX=	v
+DISTVERSION=	2.9
 CATEGORIES=	devel
 
-MAINTAINER=	bapt@FreeBSD.org
-COMMENT=	Argument Parser for Modern C++ 
+MAINTAINER=	eduardo@FreeBSD.org
+COMMENT=	Argument Parser for Modern C++
+WWW=		https://github.com/p-ranav/argparse
 
 LICENSE=	MIT
 
-USES=		cmake
+USES=		cmake compiler:c++17-lang
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	p-ranav
 
 NO_ARCH=	yes
+
+PLIST_FILES=	include/argparse/argparse.hpp \
+		lib/cmake/argparse/argparseConfig-version.cmake \
+		lib/cmake/argparse/argparseConfig.cmake \
+		libdata/pkgconfig/argparse.pc
+
+OPTIONS_DEFINE=		TEST
+TEST_CMAKE_BOOL=	ARGPARSE_BUILD_SAMPLES ARGPARSE_BUILD_TESTS
 
 .include <bsd.port.mk>
