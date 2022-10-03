@@ -2,6 +2,7 @@
 
 PORTNAME=	pfSense-repo
 DISTVERSION=	2.6.0
+PORTREVISION=	6
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -11,6 +12,8 @@ MAINTAINER=	coreteam@pfsense.org
 COMMENT=	Setup pfSense pkg(8) repositories
 
 LICENSE=	APACHE20
+
+RUN_DEPENDS=	${LOCALBASE}/sbin/pfSense-upgrade:sysutils/pfSense-upgrade
 
 NO_MTREE=	yes
 
@@ -128,6 +131,8 @@ do-install:
 	else \
 		${ECHO_CMD} ${DEFAULT_ALTABI} > ${STAGEDIR}${DATADIR}/pkg/repos/${f}.altabi; \
 	fi
+	${ECHO_CMD} ${OPSYS}:14:${ARCH} > ${STAGEDIR}${DATADIR}/pkg/repos/pfSense-repo-devel.abi
+	${ECHO_CMD} ${OPSYS}:14:${ARCH} > ${STAGEDIR}${DATADIR}/pkg/repos/pfSense-repo-devel.altabi
 .endfor
 	${ECHO_CMD} ${PFSENSE_PKG_SET_VERSION} \
 		> ${STAGEDIR}${DATADIR}/next_pkg_set_version
