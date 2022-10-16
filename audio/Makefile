@@ -5,7 +5,6 @@
     SUBDIR += Maaate
     SUBDIR += a2jmidid
     SUBDIR += aacgain
-    SUBDIR += aacplusenc
     SUBDIR += abcde
     SUBDIR += abcselect
     SUBDIR += abgate-lv2
@@ -310,6 +309,7 @@
     SUBDIR += id3ren
     SUBDIR += id3tool
     SUBDIR += id3v2
+    SUBDIR += iir1
     SUBDIR += infamous-plugins-lv2
     SUBDIR += inscore
     SUBDIR += intersect-lv2
@@ -412,7 +412,6 @@
     SUBDIR += libsoxr
     SUBDIR += libspecbleach
     SUBDIR += libtremor
-    SUBDIR += libumidi
     SUBDIR += libvorbis
     SUBDIR += libworkman
     SUBDIR += libxmp
@@ -462,8 +461,6 @@
     SUBDIR += mamba
     SUBDIR += mate-media
     SUBDIR += mclk-lv2
-    SUBDIR += mctoolame-decoder
-    SUBDIR += mctoolame-encoder
     SUBDIR += mda-lv2
     SUBDIR += mhwaveedit
     SUBDIR += midi-matrix-lv2
@@ -626,8 +623,8 @@
     SUBDIR += praat
     SUBDIR += pragha
     SUBDIR += prelude-lv2
-    SUBDIR += protracker
     SUBDIR += psindustrializer
+    SUBDIR += pt2-clone
     SUBDIR += pulseaudio
     SUBDIR += pulseaudio-module-sndio
     SUBDIR += pulseaudio-module-xrdp
@@ -732,6 +729,7 @@
     SUBDIR += snd
     SUBDIR += sndio
     SUBDIR += so-synth-lv2
+    SUBDIR += solfege
     SUBDIR += somafm-cli
     SUBDIR += sonata
     SUBDIR += sonic-visualiser

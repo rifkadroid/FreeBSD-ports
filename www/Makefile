@@ -60,6 +60,7 @@
     SUBDIR += c-icap-modules
     SUBDIR += cadaver
     SUBDIR += caddy
+    SUBDIR += caddy-custom
     SUBDIR += calamaris
     SUBDIR += calamaris-devel
     SUBDIR += caldavzap
@@ -114,6 +115,7 @@
     SUBDIR += dolibarr
     SUBDIR += dolibarr13
     SUBDIR += dolibarr14
+    SUBDIR += dolibarr15
     SUBDIR += domoticz
     SUBDIR += dooble
     SUBDIR += drupal7
@@ -1410,6 +1412,7 @@
     SUBDIR += py-aioh2
     SUBDIR += py-aiohttp
     SUBDIR += py-aiohttp-middlewares
+    SUBDIR += py-aiohttp-session
     SUBDIR += py-aiohttp-wsgi
     SUBDIR += py-aiohttp_cors
     SUBDIR += py-aioquic
@@ -1644,6 +1647,7 @@
     SUBDIR += py-gunicorn
     SUBDIR += py-h2
     SUBDIR += py-habanero
+    SUBDIR += py-hdfs
     SUBDIR += py-horizon
     SUBDIR += py-hpack
     SUBDIR += py-hstspreload
@@ -1788,7 +1792,6 @@
     SUBDIR += py-wikitools
     SUBDIR += py-woob
     SUBDIR += py-woob-qt
-    SUBDIR += py-ws4py
     SUBDIR += py-wsaccel
     SUBDIR += py-wsgidav
     SUBDIR += py-yarl
@@ -1848,6 +1851,7 @@
     SUBDIR += rubygem-anemone
     SUBDIR += rubygem-asana
     SUBDIR += rubygem-asana0
+    SUBDIR += rubygem-asana1
     SUBDIR += rubygem-async-http
     SUBDIR += rubygem-async-pool
     SUBDIR += rubygem-async-rest
@@ -1860,7 +1864,6 @@
     SUBDIR += rubygem-bootstrap-sass
     SUBDIR += rubygem-browser
     SUBDIR += rubygem-cal-heatmap-rails
-    SUBDIR += rubygem-cal-heatmap-rails-rails4
     SUBDIR += rubygem-carrierwave
     SUBDIR += rubygem-cgi
     SUBDIR += rubygem-cgi_multipart_eof_fix
@@ -1871,7 +1874,6 @@
     SUBDIR += rubygem-cssbundling-rails
     SUBDIR += rubygem-cuba
     SUBDIR += rubygem-d3_rails
-    SUBDIR += rubygem-d3_rails-rails4
     SUBDIR += rubygem-davclient
     SUBDIR += rubygem-deckar01-task_list
     SUBDIR += rubygem-domainatrix
@@ -1889,6 +1891,7 @@
     SUBDIR += rubygem-faraday
     SUBDIR += rubygem-faraday-em_http
     SUBDIR += rubygem-faraday-em_synchrony
+    SUBDIR += rubygem-faraday-follow_redirects
     SUBDIR += rubygem-faraday-http-cache
     SUBDIR += rubygem-faraday-httpclient
     SUBDIR += rubygem-faraday-httpclient1
@@ -1935,6 +1938,7 @@
     SUBDIR += rubygem-haml-coderay
     SUBDIR += rubygem-haml-contrib
     SUBDIR += rubygem-haml-rails-rails4
+    SUBDIR += rubygem-haml5
     SUBDIR += rubygem-hamlit
     SUBDIR += rubygem-hamlit-rails
     SUBDIR += rubygem-hamlit-rails-rails5
@@ -1975,8 +1979,8 @@
     SUBDIR += rubygem-jsbundling-rails
     SUBDIR += rubygem-jsobfu
     SUBDIR += rubygem-json-jwt
+    SUBDIR += rubygem-json-jwt115
     SUBDIR += rubygem-jwt
-    SUBDIR += rubygem-jwt21
     SUBDIR += rubygem-kaminari
     SUBDIR += rubygem-kaminari-actionview
     SUBDIR += rubygem-kaminari-actionview-rails5
@@ -2043,7 +2047,6 @@
     SUBDIR += rubygem-protocol-http1
     SUBDIR += rubygem-protocol-http2
     SUBDIR += rubygem-protocol-rack
-    SUBDIR += rubygem-protocol-rack01
     SUBDIR += rubygem-protocol-websocket
     SUBDIR += rubygem-puma
     SUBDIR += rubygem-puma_worker_killer
@@ -2059,12 +2062,12 @@
     SUBDIR += rubygem-rack-openid
     SUBDIR += rubygem-rack-protection
     SUBDIR += rubygem-rack-protection1
+    SUBDIR += rubygem-rack-protection2
     SUBDIR += rubygem-rack-proxy
     SUBDIR += rubygem-rack-ssl
     SUBDIR += rubygem-rack-test
     SUBDIR += rubygem-rack-timeout
     SUBDIR += rubygem-rack16
-    SUBDIR += rubygem-rack223
     SUBDIR += rubygem-rack_csrf
     SUBDIR += rubygem-rails-settings-cached
     SUBDIR += rubygem-rails-settings-cached-rails5
@@ -2131,9 +2134,11 @@
     SUBDIR += rubygem-sinatra
     SUBDIR += rubygem-sinatra-contrib
     SUBDIR += rubygem-sinatra-contrib1
+    SUBDIR += rubygem-sinatra-contrib2
     SUBDIR += rubygem-sinatra-r18n
     SUBDIR += rubygem-sinatra-respond_to
     SUBDIR += rubygem-sinatra1
+    SUBDIR += rubygem-sinatra2
     SUBDIR += rubygem-sitemap_generator
     SUBDIR += rubygem-smashing
     SUBDIR += rubygem-socksify
@@ -2246,6 +2251,7 @@
     SUBDIR += tomcat-devel
     SUBDIR += tomcat-native
     SUBDIR += tomcat10
+    SUBDIR += tomcat101
     SUBDIR += tomcat85
     SUBDIR += tomcat9
     SUBDIR += tomee
@@ -2254,7 +2260,6 @@
     SUBDIR += transmission-web
     SUBDIR += transproxy
     SUBDIR += tt-rss
-    SUBDIR += ttf2eot
     SUBDIR += tuifeed
     SUBDIR += tusc
     SUBDIR += tusd
@@ -2297,6 +2302,7 @@
     SUBDIR += uchiwa
     SUBDIR += ufdbguard
     SUBDIR += ulfius
+    SUBDIR += ungoogled-chromium
     SUBDIR += unit
     SUBDIR += unit-java
     SUBDIR += unit-perl
