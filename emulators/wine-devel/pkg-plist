@@ -595,6 +595,7 @@ include/wine/windows/mediaobj.h
 include/wine/windows/mediaobj.idl
 include/wine/windows/medparam.h
 include/wine/windows/medparam.idl
+include/wine/windows/memoryapi.h
 include/wine/windows/metahost.h
 include/wine/windows/metahost.idl
 include/wine/windows/mfapi.h
@@ -1047,12 +1048,16 @@ include/wine/windows/windows.media.speechsynthesis.idl
 %%STAGING%%include/wine/windows/windows.networking.connectivity.idl
 %%STAGING%%include/wine/windows/windows.networking.h
 %%STAGING%%include/wine/windows/windows.networking.idl
+include/wine/windows/windows.security.cryptography.h
+include/wine/windows/windows.security.cryptography.idl
 include/wine/windows/windows.storage.streams.h
 include/wine/windows/windows.storage.streams.idl
 include/wine/windows/windows.system.h
 include/wine/windows/windows.system.idl
 include/wine/windows/windows.system.power.h
 include/wine/windows/windows.system.power.idl
+include/wine/windows/windows.system.threading.h
+include/wine/windows/windows.system.threading.idl
 include/wine/windows/windows.system.userprofile.h
 include/wine/windows/windows.system.userprofile.idl
 include/wine/windows/windows.ui.h
@@ -1091,6 +1096,7 @@ include/wine/windows/wintab.h
 include/wine/windows/wintabx.h
 include/wine/windows/winternl.h
 include/wine/windows/wintrust.h
+include/wine/windows/winusb.h
 include/wine/windows/winuser.h
 include/wine/windows/winuser.rh
 include/wine/windows/winver.h
@@ -1399,6 +1405,7 @@ lib/wine/%%WINEARCH%%-unix/libuserenv.a
 lib/wine/%%WINEARCH%%-unix/libusp10.a
 lib/wine/%%WINEARCH%%-unix/libuuid.a
 lib/wine/%%WINEARCH%%-unix/libuxtheme.a
+lib/wine/%%WINEARCH%%-unix/libvcruntime140.a
 lib/wine/%%WINEARCH%%-unix/libvdmdbg.a
 lib/wine/%%WINEARCH%%-unix/libversion.a
 lib/wine/%%WINEARCH%%-unix/libvulkan-1.a
@@ -1526,6 +1533,7 @@ lib/wine/%%WINEARCH%%-windows/cryptdlg.dll
 lib/wine/%%WINEARCH%%-windows/cryptdll.dll
 lib/wine/%%WINEARCH%%-windows/cryptext.dll
 lib/wine/%%WINEARCH%%-windows/cryptnet.dll
+lib/wine/%%WINEARCH%%-windows/cryptowinrt.dll
 lib/wine/%%WINEARCH%%-windows/cryptsp.dll
 lib/wine/%%WINEARCH%%-windows/cryptui.dll
 lib/wine/%%WINEARCH%%-windows/cscript.exe
@@ -1923,6 +1931,7 @@ lib/wine/%%WINEARCH%%-windows/libuserenv.a
 lib/wine/%%WINEARCH%%-windows/libusp10.a
 lib/wine/%%WINEARCH%%-windows/libuuid.a
 lib/wine/%%WINEARCH%%-windows/libuxtheme.a
+lib/wine/%%WINEARCH%%-windows/libvcruntime140.a
 lib/wine/%%WINEARCH%%-windows/libvdmdbg.a
 lib/wine/%%WINEARCH%%-windows/libversion.a
 lib/wine/%%WINEARCH%%-windows/libvulkan-1.a
@@ -2249,6 +2258,7 @@ lib/wine/%%WINEARCH%%-windows/tbs.dll
 lib/wine/%%WINEARCH%%-windows/tdh.dll
 lib/wine/%%WINEARCH%%-windows/tdi.sys
 lib/wine/%%WINEARCH%%-windows/termsv.exe
+lib/wine/%%WINEARCH%%-windows/threadpoolwinrt.dll
 %%WINE32%%lib/wine/%%WINEARCH%%-windows/toolhelp.dll16
 lib/wine/%%WINEARCH%%-windows/traffic.dll
 %%WINE32%%lib/wine/%%WINEARCH%%-windows/twain.dll16

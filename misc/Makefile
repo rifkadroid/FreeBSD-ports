@@ -331,6 +331,7 @@
     SUBDIR += p5-I18N-Charset
     SUBDIR += p5-I18N-LangTags
     SUBDIR += p5-LEGO-RCX
+    SUBDIR += p5-Library-CallNumber-LC
     SUBDIR += p5-List-Compare
     SUBDIR += p5-List-Util-WeightedRoundRobin
     SUBDIR += p5-Locale-Codes
@@ -399,6 +400,9 @@
     SUBDIR += py-mxnet
     SUBDIR += py-onnx
     SUBDIR += py-onnx-tf
+    SUBDIR += py-openpaperwork-core
+    SUBDIR += py-openpaperwork-gtk
+    SUBDIR += py-openvdb
     SUBDIR += py-orange3-associate
     SUBDIR += py-orange3-datafusion
     SUBDIR += py-orange3-educational
@@ -540,6 +544,7 @@
     SUBDIR += vifm
     SUBDIR += visp
     SUBDIR += viz
+    SUBDIR += vote
     SUBDIR += vxl
     SUBDIR += wego
     SUBDIR += whichman

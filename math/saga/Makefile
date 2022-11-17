@@ -1,5 +1,5 @@
 PORTNAME=	saga
-PORTVERSION=	8.3.1
+PORTVERSION=	8.4.1
 PORTREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	SF/saga-gis/SAGA%20-%20${PORTVERSION:C/\.[[:digit:]]\.[[:digit:]]*$//}/SAGA%20-%20${PORTVERSION}
@@ -37,11 +37,14 @@ USES=		cmake compiler:c++11-lib dos2unix gnome \
 		iconv:wchar_t libtool localbase pkgconfig python
 DOS2UNIX_GLOB=	*.cpp *.h
 USE_LDCONFIG=	yes
-USE_WX=		3.1+
+USE_WX=		3.2+
 
-CMAKE_ARGS+=	-DSVM_INCLUDE:PATH=${LOCALBASE}/include/svm.h
+GIT_TAGNAME=	e0cb3e2f0
+
+CMAKE_ARGS=	-DSVM_INCLUDE:PATH=${LOCALBASE}/include/svm.h
 CMAKE_ON=	WITH_DEV_TOOLS WITH_EXCERCISES WITH_MRMR WITH_SYSTEM_SVM
 CMAKE_ON+=	CMAKE_VERBOSE_MAKEFILE
+CMAKE_OFF=	WITH_CLIPPER_ONE
 CMAKE_OFF+=	WITH_TOOLS_LAS WITH_TRIANGLE
 
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/saga-gis
@@ -79,10 +82,8 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|typedef unsigned long	DWORD;|typedef unsigned int	DWORD;|' \
 		${WRKSRC}/src/saga_core/saga_api/api_core.h
 .endif
-#	# print/libharu installs v2.3.0, with '2.4.0dev' in include/hpdf_version.h
-#	@${REINPLACE_CMD} -e 's|HPDF_MINOR_VERSION < 4|HPDF_MINOR_VERSION < 5|' \
-#		${WRKSRC}/src/tools/docs/docs_pdf/doc_pdf.cpp
-	@${REINPLACE_CMD} -e 's|PORTVERSION|${PORTVERSION}|' \
+	@${REINPLACE_CMD} -e 's|GIT_TAGNAME|${GIT_TAGNAME}|g' \
+		${WRKSRC}/src/saga_core/saga_gui/CMakeLists.txt \
 		${WRKSRC}/src/saga_core/saga_gui/dlg_about.cpp
 	@${REINPLACE_CMD} -e 's|-lgomp|-lomp|' \
 		${WRKSRC}/src/accessories/templates/template4saga-tools/my_tool_library/Makefile

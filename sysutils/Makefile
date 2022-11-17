@@ -147,6 +147,7 @@
     SUBDIR += bstack
     SUBDIR += btop
     SUBDIR += btsixad
+    SUBDIR += buildah
     SUBDIR += bulk_extractor
     SUBDIR += bupstash
     SUBDIR += burp
@@ -211,7 +212,9 @@
     SUBDIR += conky
     SUBDIR += conky-awesome
     SUBDIR += conman
+    SUBDIR += conmon
     SUBDIR += consolehm
+    SUBDIR += containers-common
     SUBDIR += consolekit2
     SUBDIR += consul
     SUBDIR += consul-alerts
@@ -249,6 +252,7 @@
     SUBDIR += daggy
     SUBDIR += damager
     SUBDIR += dar
+    SUBDIR += darling-dmg
     SUBDIR += datadog-agent
     SUBDIR += datadog-integrations
     SUBDIR += dateutils
@@ -334,6 +338,7 @@
     SUBDIR += eclat
     SUBDIR += edid-decode
     SUBDIR += edk2
+    SUBDIR += egress-monitor
     SUBDIR += eject
     SUBDIR += eksctl
     SUBDIR += endian
@@ -432,6 +437,7 @@
     SUBDIR += fusefs-lkl
     SUBDIR += fusefs-mhddfs
     SUBDIR += fusefs-mp3fs
+    SUBDIR += fusefs-nbt
     SUBDIR += fusefs-ntfs
     SUBDIR += fusefs-ntfs-compression
     SUBDIR += fusefs-pod
@@ -565,6 +571,7 @@
     SUBDIR += ipfs-go-fs-repo-migrations
     SUBDIR += ipget
     SUBDIR += ipmitool
+    SUBDIR += ipmi_exporter
     SUBDIR += ipsc
     SUBDIR += isc-cron
     SUBDIR += isomaster
@@ -827,6 +834,7 @@
     SUBDIR += oak
     SUBDIR += obliterate
     SUBDIR += oc
+    SUBDIR += ocijail
     SUBDIR += odo
     SUBDIR += ods2
     SUBDIR += ohmu
@@ -1009,6 +1017,8 @@
     SUBDIR += plconfig
     SUBDIR += pmt
     SUBDIR += pnscan
+    SUBDIR += podman
+    SUBDIR += podman-suite
     SUBDIR += polkit
     SUBDIR += polkit-gnome
     SUBDIR += polkit-qt
@@ -1319,6 +1329,7 @@
     SUBDIR += signon-plugin-oauth2
     SUBDIR += signon-qt5
     SUBDIR += signon-ui
+    SUBDIR += skopeo
     SUBDIR += slack
     SUBDIR += sleuthkit
     SUBDIR += slst

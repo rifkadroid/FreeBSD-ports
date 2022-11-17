@@ -4,6 +4,7 @@
     SUBDIR += ALPSCore
     SUBDIR += ChipmunkPhysics
     SUBDIR += InsightToolkit
+    SUBDIR += InsightToolkit501
     SUBDIR += PETSc
     SUBDIR += R-cran-DCluster
     SUBDIR += R-cran-Epi
@@ -66,6 +67,7 @@
     SUBDIR += dakota
     SUBDIR += dalton
     SUBDIR += dcl
+    SUBDIR += dd_package
     SUBDIR += devisor
     SUBDIR += dftbplus
     SUBDIR += dftd4
@@ -89,6 +91,7 @@
     SUBDIR += fastcap
     SUBDIR += fasthenry
     SUBDIR += fastjet
+    SUBDIR += feff10
     SUBDIR += fisicalab
     SUBDIR += fleur
     SUBDIR += frontistr
@@ -188,6 +191,8 @@
     SUBDIR += mopac
     SUBDIR += mpb
     SUBDIR += mpqc
+    SUBDIR += mrchem
+    SUBDIR += mrcpp
     SUBDIR += msms
     SUBDIR += mstore
     SUBDIR += multicharge
@@ -201,6 +206,7 @@
     SUBDIR += nlcglib
     SUBDIR += nwchem
     SUBDIR += nwchem-data
+    SUBDIR += ocean
     SUBDIR += octopus
     SUBDIR += openbabel
     SUBDIR += openems
@@ -305,6 +311,7 @@
     SUBDIR += py-dwave-system
     SUBDIR += py-dwave-tabu
     SUBDIR += py-dwavebinarycsp
+    SUBDIR += py-earthpy
     SUBDIR += py-eccodes
     SUBDIR += py-esda
     SUBDIR += py-fresnel
@@ -335,6 +342,7 @@
     SUBDIR += py-mmtf-python
     SUBDIR += py-molmod
     SUBDIR += py-moltemplate
+    SUBDIR += py-mrchem
     SUBDIR += py-netCDF4
     SUBDIR += py-netcdf-flattener
     SUBDIR += py-nibabel
@@ -424,6 +432,7 @@
     SUBDIR += rubygem-ruby-dcl
     SUBDIR += rubygem-ruby-netcdf
     SUBDIR += scidavis
+    SUBDIR += sciplot
     SUBDIR += segyio
     SUBDIR += serac
     SUBDIR += shelxle
@@ -453,6 +462,7 @@
     SUBDIR += thermofun
     SUBDIR += tinker
     SUBDIR += trilinos
+    SUBDIR += ttk
     SUBDIR += tweedledum
     SUBDIR += udunits
     SUBDIR += ukrmol+
@@ -470,5 +480,6 @@
     SUBDIR += xtb
     SUBDIR += yoda
     SUBDIR += zotero
+    SUBDIR += zx
 
 .include <bsd.port.subdir.mk>

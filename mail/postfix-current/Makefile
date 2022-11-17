@@ -1,5 +1,6 @@
 PORTNAME=	postfix
-DISTVERSION=	3.8-20221007
+DISTVERSION=	3.8-20221023
+PORTREVISION=	1
 PORTEPOCH=	6
 CATEGORIES=	mail
 MASTER_SITES=	http://ftp.porcupine.org/mirrors/postfix-release/ \
@@ -38,7 +39,7 @@ sasl_CONFLICTS_INSTALL=		postfix-current \
 				postfix-current-base-ldap \
 				postfix-current-ldap
 
-COMMENT_ldap=	(with OpenLDAP and Cyrus SASL support)
+COMMENT_ldap=	(with OpenLDAP support)
 COMMENT_sasl=	(with Cyrus SASL support)
 
 USES=		cpe shebangfix ssl
@@ -270,7 +271,7 @@ WANT_OPENLDAP_VER=	${WITH_OPENLDAP_VER}
 . endif
 POSTFIX_CCARGS+=	-DHAS_LDAP -I${LOCALBASE}/include \
 			-I${LOCALBASE}/include/sasl -DUSE_LDAP_SASL
-POSTFIX_DYN_AUXLIBS+=	"AUXLIBS_LDAP=-L${LOCALBASE}/lib -lldap -L${LOCALBASE}/lib -llber"
+POSTFIX_DYN_AUXLIBS+=	"AUXLIBS_LDAP=-L${LOCALBASE}/lib -lldap -llber"
 _REQUIRE+=		slapd
 .endif
 
