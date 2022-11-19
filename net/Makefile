@@ -199,6 +199,7 @@
     SUBDIR += gnu-radius
     SUBDIR += go-bapu
     SUBDIR += go-cs
+    SUBDIR += go-tcping
     SUBDIR += gobgp
     SUBDIR += gofish
     SUBDIR += google-cloud-sdk
@@ -417,7 +418,6 @@
     SUBDIR += libunp
     SUBDIR += libusipp
     SUBDIR += libusrsctp
-    SUBDIR += libutp
     SUBDIR += libvncserver
     SUBDIR += libwebsockets
     SUBDIR += libyang
@@ -1457,6 +1457,7 @@
     SUBDIR += ssldump
     SUBDIR += sslh
     SUBDIR += ssspl
+    SUBDIR += stc
     SUBDIR += stone
     SUBDIR += storj
     SUBDIR += stund
