@@ -514,6 +514,7 @@
     SUBDIR += ngraph
     SUBDIR += nlopt
     SUBDIR += ntl
+    SUBDIR += ntpoly
     SUBDIR += numdiff
     SUBDIR += obake
     SUBDIR += ocaml-num
@@ -539,6 +540,7 @@
     SUBDIR += octave-forge-divand
     SUBDIR += octave-forge-doctest
     SUBDIR += octave-forge-econometrics
+    SUBDIR += octave-forge-fda
     SUBDIR += octave-forge-fenv
     SUBDIR += octave-forge-financial
     SUBDIR += octave-forge-fits
@@ -547,6 +549,7 @@
     SUBDIR += octave-forge-ga
     SUBDIR += octave-forge-general
     SUBDIR += octave-forge-generate_html
+    SUBDIR += octave-forge-geographiclib
     SUBDIR += octave-forge-geometry
     SUBDIR += octave-forge-gnuplot
     SUBDIR += octave-forge-gsl
@@ -554,6 +557,7 @@
     SUBDIR += octave-forge-image
     SUBDIR += octave-forge-informationtheory
     SUBDIR += octave-forge-integration
+    SUBDIR += octave-forge-internal-fluid-flow
     SUBDIR += octave-forge-interval
     SUBDIR += octave-forge-io
     SUBDIR += octave-forge-irsa
@@ -584,7 +588,9 @@
     SUBDIR += octave-forge-optiminterp
     SUBDIR += octave-forge-outliers
     SUBDIR += octave-forge-parallel
+    SUBDIR += octave-forge-pde1dm
     SUBDIR += octave-forge-plot
+    SUBDIR += octave-forge-ponchon-savarit
     SUBDIR += octave-forge-quaternion
     SUBDIR += octave-forge-queueing
     SUBDIR += octave-forge-secs1d
@@ -598,6 +604,7 @@
     SUBDIR += octave-forge-special-matrix
     SUBDIR += octave-forge-splines
     SUBDIR += octave-forge-statistics
+    SUBDIR += octave-forge-statistics-bootstrap
     SUBDIR += octave-forge-stk
     SUBDIR += octave-forge-strings
     SUBDIR += octave-forge-struct
@@ -606,6 +613,7 @@
     SUBDIR += octave-forge-tcl-octave
     SUBDIR += octave-forge-tsa
     SUBDIR += octave-forge-video
+    SUBDIR += octave-forge-websockets
     SUBDIR += octave-forge-zenity
     SUBDIR += octave-forge-zeromq
     SUBDIR += octomap
@@ -865,6 +873,7 @@
     SUBDIR += py-docplex
     SUBDIR += py-ducc0
     SUBDIR += py-ecos
+    SUBDIR += py-evalidate
     SUBDIR += py-faiss
     SUBDIR += py-fastcluster
     SUBDIR += py-fastdtw
@@ -968,6 +977,7 @@
     SUBDIR += py-qdldl
     SUBDIR += py-quadprog
     SUBDIR += py-random2
+    SUBDIR += py-reals
     SUBDIR += py-rectangle-packer
     SUBDIR += py-roman
     SUBDIR += py-rpy2

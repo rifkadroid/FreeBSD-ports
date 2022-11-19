@@ -709,6 +709,7 @@
     SUBDIR += gcc-msp430-ti-toolchain
     SUBDIR += gccmakedep
     SUBDIR += gcem
+    SUBDIR += gcli
     SUBDIR += gconf2
     SUBDIR += gconfmm26
     SUBDIR += gdb
@@ -1080,6 +1081,7 @@
     SUBDIR += lcov
     SUBDIR += leaktracer
     SUBDIR += leatherman
+    SUBDIR += lefthook
     SUBDIR += leiningen
     SUBDIR += lemon
     SUBDIR += level-zero
@@ -1544,7 +1546,8 @@
     SUBDIR += mph
     SUBDIR += mrc
     SUBDIR += msbuild
-    SUBDIR += msgpack
+    SUBDIR += msgpack-c
+    SUBDIR += msgpack-cxx
     SUBDIR += msgpack-d
     SUBDIR += msgpuck
     SUBDIR += msitools
@@ -3282,6 +3285,7 @@
     SUBDIR += p5-String-Errf
     SUBDIR += p5-String-Formatter
     SUBDIR += p5-String-Interpolate-Named
+    SUBDIR += p5-String-KeyboardDistance
     SUBDIR += p5-String-LRC
     SUBDIR += p5-String-Parity
     SUBDIR += p5-String-Random
@@ -3570,6 +3574,7 @@
     SUBDIR += p5-Test2-Tools-MemoryCycle
     SUBDIR += p5-Text-Levenshtein
     SUBDIR += p5-Text-Levenshtein-Damerau
+    SUBDIR += p5-Text-Levenshtein-Damerau-XS
     SUBDIR += p5-Text-LevenshteinXS
     SUBDIR += p5-Text-Outdent
     SUBDIR += p5-Text-vFile-asData
@@ -4667,7 +4672,6 @@
     SUBDIR += py-ipaddr
     SUBDIR += py-ipdb
     SUBDIR += py-ipykernel
-    SUBDIR += py-ipykernel5
     SUBDIR += py-ipympl
     SUBDIR += py-ipyparallel
     SUBDIR += py-ipython_genutils
@@ -4846,6 +4850,7 @@
     SUBDIR += py-nbconvert
     SUBDIR += py-nbdime
     SUBDIR += py-nbformat
+    SUBDIR += py-nbval
     SUBDIR += py-nest-asyncio
     SUBDIR += py-node-semver
     SUBDIR += py-nodeenv
@@ -5169,6 +5174,7 @@
     SUBDIR += py-pytest-sugar
     SUBDIR += py-pytest-timeout
     SUBDIR += py-pytest-tornado
+    SUBDIR += py-pytest-tornasync
     SUBDIR += py-pytest-translations
     SUBDIR += py-pytest-trio
     SUBDIR += py-pytest-twisted
@@ -5278,6 +5284,7 @@
     SUBDIR += py-robotframework-databaselibrary
     SUBDIR += py-robotframework-pabot
     SUBDIR += py-robotframework-pythonlibcore
+    SUBDIR += py-robotframework-requests
     SUBDIR += py-robotframework-seleniumlibrary
     SUBDIR += py-robotframework-stacktrace
     SUBDIR += py-robotremoteserver
@@ -5616,6 +5623,7 @@
     SUBDIR += py-zope.traversing
     SUBDIR += py3c
     SUBDIR += pybind11
+    SUBDIR += pybind11-json
     SUBDIR += pybugz
     SUBDIR += pycanberra
     SUBDIR += pycharm-ce
@@ -5701,6 +5709,7 @@
     SUBDIR += rcs57
     SUBDIR += re2
     SUBDIR += re2c
+    SUBDIR += readerwriterqueue
     SUBDIR += readline
     SUBDIR += rebar
     SUBDIR += rebar3
