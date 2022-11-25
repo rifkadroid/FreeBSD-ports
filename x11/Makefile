@@ -172,6 +172,7 @@
     SUBDIR += libXvMC
     SUBDIR += libXxf86dga
     SUBDIR += libXxf86vm
+    SUBDIR += libclipboard
     SUBDIR += libdmx
     SUBDIR += libexo
     SUBDIR += libfakekey
@@ -316,6 +317,7 @@
     SUBDIR += rgb
     SUBDIR += rofi
     SUBDIR += rofi-calc
+    SUBDIR += rofi-emoji
     SUBDIR += rofi-pass
     SUBDIR += rofi-wayland
     SUBDIR += roxterm
