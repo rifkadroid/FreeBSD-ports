@@ -242,11 +242,11 @@
     SUBDIR += httpcore
     SUBDIR += httptunnel
     SUBDIR += httrack
+    SUBDIR += hurl
     SUBDIR += hypermail
     SUBDIR += igal2
     SUBDIR += ikiwiki
     SUBDIR += ilias
-    SUBDIR += ilias6
     SUBDIR += interchange
     SUBDIR += iridium
     SUBDIR += itop
@@ -329,6 +329,7 @@
     SUBDIR += mediawiki135
     SUBDIR += mediawiki137
     SUBDIR += mediawiki138
+    SUBDIR += mediawiki139
     SUBDIR += mergelog
     SUBDIR += mhonarc
     SUBDIR += micro_httpd
@@ -411,6 +412,7 @@
     SUBDIR += moodle311
     SUBDIR += moodle39
     SUBDIR += moodle40
+    SUBDIR += moodle41
     SUBDIR += morty
     SUBDIR += mozplugger
     SUBDIR += multisort
@@ -787,6 +789,7 @@
     SUBDIR += p5-HTML-ContentExtractor
     SUBDIR += p5-HTML-DOM
     SUBDIR += p5-HTML-Declare
+    SUBDIR += p5-HTML-Defang
     SUBDIR += p5-HTML-Defaultify
     SUBDIR += p5-HTML-Diff
     SUBDIR += p5-HTML-Display
@@ -1367,7 +1370,6 @@
     SUBDIR += persepolis
     SUBDIR += pglogd
     SUBDIR += phalcon
-    SUBDIR += phalcon4
     SUBDIR += php74-opcache
     SUBDIR += php74-session
     SUBDIR += php74-tidy
@@ -1748,6 +1750,7 @@
     SUBDIR += py-secure-cookie
     SUBDIR += py-selector
     SUBDIR += py-selenium
+    SUBDIR += py-selenium-wire
     SUBDIR += py-semiphemeral
     SUBDIR += py-sentinelhub
     SUBDIR += py-slimit
@@ -2124,8 +2127,8 @@
     SUBDIR += rubygem-robots
     SUBDIR += rubygem-roda
     SUBDIR += rubygem-rqrcode
-    SUBDIR += rubygem-rqrcode2
     SUBDIR += rubygem-rqrcode-rails3
+    SUBDIR += rubygem-rqrcode2
     SUBDIR += rubygem-rqrcode_core
     SUBDIR += rubygem-rss
     SUBDIR += rubygem-rtlit
@@ -2305,8 +2308,8 @@
     SUBDIR += twiki-TwistyPlugin
     SUBDIR += twiki-WysiwygPlugin
     SUBDIR += twms
-    SUBDIR += typo3-10
     SUBDIR += typo3-11
+    SUBDIR += typo3-12
     SUBDIR += uchiwa
     SUBDIR += ufdbguard
     SUBDIR += ulfius

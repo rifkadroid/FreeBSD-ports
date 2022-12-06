@@ -175,6 +175,7 @@
     SUBDIR += elasticsearch-plugin-head
     SUBDIR += elasticsearch6
     SUBDIR += elasticsearch7
+    SUBDIR += elasticsearch8
     SUBDIR += en-aspell
     SUBDIR += en-hunspell
     SUBDIR += en-mythes
@@ -239,7 +240,6 @@
     SUBDIR += gojq
     SUBDIR += goldendict
     SUBDIR += google-ctemplate
-    SUBDIR += google-translate-cli
     SUBDIR += gpp
     SUBDIR += grap
     SUBDIR += grc-aspell
@@ -341,6 +341,7 @@
     SUBDIR += kf5-sonnet
     SUBDIR += kf5-syntax-highlighting
     SUBDIR += kibana7
+    SUBDIR += kibana8
     SUBDIR += kiss-templates
     SUBDIR += kmfl-european-latin
     SUBDIR += kmfl-khmer
@@ -1224,7 +1225,6 @@
     SUBDIR += peco
     SUBDIR += peg
     SUBDIR += perl2html
-    SUBDIR += php-mecab
     SUBDIR += php74-ctype
     SUBDIR += php74-dom
     SUBDIR += php74-enchant
@@ -1960,6 +1960,7 @@
     SUBDIR += toml-f
     SUBDIR += tr-aspell
     SUBDIR += trang
+    SUBDIR += translate-shell
     SUBDIR += translate-toolkit
     SUBDIR += trdsql
     SUBDIR += ts-hunspell

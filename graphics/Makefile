@@ -246,7 +246,6 @@
     SUBDIR += geos
     SUBDIR += geoserver
     SUBDIR += gexiv2
-    SUBDIR += giblib
     SUBDIR += giflib
     SUBDIR += gifmerge
     SUBDIR += gifsicle
@@ -994,6 +993,7 @@
     SUBDIR += rawtherapee
     SUBDIR += rayshade
     SUBDIR += reactphysics3d
+    SUBDIR += realesrgan-ncnn-vulkan
     SUBDIR += reallyslick
     SUBDIR += realsr-ncnn-vulkan
     SUBDIR += recastnavigation
