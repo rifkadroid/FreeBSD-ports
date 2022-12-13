@@ -171,6 +171,7 @@
     SUBDIR += liggghts
     SUBDIR += linux-zotero
     SUBDIR += luscus
+    SUBDIR += m-aneos
     SUBDIR += madness
     SUBDIR += maeparser
     SUBDIR += massxpert
@@ -217,6 +218,7 @@
     SUBDIR += openems
     SUBDIR += openkim-models
     SUBDIR += openmc
+    SUBDIR += openmodelica
     SUBDIR += openmolcas
     SUBDIR += openmx
     SUBDIR += opensim-core
@@ -466,6 +468,7 @@
     SUBDIR += smoldyn
     SUBDIR += sparta
     SUBDIR += spglib
+    SUBDIR += spheral
     SUBDIR += step
     SUBDIR += svmlight
     SUBDIR += tblite
