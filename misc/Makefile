@@ -8,8 +8,10 @@
     SUBDIR += amanda-client
     SUBDIR += amanda-perl-wrapper
     SUBDIR += amanda-server
+    SUBDIR += amazon-qldb-shell
     SUBDIR += ansiweather
     SUBDIR += apparix
+    SUBDIR += arrow-datafusion
     SUBDIR += artikulate
     SUBDIR += asbutton
     SUBDIR += asr-manpages
@@ -23,6 +25,7 @@
     SUBDIR += bibletime
     SUBDIR += biblical-curse
     SUBDIR += binclock
+    SUBDIR += binocle
     SUBDIR += biosfont-demos
     SUBDIR += birthday
     SUBDIR += bogosort
@@ -44,6 +47,7 @@
     SUBDIR += cloc
     SUBDIR += clpbar
     SUBDIR += colortail
+    SUBDIR += coloursum
     SUBDIR += colwide
     SUBDIR += compat.el
     SUBDIR += compat10x
@@ -76,8 +80,10 @@
     SUBDIR += delay
     SUBDIR += diction
     SUBDIR += digitemp
+    SUBDIR += dijo
     SUBDIR += dive
     SUBDIR += dnetc
+    SUBDIR += dotenv-linter
     SUBDIR += dtach
     SUBDIR += dvorak7min
     SUBDIR += dynomite
@@ -267,6 +273,7 @@
     SUBDIR += nut
     SUBDIR += ompl
     SUBDIR += ondir
+    SUBDIR += onnx
     SUBDIR += opencyc
     SUBDIR += openhab
     SUBDIR += openhab-addons
@@ -360,7 +367,6 @@
     SUBDIR += pecl-timezonedb
     SUBDIR += perkeep
     SUBDIR += pfm
-    SUBDIR += php74-calendar
     SUBDIR += php80-calendar
     SUBDIR += php81-calendar
     SUBDIR += php82-calendar
@@ -377,11 +383,14 @@
     SUBDIR += py-SoapySDR
     SUBDIR += py-alive-progress
     SUBDIR += py-apache-beam
+    SUBDIR += py-ascii-magic
     SUBDIR += py-boost-histogram
+    SUBDIR += py-censys
     SUBDIR += py-cinder
     SUBDIR += py-colorbrewer
     SUBDIR += py-colored
     SUBDIR += py-crudini
+    SUBDIR += py-detecta
     SUBDIR += py-dictdiffer
     SUBDIR += py-eemeter
     SUBDIR += py-emoji
@@ -410,6 +419,7 @@
     SUBDIR += py-orange3-network
     SUBDIR += py-orange3-timeseries
     SUBDIR += py-palettable
+    SUBDIR += py-papermill
     SUBDIR += py-pexpect
     SUBDIR += py-powerline-status
     SUBDIR += py-progressbar
@@ -441,6 +451,7 @@
     SUBDIR += py-wurlitzer
     SUBDIR += py-xgboost
     SUBDIR += pyobd
+    SUBDIR += pytorch
     SUBDIR += qbrew
     SUBDIR += qlas
     SUBDIR += qt5-doc

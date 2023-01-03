@@ -1,5 +1,6 @@
 PORTNAME=	xdg-desktop-portal-hyprland
 PORTVERSION=	s20221213
+PORTREVISION=	1
 CATEGORIES=	x11 wayland
 
 MAINTAINER=	jbeich@FreeBSD.org
@@ -17,13 +18,18 @@ LIB_DEPENDS=	libbasu.so:devel/basu \
 		libwayland-client.so:graphics/wayland \
 		libpipewire-0.3.so:multimedia/pipewire
 RUN_DEPENDS=	grim:x11/grim \
-		hyprland-share-picker:x11/hyprland-share-picker
+		hyprland-share-picker:x11/hyprland-share-picker@${FLAVOR}
+
+FLAVORS=	qt5 qt6
+qt5_CONFLICTS_INSTALL=	${PORTNAME}-qt6
+qt6_CONFLICTS_INSTALL=	${PORTNAME}
+qt6_PKGNAMESUFFIX=	-qt6
 
 USES=		compiler:c11 gl meson pkgconfig
 USE_GITHUB=	yes
 USE_GL=		gbm
 GH_ACCOUNT=	hyprwm
-GH_TAGNAME=	9fb4fae
+GH_TAGNAME=	101b58d
 GH_TUPLE=	hyprwm:hyprland-protocols:301733a:hyprland_protocols/protocols/hyprland-protocols
 MESON_ARGS=	-Dsd-bus-provider=basu
 PLIST_FILES=	libexec/${PORTNAME} \

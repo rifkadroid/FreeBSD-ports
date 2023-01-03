@@ -1,12 +1,13 @@
 PORTNAME=	curl
-PORTVERSION=	7.85.0
+PORTVERSION=	7.87.0
 CATEGORIES=	ftp net www
 MASTER_SITES=	https://curl.se/download/ \
 		https://github.com/curl/curl/releases/download/curl-${PORTVERSION:S|.|_|g}/
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Command line tool and library for transferring data with URLs
-WWW=		https://curl.se/
+WWW=		https://curl.se/ \
+		https://github.com/curl/curl
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/COPYING
@@ -15,6 +16,7 @@ USES=		cpe libtool localbase pathfix perl5 shebangfix tar:xz
 USE_PERL5=	build
 
 CONFIGURE_ARGS=	--disable-werror \
+		--enable-headers-api \
 		--with-fish-functions-dir=${LOCALBASE}/share/fish/completions \
 		--with-zsh-functions-dir=${LOCALBASE}/share/zsh/site-functions
 CONFIGURE_ENV=	LOCALBASE=${LOCALBASE} \
@@ -36,7 +38,7 @@ OPTIONS_GROUP_PROTOCOL=	DICT FTP GOPHER HTTP HTTP2 IMAP LDAP LDAPS LIBSSH2 MQTT 
 OPTIONS_RADIO_SSL=	GNUTLS OPENSSL WOLFSSL
 OPTIONS_SINGLE_GSSAPI=	GSSAPI_BASE GSSAPI_HEIMDAL GSSAPI_MIT GSSAPI_NONE
 OPTIONS_SINGLE_RESOLV=	CARES THREADED_RESOLVER
-OPTIONS_DEFAULT=ALTSVC CA_BUNDLE COOKIES GSSAPI_${${SSL_DEFAULT} == base :?BASE :NONE} DICT FTP GOPHER HTTP HTTP2 IMAP LIBSSH2 NTLM OPENSSL POP3 PROXY PSL RTSP SMTP STATIC TELNET TFTP THREADED_RESOLVER TLS_SRP
+OPTIONS_DEFAULT=ALTSVC COOKIES GSSAPI_${${SSL_DEFAULT} == base :?BASE :NONE} DICT FTP GOPHER HTTP HTTP2 IMAP LIBSSH2 NTLM OPENSSL POP3 PROXY PSL RTSP SMTP STATIC TELNET TFTP THREADED_RESOLVER TLS_SRP
 OPTIONS_SUB=	yes
 ALTSVC_DESC=	HTTP Alternative Services support
 CA_BUNDLE_DESC=	Enable CA bundle for OpenSSL/GnuTLS
@@ -167,6 +169,6 @@ post-install-DOCS-on:
 
 post-install-EXAMPLES-on:
 	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}/
-	cd ${WRKSRC}/docs/examples/ && ${INSTALL_DATA} README.md Makefile.example makefile* *.c *.cpp ${STAGEDIR}${EXAMPLESDIR}/
+	cd ${WRKSRC}/docs/examples/ && ${INSTALL_DATA} Makefile.example Makefile.mk README.md *.c *.cpp ${STAGEDIR}${EXAMPLESDIR}/
 
 .include <bsd.port.post.mk>
