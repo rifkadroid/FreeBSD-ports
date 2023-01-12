@@ -1,5 +1,6 @@
 PORTNAME=	unbound
 DISTVERSION=	1.17.0
+PORTREVISION=	1
 CATEGORIES=	dns
 MASTER_SITES=	https://www.nlnetlabs.nl/downloads/unbound/
 
@@ -77,7 +78,7 @@ LIBEVENT_CPPFLAGS+=		$$(pkg-config libevent --cflags-only-I)
 LIBEVENT_LDFLAGS+=		$$(pkg-config libevent --libs-only-L)
 MUNIN_PLUGIN_SUB_FILES=		pkg-message
 PYTHON_BUILD_DEPENDS=		swig:devel/swig
-PYTHON_USES=			python
+PYTHON_USES=			python:3.9+
 PYTHON_CONFIGURE_ON=		--with-pythonmodule=yes \
 				--with-pyunbound=yes \
 				ac_cv_path_SWIG=${LOCALBASE}/bin/swig \
