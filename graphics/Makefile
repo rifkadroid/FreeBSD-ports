@@ -74,6 +74,7 @@
     SUBDIR += azpainterb
     SUBDIR += barcode
     SUBDIR += batik
+    SUBDIR += bgfx
     SUBDIR += birdfont
     SUBDIR += bitmap
     SUBDIR += blend2d
@@ -998,6 +999,8 @@
     SUBDIR += recoverjpeg
     SUBDIR += renrot
     SUBDIR += repng2jpeg
+    SUBDIR += resvg
+    SUBDIR += resvg-capi
     SUBDIR += rgbpaint
     SUBDIR += rigsofrods-caelum
     SUBDIR += rigsofrods-pagedgeometry
