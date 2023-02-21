@@ -54,6 +54,7 @@
     SUBDIR += dbow
     SUBDIR += dbtool
     SUBDIR += dbview
+    SUBDIR += diesel
     SUBDIR += duckdb
     SUBDIR += ejdb
     SUBDIR += emacsql
@@ -203,7 +204,7 @@
     SUBDIR += mysql-connector-c++
     SUBDIR += mysql-connector-java
     SUBDIR += mysql-connector-java51
-    SUBDIR += mysql-connector-odbc
+    SUBDIR += mysql-connector-odbc-80
     SUBDIR += mysql-q4m
     SUBDIR += mysql-udf
     SUBDIR += mysql2pgsql
@@ -227,6 +228,7 @@
     SUBDIR += nagios-check_postgres_replication
     SUBDIR += nagios-check_redis
     SUBDIR += namazu2
+    SUBDIR += nanodbc
     SUBDIR += neo4j
     SUBDIR += ocaml-dbm
     SUBDIR += ocaml-mysql
@@ -995,6 +997,7 @@
     SUBDIR += rubygem-redis-clustering
     SUBDIR += rubygem-redis-namespace
     SUBDIR += rubygem-redis-namespace18
+    SUBDIR += rubygem-redis-namespace19
     SUBDIR += rubygem-redis4
     SUBDIR += rubygem-scenic61
     SUBDIR += rubygem-sdbm

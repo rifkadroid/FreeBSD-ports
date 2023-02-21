@@ -1,5 +1,6 @@
 PORTNAME=	gitlab-shell
-PORTVERSION=	14.13.0
+PORTVERSION=	14.15.0
+PORTREVISION=	2
 CATEGORIES=	devel
 
 MAINTAINER=	mfechner@FreeBSD.org
@@ -13,7 +14,7 @@ USES=		gmake go:modules,no_targets
 USE_GITLAB=	yes
 GL_ACCOUNT=	gitlab-org
 # Find the commit hash here: https://gitlab.com/gitlab-org/gitlab-shell/tags
-GL_COMMIT=	b42a398c92565630b541e55c2c6c0ce47cf10b58
+GL_COMMIT=	1e791e09f760064c41216535f210d935ee6435d7
 
 USERS=		git
 GROUPS=		git
@@ -77,4 +78,3 @@ post-install:
 		s#${DATADIR_REL}/bin#@(,,555) ${DATADIR_REL}/bin#; ' >> ${TMPPLIST}
 
 .include <bsd.port.mk>
-

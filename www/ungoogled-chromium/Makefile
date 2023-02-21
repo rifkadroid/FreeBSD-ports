@@ -1,5 +1,5 @@
 PORTNAME=	ungoogled-chromium
-PORTVERSION=	108.0.5359.124
+PORTVERSION=	110.0.5481.100
 UGVERSION=	${DISTVERSION}-1
 CATEGORIES=	www wayland
 MASTER_SITES=	https://commondatastorage.googleapis.com/chromium-browser-official/ \
@@ -43,7 +43,9 @@ LIB_DEPENDS=	libatk-bridge-2.0.so:accessibility/at-spi2-atk \
 		libspeex.so:audio/speex \
 		libdbus-1.so:devel/dbus \
 		libdbus-glib-1.so:devel/dbus-glib \
+		libepoll-shim.so:devel/libepoll-shim \
 		libevent.so:devel/libevent \
+		libffi.so:devel/libffi \
 		libicuuc.so:devel/icu \
 		libjsoncpp.so:devel/jsoncpp \
 		libpci.so:devel/libpci \
@@ -102,18 +104,18 @@ GN_ARGS+=	fatal_linker_warnings=false \
 		is_clang=true \
 		optimize_webui=true \
 		toolkit_views=true \
-		use_allocator="none" \
 		use_allocator_shim=false \
 		use_aura=true \
 		use_custom_libcxx=false \
 		use_gnome_keyring=false \
 		use_lld=true \
+		use_partition_alloc=true \
+		use_partition_alloc_as_malloc=false \
 		use_sysroot=false \
 		use_system_freetype=false \
 		use_system_harfbuzz=true \
+		use_system_libffi=true \
 		use_system_libjpeg=true \
-		use_system_libwayland=true \
-		use_system_wayland_scanner=true \
 		use_udev=false \
 		extra_cxxflags="${CXXFLAGS}" \
 		extra_ldflags="${LDFLAGS}"
@@ -123,6 +125,7 @@ GN_ARGS+=	build_with_tflite_lib=false \
 		chrome_pgo_phase=0 \
 		clang_use_chrome_plugins=false \
 		disable_fieldtrial_testing_config=true \
+		enable_backup_ref_ptr_support=false \
 		enable_hangout_services_extension=false \
 		enable_js_type_check=false \
 		enable_mdns=false \

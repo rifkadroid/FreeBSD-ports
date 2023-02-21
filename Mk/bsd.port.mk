@@ -371,9 +371,6 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 # USE_OCAML		- If set, this port relies on the OCaml language.
 #				  Implies inclusion of bsd.ocaml.mk.  (Also see
 #				  that file for more information on USE_OCAML*).
-# USE_RUBY		- If set, this port relies on the Ruby language.
-#				  Implies inclusion of bsd.ruby.mk.  (Also see
-#				  that file for more information on USE_RUBY_*).
 ##
 # USE_GECKO		- If set, this port uses the Gecko/Mozilla product.
 #				  See bsd.gecko.mk for more details.
@@ -1391,10 +1388,6 @@ PKGCOMPATDIR?=		${LOCALBASE}/lib/compat/pkg
 .include "${PORTSDIR}/Mk/bsd.java.mk"
 .    endif
 
-.    if defined(USE_RUBY)
-.include "${PORTSDIR}/Mk/bsd.ruby.mk"
-.    endif
-
 .    if defined(USE_OCAML)
 .include "${PORTSDIR}/Mk/bsd.ocaml.mk"
 .    endif
@@ -1640,8 +1633,7 @@ QA_ENV+=		STAGEDIR=${STAGEDIR} \
 				DISABLE_LICENSES="${DISABLE_LICENSES:Dyes}" \
 				PORTNAME=${PORTNAME} \
 				NO_ARCH=${NO_ARCH} \
-				"NO_ARCH_IGNORE=${NO_ARCH_IGNORE}" \
-				USE_RUBY=${USE_RUBY}
+				"NO_ARCH_IGNORE=${NO_ARCH_IGNORE}"
 .    if !empty(USES:Mssl)
 QA_ENV+=		USESSSL=yes
 .    endif
@@ -1871,10 +1863,6 @@ MAKE_ENV+=	${b}="${${b}}"
 .      endfor
 .    endif
 
-.    if defined(USE_OPENLDAP) || defined(WANT_OPENLDAP_VER)
-.include "${PORTSDIR}/Mk/bsd.ldap.mk"
-.    endif
-
 .    if defined(USE_RC_SUBR)
 SUB_FILES+=	${USE_RC_SUBR}
 .    endif
@@ -2053,7 +2041,7 @@ MAKE_JOBS_NUMBER=	1
 _MAKE_JOBS_NUMBER:=	${MAKE_JOBS_NUMBER}
 .      else
 .        if !defined(_SMP_CPUS)
-_SMP_CPUS!=		${SYSCTL} -n kern.smp.cpus
+_SMP_CPUS!=		${NPROC} 2>/dev/null || ${SYSCTL} -n kern.smp.cpus
 .        endif
 _EXPORTED_VARS+=	_SMP_CPUS
 _MAKE_JOBS_NUMBER=	${_SMP_CPUS}

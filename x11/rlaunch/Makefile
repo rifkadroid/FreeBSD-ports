@@ -1,6 +1,6 @@
 PORTNAME=	rlaunch
 DISTVERSION=	1.3.13
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	x11
 
 PATCH_SITES=	https://github.com/PonasKovas/rlaunch/commit/
@@ -12,6 +12,8 @@ WWW=		https://github.com/PonasKovas/rlaunch
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BROKEN_i386=	compilation fails, see https://github.com/PonasKovas/rlaunch/issues/16
 
 USES=		cargo
 

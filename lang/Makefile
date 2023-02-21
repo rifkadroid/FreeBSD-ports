@@ -5,6 +5,7 @@
     SUBDIR += alchemist.el
     SUBDIR += algol68g
     SUBDIR += angelscript
+    SUBDIR += antimony
     SUBDIR += apache-commons-jelly
     SUBDIR += asn1c
     SUBDIR += atlast
@@ -103,6 +104,7 @@
     SUBDIR += gforth
     SUBDIR += ghc
     SUBDIR += ghc810
+    SUBDIR += gir-to-d
     SUBDIR += gjs
     SUBDIR += gleam
     SUBDIR += gnat12
@@ -119,6 +121,7 @@
     SUBDIR += go-devel
     SUBDIR += go118
     SUBDIR += go119
+    SUBDIR += go120
     SUBDIR += gomacro
     SUBDIR += gprolog
     SUBDIR += gravity
@@ -133,6 +136,7 @@
     SUBDIR += hermes
     SUBDIR += hla
     SUBDIR += hs-brainfuck
+    SUBDIR += hs-futhark
     SUBDIR += hs-unlambda
     SUBDIR += huc
     SUBDIR += icc
@@ -371,6 +375,5 @@
     SUBDIR += ypsilon
     SUBDIR += zephir
     SUBDIR += zig
-    SUBDIR += zig-devel
 
 .include <bsd.port.subdir.mk>

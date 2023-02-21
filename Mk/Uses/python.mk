@@ -185,7 +185,7 @@
 #			  default: ${PYTHON_PKGNAMEPREFIX}build>0:devel/py-build@${PY_FLAVOR}
 #
 # PEP517_INSTALL_CMD	- Command sequence for a PEP-517 install frontend that installs a wheel.
-#			  default: ${PYTHON_CMD} -m installer -d ${STAGEDIR} --no-compile-bytecode ${BUILD_WRKSRC}/dist/${PORTNAME}-${PORTVERSION}-*.whl
+#			  default: ${PYTHON_CMD} -m installer -d ${STAGEDIR} --no-compile-bytecode ${BUILD_WRKSRC}/dist/${PORTNAME:C/[-_]+/_/g}-${PORTVERSION}-*.whl
 #
 # PEP517_INSTALL_DEPEND	- Port needed to execute ${PEP517_INSTALL_CMD}.
 #			  default: ${PYTHON_PKGNAMEPREFIX}installer>0:devel/py-installer@${PY_FLAVOR}
@@ -257,17 +257,20 @@
 #			  packages for different Python versions.
 #			  default: -py${PYTHON_SUFFIX}
 #
-# Using USES=python also will add some useful entries to PLIST_SUB:
+# Using USES=python also will add some useful entries to SUB_LIST and PLIST_SUB:
 #
-#	PYTHON_INCLUDEDIR=${PYTHONPREFIX_INCLUDEDIR:S;${PREFIX}/;;}
-#	PYTHON_LIBDIR=${PYTHONPREFIX_LIBDIR:S;${PREFIX}/;;}
+#	PYTHON_INCLUDEDIR=${PYTHONPREFIX_INCLUDEDIR}
+#	PYTHON_LIBDIR=${PYTHONPREFIX_LIBDIR}
 #	PYTHON_PLATFORM=${PYTHON_PLATFORM}
-#	PYTHON_SITELIBDIR=${PYTHONPREFIX_SITELIBDIR:S;${PREFIX}/;;}
+#	PYTHON_SITELIBDIR=${PYTHONPREFIX_SITELIBDIR}
 #	PYTHON_SUFFIX=${PYTHON_SUFFIX}
 #	PYTHON_VER=${PYTHON_VER}
 #	PYTHON_VERSION=${PYTHON_VERSION}
 #
-# and PYTHON2 and PYTHON3 will be set according to the Python version:
+# where PYTHON_INCLUDEDIR, PYTHON_LIBDIR and PYTHON_SITELIBDIR have their PREFIX
+# stripped for PLIST_SUB.
+#
+# PYTHON2 and PYTHON3 will also be set according to the Python version:
 #
 #	PYTHON2="" PYTHON3="@comment " for Python 2.x
 #	PYTHON2="@comment " PYTHON3="" for Python 3.x
@@ -605,7 +608,8 @@ UNIQUE_FIND_SUFFIX_MAN_FILES+=	${_UNIQUE_FIND_SUFFIX_FILES} | \
 
 _CURRENTPORT:=	${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}
 .  if defined(_PYTHON_FEATURE_DISTUTILS) && \
-	${_CURRENTPORT} != ${PYTHON_PKGNAMEPREFIX}setuptools &&\
+	${_CURRENTPORT} != ${PYTHON_PKGNAMEPREFIX}setuptools && \
+	${_CURRENTPORT} != ${PYTHON_PKGNAMEPREFIX}setuptools58 && \
 	${_CURRENTPORT} != ${PYTHON_PKGNAMEPREFIX}setuptools44
 .    if ${PYTHON_VER} == 2.7
 BUILD_DEPENDS+=		${PYTHON_PKGNAMEPREFIX}setuptools44>0:devel/py-setuptools44@${PY_FLAVOR}
@@ -657,7 +661,7 @@ PYDISTUTILS_EGGINFODIR?=${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 # PEP-517 support
 PEP517_BUILD_CMD?=	${PYTHON_CMD} -m build -n -w
 PEP517_BUILD_DEPEND?=	${PYTHON_PKGNAMEPREFIX}build>0:devel/py-build@${PY_FLAVOR}
-PEP517_INSTALL_CMD?=	${PYTHON_CMD} -m installer -d ${STAGEDIR} --no-compile-bytecode ${BUILD_WRKSRC}/dist/${PORTNAME}-${PORTVERSION}-*.whl
+PEP517_INSTALL_CMD?=	${PYTHON_CMD} -m installer -d ${STAGEDIR} --no-compile-bytecode ${BUILD_WRKSRC}/dist/${PORTNAME:C/[-_]+/_/g}-${PORTVERSION}-*.whl
 PEP517_INSTALL_DEPEND?=	${PYTHON_PKGNAMEPREFIX}installer>0:devel/py-installer@${PY_FLAVOR}
 
 # nose support
@@ -754,7 +758,7 @@ CMAKE_ARGS+=	-DPython_ADDITIONAL_VERSIONS=${PYTHON_VER}
 
 # Python 3rd-party modules
 PYGAME=		${PYTHON_PKGNAMEPREFIX}game>0:devel/py-game@${PY_FLAVOR}
-PYNUMPY=	${PYTHON_PKGNAMEPREFIX}numpy>=1.16,1<1.24,1:math/py-numpy@${PY_FLAVOR}
+PYNUMPY=	${PYTHON_PKGNAMEPREFIX}numpy>=1.16,1<1.25,1:math/py-numpy@${PY_FLAVOR}
 
 # Common Python modules that can be needed but only for some versions of Python.
 .  if ${PYTHON_REL} < 30500
@@ -784,6 +788,16 @@ ${_stage}_DEPENDS+=	${PYTHON_CMD}:${PYTHON_PORTSDIR}
 PREFIX=		${PYTHONBASE}
 .  endif
 
+# Substitutions for SUB_FILES
+SUB_LIST+=	PYTHON_INCLUDEDIR=${PYTHONPREFIX_INCLUDEDIR} \
+		PYTHON_LIBDIR=${PYTHONPREFIX_LIBDIR} \
+		PYTHON_PLATFORM=${PYTHON_PLATFORM} \
+		PYTHON_SITELIBDIR=${PYTHONPREFIX_SITELIBDIR} \
+		PYTHON_SUFFIX=${PYTHON_SUFFIX} \
+		PYTHON_EXT_SUFFIX=${PYTHON_EXT_SUFFIX} \
+		PYTHON_VER=${PYTHON_VER} \
+		PYTHON_VERSION=${PYTHON_VERSION}
+
 # Substitutions for pkg-plist
 # Use a short form of the PYTHONPREFIX_*DIR variables; we don't need the
 # base directory in the plist file.
@@ -796,8 +810,10 @@ PLIST_SUB+=	PYTHON_INCLUDEDIR=${PYTHONPREFIX_INCLUDEDIR:S;${PREFIX}/;;} \
 		PYTHON_VER=${PYTHON_VER} \
 		PYTHON_VERSION=${PYTHON_VERSION}
 .  if ${PYTHON_REL} < 30000
+SUB_LIST+=	PYTHON2="" PYTHON3="@comment "
 PLIST_SUB+=	PYTHON2="" PYTHON3="@comment "
 .  else
+SUB_LIST+=	PYTHON2="@comment " PYTHON3=""
 PLIST_SUB+=	PYTHON2="@comment " PYTHON3=""
 .  endif
 
@@ -857,7 +873,7 @@ do-install:
 	@${SED} -e 's|^|${PYTHONPREFIX_SITELIBDIR}/|' \
 		-e 's|^${PYTHONPREFIX_SITELIBDIR}/../../../bin/|bin/|' \
 		-e 's|\,.*$$||' \
-		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${PORTNAME}-${PORTVERSION}.dist-info/RECORD >> ${_PYTHONPKGLIST}
+		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${PORTNAME:C/[-_]+/_/g}-${PORTVERSION}.dist-info/RECORD >> ${_PYTHONPKGLIST}
 .    endif
 .  endif # defined(_PYTHON_FEATURE_PEP517)
 

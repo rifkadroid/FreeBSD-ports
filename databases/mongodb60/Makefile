@@ -1,8 +1,12 @@
 PORTNAME=	mongodb
 DISTVERSIONPREFIX=	r
-DISTVERSION=	6.0.2
+DISTVERSION=	6.0.4
+PORTREVISION=	1
 CATEGORIES=	databases net
 PKGNAMESUFFIX=	${DISTVERSION:R:S/.//}
+
+PATCH_SITES=	https://github.com/mongodb/mongo/commit/
+PATCHFILES=	c419698b577f7924d2d6fc6bd3f7bd922f1d0dd7.patch:-p1
 
 MAINTAINER=	ronald@FreeBSD.org
 COMMENT=	Distributed document-oriented "NoSQL" database (6.0.x Branch)
@@ -25,13 +29,12 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cheetah3>0:devel/py-cheetah3@${PY_FLAVOR} 
 # build depends used while running ${WRKSRC}/src/third_party/mozjs/gen-config.sh
 BUILD_DEPENDS+=	autoconf2.13:devel/autoconf2.13 \
 		gsed:textproc/gsed
-LIB_DEPENDS=	libboost_system.so:devel/boost-libs \
-		libcurl.so:ftp/curl \
+LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libicuuc.so:devel/icu \
-		libunwind.so:devel/libunwind \
 		libpcre.so:devel/pcre \
 		libsnappy.so:archivers/snappy \
 		libstemmer.so:textproc/snowballstemmer \
+		libunwind.so:devel/libunwind \
 		libyaml-cpp.so:devel/yaml-cpp \
 		libzstd.so:archivers/zstd
 
@@ -55,7 +58,6 @@ MAKE_ARGS=	--cxx-std=17 \
 		--disable-warnings-as-errors \
 		--libc++ \
 		--runtime-hardening=on \
-		--use-system-boost \
 		--use-system-icu \
 		--use-system-libunwind \
 		--use-system-pcre \
@@ -64,7 +66,7 @@ MAKE_ARGS=	--cxx-std=17 \
 		--use-system-yaml \
 		--use-system-zlib \
 		--use-system-zstd \
-		-j ${MAKE_JOBS_NUMBER} \
+		-j${MAKE_JOBS_NUMBER} \
 		AR=llvm-ar \
 		MONGO_VERSION=${DISTVERSION} \
 		VERBOSE=on
@@ -74,10 +76,14 @@ CONFLICTS_INSTALL=	mongodb[0-9][0-9]
 USERS=		mongodb
 GROUPS=		mongodb
 
-OPTIONS_DEFINE=			LTO SASL SSL
-OPTIONS_DEFAULT=		LTO SASL SSL
+OPTIONS_DEFINE=		LTO SASL SSL NOAVX
+OPTIONS_DEFAULT=	LTO SASL SSL
+
+NOAVX_DESC=	"Disable AVX instructions on amd64 (Sandybridge+)"
 
 LTO_MAKE_ARGS=	--lto=on
+
+NOAVX_MAKE_ARGS=	--experimental-optimization="-sandybridge"
 
 SASL_LIB_DEPENDS=	libsasl2.so:security/cyrus-sasl2
 SASL_MAKE_ARGS=		--use-sasl-client
@@ -100,15 +106,14 @@ PORTSCOUT=	limit:^6\.0\.
 CPE_PRODUCT=	mongodb
 
 .if ${ARCH} == amd64
-MOZJS_ARCH=x86_64
+MOZJS_ARCH=	x86_64
 .elif ${ARCH} == powerpc64le
-MOZJS_ARCH=ppc64le
+MOZJS_ARCH=	ppc64le
 .elif ${ARCH} == aarch64
-MOZJS_ARCH=${ARCH}
+MOZJS_ARCH=	${ARCH}
 .endif
 
 post-patch:
-	${RM} -rf ${WRKSRC}/src/third_party/boost
 	${RM} -rf ${WRKSRC}/src/third_party/icu4c-*
 	${RM} -rf ${WRKSRC}/src/third_party/pcre-*
 	${RM} -rf ${WRKSRC}/src/third_party/snappy-*
@@ -119,7 +124,7 @@ post-patch:
 	${RM} -rf ${WRKSRC}/src/third_party/zstandard
 
 do-configure:
-	# Replacement of ${WRKSRC}/src/third_party/mozjs/get-sources.sh
+# Replacement of ${WRKSRC}/src/third_party/mozjs/get-sources.sh
 	${LN} -sF ${WRKDIR}/spidermonkey-${MOZJS_TAG} ${WRKSRC}/src/third_party/mozjs/mozilla-release
 	cd ${WRKSRC}/src/third_party/mozjs/mozilla-release/js/src && ${LOCALBASE}/bin/autoconf2.13
 	cd ${WRKSRC}/src/third_party/mozjs && PYTHON3="${PYTHON_CMD}" ${SH} ./gen-config.sh ${MOZJS_ARCH} freebsd

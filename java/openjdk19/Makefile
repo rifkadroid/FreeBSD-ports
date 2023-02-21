@@ -62,8 +62,8 @@ NOPRECIOUSMAKEVARS=	yes
 
 JDK_MAJOR_VERSION=	19
 JDK_MINOR_VERSION=	0
-JDK_PATCH_VERSION=	1
-JDK_BUILD_NUMBER=	10
+JDK_PATCH_VERSION=	2
+JDK_BUILD_NUMBER=	7
 BSD_JDK_VERSION=	1
 
 JDK_BUG_URL=	https://bugs.freebsd.org/bugzilla/enter_bug.cgi?product=Ports%20%26%20Packages&component=Individual%20Port(s)&short_desc=java/${PORTNAME}${JDK_MAJOR_VERSION}%3A%20
@@ -156,6 +156,11 @@ CONFIGURE_ARGS+=	--disable-dtrace
 .endif
 .if ${ARCH} == powerpc64 && ${OSREL:C/\.[0-9]//} == 12
 EXTRA_PATCHES=		${PATCHDIR}/extra-patch-src_hotspot_cpu_ppc_vm__version__ppc.hpp
+.endif
+.if ${ARCH} == aarch64
+CONFIGURE_ARGS+=	--with-boot-jdk-jvmargs=-XX:-UseCompressedClassPointers
+MAKE_ENV+=		JAVA_TOOL_OPTIONS="-XX:-UseCompressedClassPointers"
+EXTRA_PATCHES=		${PATCHDIR}/extra-patch-src_hotspot_share_runtime_arguments.cpp
 .endif
 
 .if empty(ICONV_LIB)

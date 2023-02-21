@@ -6,6 +6,7 @@
     SUBDIR += admesh
     SUBDIR += adms
     SUBDIR += alliance
+    SUBDIR += antimony
     SUBDIR += appcsxcad
     SUBDIR += archimedes
     SUBDIR += astk-client
@@ -47,6 +48,7 @@
     SUBDIR += gspiceui
     SUBDIR += gtkwave
     SUBDIR += horizon-eda
+    SUBDIR += hs-verismith
     SUBDIR += ifcopenshell
     SUBDIR += impact
     SUBDIR += irsim
@@ -101,6 +103,7 @@
     SUBDIR += pcb-rnd
     SUBDIR += pdnmesh
     SUBDIR += py-cadquery
+    SUBDIR += py-cocotb
     SUBDIR += py-cq-editor
     SUBDIR += py-edalize
     SUBDIR += py-ezdxf

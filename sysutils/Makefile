@@ -32,6 +32,7 @@
     SUBDIR += alfio
     SUBDIR += am-utils
     SUBDIR += amazon-ssm-agent
+    SUBDIR += amazon-ssm-plugin
     SUBDIR += amdmsrtweaker
     SUBDIR += amrstat
     SUBDIR += amtc
@@ -180,9 +181,11 @@
     SUBDIR += cfengine-masterfiles318
     SUBDIR += cfengine-masterfiles319
     SUBDIR += cfengine-masterfiles320
+    SUBDIR += cfengine-masterfiles321
     SUBDIR += cfengine318
     SUBDIR += cfengine319
     SUBDIR += cfengine320
+    SUBDIR += cfengine321
     SUBDIR += chaoskube
     SUBDIR += checkrestart
     SUBDIR += chezmoi
@@ -605,6 +608,7 @@
     SUBDIR += k4dirstat
     SUBDIR += k8temp
     SUBDIR += k9s
+    SUBDIR += kapp
     SUBDIR += kbackup
     SUBDIR += kcron
     SUBDIR += kdeadmin
@@ -642,6 +646,7 @@
     SUBDIR += libcdio-paranoia
     SUBDIR += libchk
     SUBDIR += libcpuid
+    SUBDIR += libdisplay-info
     SUBDIR += libdnf
     SUBDIR += libfvde
     SUBDIR += libg15
@@ -968,6 +973,7 @@
     SUBDIR += pc-networkmanager
     SUBDIR += pcapfix
     SUBDIR += pciutils
+    SUBDIR += pcns
     SUBDIR += pcpustat
     SUBDIR += pdixtract
     SUBDIR += pdsh
@@ -1348,6 +1354,7 @@
     SUBDIR += smug
     SUBDIR += snap
     SUBDIR += snapraid
+    SUBDIR += sndy
     SUBDIR += snmp_exporter
     SUBDIR += snooze
     SUBDIR += sockaddr
@@ -1428,6 +1435,7 @@
     SUBDIR += topless
     SUBDIR += torque
     SUBDIR += toshctl
+    SUBDIR += touchegg
     SUBDIR += toybox
     SUBDIR += tracker
     SUBDIR += tracker-miners
@@ -1537,6 +1545,7 @@
     SUBDIR += userneu-devel
     SUBDIR += usrinfo
     SUBDIR += utcount
+    SUBDIR += uutils
     SUBDIR += vagrant
     SUBDIR += vbetool
     SUBDIR += vchanger
