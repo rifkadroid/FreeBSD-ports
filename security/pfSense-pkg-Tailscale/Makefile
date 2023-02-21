@@ -1,9 +1,9 @@
-PORTNAME=		pfSense-pkg-Tailscale
-PORTVERSION=	0.1.0
+PORTNAME=	pfSense-pkg-Tailscale
+PORTVERSION=	0.1.1
 PORTREVISION=	1
-CATEGORIES=		security
+CATEGORIES=	security
 MASTER_SITES=	# empty
-DISTFILES=		# empty
+DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
 MAINTAINER=	coreteam@pfsense.org
