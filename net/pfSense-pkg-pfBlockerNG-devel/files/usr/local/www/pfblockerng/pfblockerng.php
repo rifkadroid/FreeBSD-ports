@@ -3,8 +3,8 @@
  * pfblockerng.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2015-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (c) 2015-2022 BBcan177@gmail.com
+ * Copyright (c) 2015-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2023 BBcan177@gmail.com
  * All rights reserved.
  *
  * Originally based upon pfBlocker by
@@ -707,8 +707,12 @@ function pfblockerng_uc_countries() {
 			}
 		}
 
-		unset($cc);
-		@fclose($handle);
+		if ($cc) {
+			unset($cc);
+		}
+		if ($handle) {
+			@fclose($handle);
+		}
 	}
 
 	// Add 'Proxy and Satellite' geoname_ids
@@ -1229,8 +1233,12 @@ function pfblockerng_uc_countries() {
 					}
 				}
 			}
-			unset($cc);
-			@fclose($handle);
+			if ($cc) {
+				unset($cc);
+			}
+			if ($handle) {
+				@fclose($handle);
+			}
 		}
 		else {
 			$log = "\n Failed to load file: {$maxmind_cc}\n";
@@ -1261,6 +1269,9 @@ function pfblockerng_get_countries() {
 	// Collect data to generate new continent PHP files.
 	$log = " Creating pfBlockerNG Continent PHP files\n";
 	pfb_logger("{$log}", 4);
+
+	$continent = $continent_en = '';
+	$roptions4 = array();
 
 	foreach ($geoip_files as $cont => $file) {
 
@@ -1372,7 +1383,15 @@ function pfblockerng_get_countries() {
 					$linenum++;
 				}
 			}
-			@fclose($handle);
+
+			if ($handle) {
+				@fclose($handle);
+			}
+
+			if (empty($continent)) {
+				pfb_logger("Continent data [ {$cont} ] not found\n", 4);
+				continue;
+			}
 
 			// Sort IP Countries alphabetically and build PHP drop-down lists for Continent tabs
 			if (!empty(${'coptions' . $type})) {
@@ -1410,8 +1429,8 @@ $php_data = <<<EOF
  * pfblockerng_{$continent_en}.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2016-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (c) 2015-2022 BBcan177@gmail.com
+ * Copyright (c) 2016-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2023 BBcan177@gmail.com
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the \"License\");
@@ -1454,19 +1473,24 @@ $options_aliaslog		= [	'enabled' => 'Enabled', 'disabled' => 'Disabled' ];
 
 // Collect all pfSense 'Port' Aliases
 $portslist = $networkslist = '';
+$options_aliasports_in = $options_aliasports_out = array();
+
 if (!empty($config['aliases']['alias'])) {
 	foreach ($config['aliases']['alias'] as $alias) {
 		if ($alias['type'] == 'port') {
 			$portslist .= "{$alias['name']},";
-		} elseif ($alias['type'] == 'network') {
+			$options_aliasports_in[$alias['name']] = $alias['name'];
+			$options_aliasports_out[$alias['name']] = $alias['name'];
+		}
+		elseif ($alias['type'] == 'network') {
 			$networkslist .= "{$alias['name']},";
+			$options_aliasaddr_in[$alias['name']] = $alias['name'];
+			$options_aliasaddr_out[$alias['name']] = $alias['name'];
 		}
 	}
 }
 $ports_list			= trim($portslist, ',');
 $networks_list			= trim($networkslist, ',');
-$options_aliasports_in		= $options_aliasports_out	= explode(',', $ports_list);
-$options_aliasaddr_in		= $options_aliasaddr_out	= explode(',', $networks_list);
 
 $options_autoproto_in		= $options_autoproto_out	= [ '' => 'any', 'tcp' => 'TCP', 'udp' => 'UDP', 'tcp/udp' => 'TCP/UDP' ];
 $options_agateway_in		= $options_agateway_out		= pfb_get_gateways();
@@ -1531,7 +1555,10 @@ if ($_POST) {
 						);
 
 		foreach ($select_options as $s_option => $s_default) {
-			if (is_array($_POST[$s_option])) {
+			if (!isset($_POST[$s_option])) {
+				// do nothing
+			}
+			elseif (is_array($_POST[$s_option])) {
 				$_POST[$s_option] = $s_default;
 			}
 			elseif (!array_key_exists($_POST[$s_option], ${"options_$s_option"})) {
@@ -1545,7 +1572,10 @@ if ($_POST) {
 						);
 
 		foreach ($select_options as $s_option => $s_default) {
-			if (is_array($_POST[$s_option])) {
+			if (!isset($_POST[$s_option])) {
+				// do nothing
+			}
+			elseif (is_array($_POST[$s_option])) {
 				foreach ($_POST[$s_option] as $post_option) {
 					if (!array_key_exists($post_option, ${"options_$s_option"})) {
 						$_POST[$s_option] = $s_default;
@@ -1984,7 +2014,7 @@ EOF;
 	pfb_logger("{$log}", 4);
 
 	// Unset arrays
-	unset($roptions4, $et_options, $php_rep);
+	unset($roptions4, $et_options);
 }
 
 
@@ -1997,8 +2027,8 @@ function pfb_build_reputation_tab($et_options='') {
  * pfblockerng_reputation.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2016-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (c) 2015-2022 BBcan177@gmail.com
+ * Copyright (c) 2016-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2023 BBcan177@gmail.com
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the \"License\");
@@ -2114,7 +2144,10 @@ if ($_POST) {
 					);
 
 		foreach ($select_options as $s_option => $s_default) {
-			if (is_array($_POST[$s_option])) {
+			if (!isset($_POST[$s_option])) {
+				// do nothing
+			}
+			elseif (is_array($_POST[$s_option])) {
 				$_POST[$s_option] = $s_default;
 			}
 			elseif (!array_key_exists($_POST[$s_option], ${"options_$s_option"})) {
@@ -2412,5 +2445,6 @@ EOF;
 
 	// Save pfBlockerng_reputation.php file
 	@file_put_contents('/usr/local/www/pfblockerng/pfblockerng_reputation.php', $php_rep, LOCK_EX);
+	unset($php_rep);
 }
 ?>

@@ -3,11 +3,11 @@
  * suricata_etiqrisk_update.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (C) 2005 Bill Marquette <bill.marquette@gmail.com>.
- * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>.
- * Copyright (C) 2009 Robert Zelaya Sr. Developer
- * Copyright (C) 2022 Bill Meeks
+ * Copyright (c) 2006-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2005 Bill Marquette <bill.marquette@gmail.com>.
+ * Copyright (c) 2003-2004 Manuel Kasper <mk@neon1.net>.
+ * Copyright (c) 2009 Robert Zelaya Sr. Developer
+ * Copyright (c) 2023 Bill Meeks
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -169,5 +169,5 @@ if ($success == TRUE && is_process_running("suricata")) {
 if (config_get_path('installedpackages/suricata/config/0/update_notify') == 'on') {
 	notify_all_remote($notify_message);
 }
-
+return true;
 ?>

@@ -3,11 +3,11 @@
  * suricata_uninstall.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2019-2022 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2019-2023 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2005 Bill Marquette <bill.marquette@gmail.com>
  * Copyright (c) 2003-2004 Manuel Kasper <mk@neon1.net>
  * Copyright (c) 2009 Robert Zelaya Sr. Developer
- * Copyright (c) 2022 Bill Meeks
+ * Copyright (c) 2023 Bill Meeks
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -77,7 +77,9 @@ if (config_get_path('installedpackages/suricata/config/0/clearlogs') == 'on') {
 /* pkg will clean up the base install files.             */
 /*********************************************************/
 unlink_if_exists("{$suricatadir}*.gz.md5");
+unlink_if_exists("{$suricatadir}*.ruleslist");
 unlink_if_exists("{$suricatadir}gen-msg.map");
+unlink_if_exists("{$suricatadir}unicode.map");
 unlink_if_exists("{$suricatadir}classification.config");
 unlink_if_exists("{$suricatadir}reference.config");
 unlink_if_exists("{$suricatadir}rulesupd_status");
@@ -105,7 +107,7 @@ if (!empty($widgets)) {
 			if (config_get_path('installedpackages/suricata/config/0/forcekeepsettings') == 'on') {
 				config_set_path('installedpackages/suricata/config/0/dashboard_widget', $widget);
 				if (config_get_path('widgets/widget_suricata_display_lines')) {
-					cpnfig_set_path('installedpackages/suricata/config/0/dashboard_widget_rows', config_get_path('widgets/widget_suricata_display_lines'));
+					config_set_path('installedpackages/suricata/config/0/dashboard_widget_rows', config_get_path('widgets/widget_suricata_display_lines'));
 					config_del_path('widgets/widget_suricata_display_lines');
 				}
 			}
@@ -135,5 +137,5 @@ if (config_get_path('installedpackages/suricata/config/0/forcekeepsettings') != 
 	write_config("Removed the Suricata package.");
 	syslog(LOG_NOTICE, gettext("[Suricata] The package has been removed from this system, but the configuration settings were retained..."));
 }
-
+return true;
 ?>

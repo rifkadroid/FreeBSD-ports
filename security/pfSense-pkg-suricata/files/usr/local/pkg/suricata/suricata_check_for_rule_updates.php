@@ -3,11 +3,11 @@
  * suricata_check_for_rule_updates.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (C) 2005 Bill Marquette <bill.marquette@gmail.com>.
- * Copyright (C) 2003-2004 Manuel Kasper <mk@neon1.net>.
- * Copyright (C) 2009 Robert Zelaya Sr. Developer
- * Copyright (C) 2022 Bill Meeks
+ * Copyright (c) 2006-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2005 Bill Marquette <bill.marquette@gmail.com>.
+ * Copyright (c) 2003-2004 Manuel Kasper <mk@neon1.net>.
+ * Copyright (c) 2009 Robert Zelaya Sr. Developer
+ * Copyright (c) 2023 Bill Meeks
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -163,7 +163,7 @@ function suricata_download_file_url($url, $file_out) {
 	/* It provides logging of returned CURL errors. */
 	/************************************************/
 
-	global $g, $last_curl_error, $fout, $ch;
+	global $g, $last_curl_error;
 
 	$rfc2616 = array(
 			100 => "100 Continue",
@@ -211,16 +211,19 @@ function suricata_download_file_url($url, $file_out) {
 
 	$last_curl_error = "";
 
-	$fout = fopen($file_out, "wb");
+	$fout = fopen($file_out, 'wb');
 	if ($fout) {
 		$ch = curl_init($url);
 		if (!$ch)
 			return false;
 		curl_setopt($ch, CURLOPT_FILE, $fout);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_NOPROGRESS, '1');
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, "TLSv1.2, TLSv1");
+		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+		curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+		curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_NONE);
+		curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
+		curl_setopt($ch, CURLOPT_SSL_ENABLE_ALPN, true);
+		curl_setopt($ch, CURLOPT_SSL_ENABLE_NPN, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
@@ -266,7 +269,6 @@ function suricata_download_file_url($url, $file_out) {
 		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if (isset($rfc2616[$http_code]))
 			$last_curl_error = $rfc2616[$http_code];
-		curl_close($ch);
 		fclose($fout);
 
 		// If we had to try more than once, log it
@@ -1017,4 +1019,6 @@ if ((config_get_path('installedpackages/suricata/config/0/rule_categories_notify
 	notify_all_remote("Suricata new rule categories are available:\n" . $notify_new_message);
 }
 
+// Returns true when no errors occurred
+return !$update_errors;
 ?>

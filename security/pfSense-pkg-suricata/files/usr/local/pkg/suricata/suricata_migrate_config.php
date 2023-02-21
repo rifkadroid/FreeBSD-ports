@@ -3,8 +3,8 @@
  * suricata_migrate_config.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2019-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (C) 2022 Bill Meeks
+ * Copyright (c) 2019-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2023 Bill Meeks
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -843,5 +843,5 @@ if ($updated_cfg) {
 else {
 	syslog(LOG_NOTICE, "[Suricata] Configuration version is current.");
 }
-
+return true;
 ?>

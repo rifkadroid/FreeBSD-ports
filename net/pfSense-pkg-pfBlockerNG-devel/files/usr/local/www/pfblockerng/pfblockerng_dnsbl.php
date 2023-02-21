@@ -3,8 +3,8 @@
  * pfblockerng_dnsbl.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2016-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (c) 2015-2022 BBcan177@gmail.com
+ * Copyright (c) 2016-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2023 BBcan177@gmail.com
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the \"License\");
@@ -458,7 +458,7 @@ if ($_POST) {
 				'pfb_noaaaa_list'	=> 'domain',
 				'pfb_gp_bypass_list'	=> 'ip',
 				'suppression'		=> 'domain',
-				'tldexclusion'		=> 'domain',
+				'tldexclusion'		=> 'hostname',
 				'tldblacklist'		=> 'tld',
 				'tldwhitelist'		=> 'tldwhite' ) as $custom_type => $custom_format) {
 
@@ -475,6 +475,12 @@ if ($_POST) {
 							switch ($custom_format) {
 								case 'regex':
 									// TODO (See non-ascii validation above)
+									break;
+								case 'hostname':
+									$value[0] = trim($value[0], '.');
+									if (empty(pfb_filter($value[0], PFB_FILTER_HOSTNAME, 'dnsbl'))) {
+										$input_errors[] = "Customlist {$custom_type}: Invalid  Hostname entry: [ " . htmlspecialchars($line) . " ]";
+									}
 									break;
 								case 'domain':
 									$value[0] = trim($value[0], '.');
@@ -543,29 +549,6 @@ if ($_POST) {
 				$input_errors[] = 'DNSBL VIP CARP password does not match the confirm password!';
 			}
 		}
-
-
-		// TO BE REMOVED AT FUTURE DATE:
-
-		// DNSBL Python mode is not compatible with dhcpleases binary code,
-		// as it attempts to HUP the Unbound PID and will cause DNSBL Python mode to crash Unbound
-		if ($_POST['dnsbl_mode'] == 'dnsbl_python' && isset($config['unbound']['regdhcp'])) {
-			$input_errors[] = 'DNSBL Python mode is not compatible with the DNS Resolver \'DHCP Registration option\'!';
-			$input_errors[] = 'In order to utilize the DNSBL Python feature, first disable the DNS Resolver DHCP Registration option.';
-		}
-
-		// DNSBL Python mode is not compatible with the DNS Resolver OpenVPN Client Registration option (pfSense < 2.5)
-		if ($_POST['dnsbl_mode'] == 'dnsbl_python' && substr(trim(file_get_contents('/etc/version')), 0, 3) < '2.5' &&
-		    isset($config['unbound']['regovpnclients'])) {
-			$input_errors[] = 'DNSBL Python mode is not compatible with the DNS Resolver \'OpenVPN Client Registration option\'!';
-			$input_errors[] = 'In order to utilize the DNSBL Python feature, first disable the DNS Resolver OpenVPN Client Registration option.';
-		}
-
-		// DNSBL Python mode is only available for pfSense 2.4.5 and above
-		if ($_POST['dnsbl_mode'] == 'dnsbl_python' && substr(trim(file_get_contents('/etc/version')), 0, 5) < '2.4.5') {
-			$input_errors[] = 'DNSBL Python mode is compatible with Kontrol versions 2.4.5 and above.';
-		}
-
 
 		if (!$input_errors) {
 
@@ -768,7 +751,7 @@ $dnsbl_text = '<div class="infoblock">
 			To debug issues with \'False Positives\', the following tools below can be used:<br />
 			<ol>
 				<li>Browser Dev mode (F12) and goto \'Console\' to review any error messages.</li>
-				<li>Execute the following command from Kontrol Shell (Changing the interface \'re1\' to the Kontrol Lan Interface):<br />
+				<li>Execute the following command from pfSense Shell (Changing the interface \'re1\' to the pfSense Lan Interface):<br />
 					&emsp;<strong>tcpdump -nnvli re1 port 53 | grep -B1 \'A 10.10.10.1\'</strong></li>
 				<li>Packet capture software such as Wireshark.</li>
 			</ol>
@@ -843,8 +826,6 @@ $section->addInput(new Form_Select(
 		. '&emsp;&emsp;&emsp;&emsp;This mode will utilize Unbound local-zone/local-data entries for DNSBL (requires more memory).<br />'
 		. '<strong>Unbound Python Mode</strong>:<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode is only available for pfSense version 2.4.5 and above.<br />'
-		. '&emsp;&emsp;&emsp;&emsp;Python DNSBL mode is <strong>not</strong> compatible with the DNS Resolver DHCP Registration option (Unbound will Crash)!<br />'
-		. '&emsp;&emsp;&emsp;&emsp;Python DNSBL mode is <strong>not</strong> compatible with the DNS Resolver OpenVPN Client Registration (Kontrol < 2.5)!<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode will utilize the python integration of Unbound for DNSBL.<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode will allow logging of DNS Replies, and more advanced DNSBL Blocking features.<br />'
 		. '&emsp;&emsp;&emsp;&emsp;This mode requires substantially less memory </div>'
@@ -866,7 +847,7 @@ $section->addInput(new Form_Checkbox(
 	'on'
 ))->setHelp('Enabling this option will allow sending python_control commands (via DNS TXT) to the Python integration.'
 	. '<div class="infoblock" style="width: 90%;">'
-	. 'The python_control feature is limited to DNS TXT records sent from Kontrol localhost (127.0.0.1) only!<br />'
+	. 'The python_control feature is limited to DNS TXT records sent from pfSense localhost (127.0.0.1) only!<br />'
 	. 'This is a temporary intervention, and will be reset on a restart of the Resolver<br />'
 	. 'These commands can be incorporated in CRON/Scheduler tasks or run manually as required<br />'
 	. 'All events are logged to the Reports Tab (Gear icon)<br /><br />'
@@ -2522,7 +2503,7 @@ $section->addInput(new Form_Checkbox(
 	'on'
 ))->setHelp('Enable the Python TLD Allow feature (1,546 TLDs available). This will block all TLDs that are not specifically selected.'
 		. '<div id="dnsbl_python_tld_allow_text">'
-		. '<strong>By default</strong> \'ARPA\' and the Kontrol TLD \'' . strtoupper($local_tld) . '\' are allowed.<br />'
+		. '<strong>By default</strong> \'ARPA\' and the pfSense TLD \'' . strtoupper($local_tld) . '\' are allowed.<br />'
 		. 'If no TLDs are selected, the following are added by default [ COM, NET, ORG, EDU, CA, CO, IO ]<br /><br />'
 		. 'Detailed TLD listings : <a target=_blank href="http://www.iana.org/domains/root/db">Root Zone Top-Level Domains.</a><br />'
 		. 'Changes to this option will require a Force Update to take effect.<br /><br />'
@@ -3051,7 +3032,7 @@ $list_action_text = 'Default: <strong>Disabled</strong>
 
 				<strong><u>\'Alias\' Rule:</u></strong><br />
 				<strong>\'Alias\'</strong> rules create an <a href="/firewall_aliases.php">alias</a> for the list (and do nothing else).
-				This enables a pfBlockerNG list to be used by name, in any firewall rule or Kontrol function, as desired.
+				This enables a pfBlockerNG list to be used by name, in any firewall rule or pfSense function, as desired.
 			</div>';
 
 $section->addInput(new Form_Select(

@@ -1,6 +1,6 @@
 PORTNAME=	sqlite3
 DISTVERSION=	${PYTHON_DISTVERSION}
-PORTREVISION=	7
+PORTREVISION=	8
 CATEGORIES=	databases python
 MASTER_SITES=	PYTHON/ftp/python/${DISTVERSION}
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -35,6 +35,9 @@ post-extract:
 .endif
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_LIBDIR}/lib-dynload/_sqlite3*.so
+	@${STRIP_CMD} ${STAGEDIR}${PYTHON_LIBDIR}/lib-dynload/_sqlite3*.so
+
+do-test:
+	@${PYTHON_CMD} -c 'import sqlite3'  # minimal smoke test
 
 .include <bsd.port.post.mk>

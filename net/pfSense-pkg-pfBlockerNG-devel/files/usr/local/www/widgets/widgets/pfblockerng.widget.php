@@ -3,8 +3,8 @@
  * pfblockerng.widget.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2016-2022 Rubicon Communications, LLC (Netgate)
- * Copyright (c) 2015-2022 BBcan177@gmail.com
+ * Copyright (c) 2016-2023 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2023 BBcan177@gmail.com
  * All rights reserved.
  *
  * Originally based Upon pfBlocker
@@ -105,24 +105,41 @@ if ($_POST) {
 
 		// Define pfBlockerNG clear [ dnsbl and/or IP ] counter CRON job
 		foreach (array( 'clearip', 'cleardnsbl') as $type) {
-			if (isset($pfb['wglobal']['widget-' . $type]) &&
-			    $pfb['wglobal']['widget-' . $type] != 'never') {
+			$pfb_cmd = "/usr/local/bin/php /usr/local/www/pfblockerng/pfblockerng.php {$type} >/dev/null 2>&1";
+			if (isset($pfb['wglobal']['widget-' . $type])) {
+				if ($pfb['wglobal']['widget-' . $type] != 'never') {
 
-				$type_esc = escapeshellarg($type);
-				$pfb_cmd = "/usr/local/bin/php /usr/local/www/pfblockerng/pfblockerng.php {$type_esc} >/dev/null 2>&1";
+					$pfb_day = '*';
+					if ($pfb['wglobal']['widget-' . $type] == 'weekly') {
+						$pfb_day = '7';
+					}
 
-				$pfb_day = '*';
-				if ($pfb['wglobal']['widget-' . $type] == 'weekly') {
-					$pfb_day = '7';
+					// Remove unreferenced 'daily' or 'weekly' cron job
+					$pfb_other = ($pfb_day == '*') ? '7' : '*';
+					if (pfblockerng_cron_exists($pfb_cmd, '0', '0', '*', $pfb_other)) {
+						install_cron_job("pfblockerng.php {$type}", false);
+					}
+
+					if (!pfblockerng_cron_exists($pfb_cmd, '0', '0', '*', $pfb_day)) {
+						install_cron_job($pfb_cmd, true, '0', '0', '*', '*', $pfb_day, 'root');
+					}
 				}
-
-				if (!pfblockerng_cron_exists($pfb_cmd, '0', '0', '*', $pfb_day)) {
-					install_cron_job("pfblockerng.php {$type}", false);
-					install_cron_job($pfb_cmd, true, '0', '0', '*', '*', $pfb_day, 'root');
+				else {
+					if (pfblockerng_cron_exists($pfb_cmd, '0', '0', '*', '*')) {
+						install_cron_job("pfblockerng.php {$type}", false);
+					}
+					if (pfblockerng_cron_exists($pfb_cmd, '0', '0', '*', '7')) {
+						install_cron_job("pfblockerng.php {$type}", false);
+					}
 				}
 			}
 			else {
-				install_cron_job("pfblockerng.php {$type}", false);
+				if (pfblockerng_cron_exists($pfb_cmd, '0', '0', '*', '*')) {
+					install_cron_job("pfblockerng.php {$type}", false);
+				}
+				if (pfblockerng_cron_exists($pfb_cmd, '0', '0', '*', '7')) {
+					install_cron_job("pfblockerng.php {$type}", false);
+				}
 			}
 		}
 

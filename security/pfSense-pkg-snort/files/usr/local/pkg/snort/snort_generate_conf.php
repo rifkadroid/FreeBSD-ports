@@ -3,7 +3,7 @@
  * snort_generate_conf.php
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2006-2022 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2006-2023 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2009-2010 Robert Zelaya
  * Copyright (c) 2013-2022 Bill Meeks
  * All rights reserved.
@@ -52,7 +52,6 @@ $snort_config_pass_thru = rtrim($snort_config_pass_thru);
 /* create a few directories and ensure the sample files are in place */
 $snort_dirs = array( $snortdir, $snortcfgdir, "{$snortcfgdir}/rules",
 	"{$snortlogdir}/snort_{$if_real}{$snort_uuid}",
-	"{$snortlogdir}/snort_{$if_real}{$snort_uuid}/barnyard2", 
 	"{$snortcfgdir}/preproc_rules", 
 	"dynamicrules" => "{$snortlibdir}/snort_dynamicrules",
 	"dynamicengine" => "{$snortlibdir}/snort_dynamicengine",
@@ -250,7 +249,7 @@ $stream5_ports_both .= "\t           55555 56712";
 
 /* def perform_stat */
 
-if (config_get_path('installedpackages/snortglobal/stats_log_limit_size'. '0') != '0')
+if (config_get_path('installedpackages/snortglobal/stats_log_limit_size', '0') != '0')
 	$stats_log_limit = "max_file_size " . config_get_path('installedpackages/snortglobal/stats_log_limit_size') * 1000;
 else
 	$stats_log_limit = "";
