@@ -16867,7 +16867,6 @@ net-mgmt/zabbix3-frontend||2022-02-28|Has expired: Upstream EOL reached on 2021-
 net-mgmt/zabbix3-agent||2022-02-28|Has expired: Upstream EOL reached on 2021-02-28
 net-mgmt/zabbix3-server||2022-02-28|Has expired: Upstream EOL reached on 2021-02-28
 archivers/zip-ada||2022-02-28|Removed, depends on expired lang/gcc6-aux
-cad/ghdl||2022-02-28|Removed, depends on expired lang/gcc6-aux
 databases/adabase||2022-02-28|Removed, depends on expired lang/gcc6-aux
 databases/apq||2022-02-28|Removed, depends on expired lang/gcc6-aux
 databases/apq-mysql||2022-02-28|Removed, depends on expired lang/gcc6-aux
@@ -17766,3 +17765,15 @@ x11-toolkits/gnocl||2023-02-13|Fails to build, newer snapshot depends on a remov
 games/opendungeons||2023-02-14|Has expired: Broken for more than 6 months
 databases/mysql-connector-odbc|databases/mysql-connector-odbc-80|2023-02-18|Has expired: Requires EOLd mysql version
 devel/yaml-cpp03|devel/yaml-cpp|2023-02-21|Used by blender-lts28 which is EOL'd
+sysutils/uutils|sysutils/rust-coreutils|2023-02-22|Request by upstream
+print/harfbuzz-hb-view|print/harfbuzz-cairo|2023-02-23|Match feature and library name
+sysutils/screenfetch-nox11|sysutils/screenfetch@nox11|2023-02-23|Converted to flavor
+editors/r7-office|editors/linux-r7-office|2023-02-25|Follow the naming scheme of Linux ports
+www/mediawiki137||2023-02-28|Has expired: End of life upstream, users are recommended to upgrade to 1.39 or higher
+games/veloren|games/veloren-weekly|2023-03-02|Using releases is currently discouraged upstream
+accessibility/atk|accessibility/at-spi2-core|2023-03-02|Integrated into other package
+accessibility/at-spi2-atk|accessibility/at-spi2-core|2023-03-02|Integrated into other package
+net/tshark|net/wireshark@nox11|2023-03-03|Tshark is now the nox11 flavor of wireshark
+net/tshark-lite|net/wireshark@nox11|2023-03-03|Tshark is now the nox11 flavor of wireshark
+net/wireshark-lite|net/wireshark|2023-03-03|The lite port of wireshark can be controlled with OPTIONS
+lang/gcc-ecj45|java/eclipse-ecj|2023-03-06|Has expired: Long time unsupported upstream, use java/eclipse-ecj instead

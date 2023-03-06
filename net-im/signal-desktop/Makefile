@@ -1,6 +1,7 @@
 PORTNAME=	signal-desktop
 DISTVERSIONPREFIX=	v
-DISTVERSION=	6.6.0
+DISTVERSION=	6.7.0
+PORTREVISION=	1
 CATEGORIES=	net-im
 MASTER_SITES=	LOCAL/mikael/signal-desktop/:npm \
 		LOCAL/mikael/signal-desktop/:sqlite \
@@ -34,7 +35,7 @@ BUILD_DEPENDS=	${LOCALBASE}/lib/libringrtc.so:multimedia/ringrtc \
 		vips>0:graphics/vips \
 		yarn:www/yarn-node16
 LIB_DEPENDS=	libasound.so:audio/alsa-lib \
-		libatk-bridge-2.0.so:accessibility/at-spi2-atk \
+		libatk-bridge-2.0.so:accessibility/at-spi2-core \
 		libatspi.so:accessibility/at-spi2-core \
 		libcups.so:print/cups \
 		libdbus-1.so:devel/dbus \
@@ -85,7 +86,7 @@ _BUILD_DATE=	$$(date +'%s')
 
 ELECTRON_VER_MAJOR=	22
 # keep NODE_VERSION in sync with www/node16 DISTVERSION
-NODE_VERSION=		16.19.0
+NODE_VERSION=		16.19.1
 # bump ELECTRON_GYP_VERSION when ELECTRON_VER_MAJOR is changed
 ELECTRON_GYP_VERSION=	22.2.0
 
