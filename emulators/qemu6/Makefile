@@ -1,12 +1,13 @@
 PORTNAME=	qemu
 PORTVERSION=	6.2.0
+PORTREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	https://download.qemu.org/
 DIST_SUBDIR=	qemu/${PORTVERSION}
 
 MAINTAINER=	bofh@FreeBSD.org
 COMMENT=	QEMU CPU Emulator ${${FLAVOR}_COMMENT} - 6.X
-WWW=		https://wiki.qemu.org/Main_Page
+WWW=		https://www.qemu.org/
 
 LICENSE=	GPLv2
 

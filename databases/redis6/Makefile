@@ -1,6 +1,5 @@
 PORTNAME=	redis
-PORTVERSION=	6.0.16
-PORTREVISION=	3
+PORTVERSION=	6.0.18
 CATEGORIES=	databases
 MASTER_SITES=	https://download.redis.io/releases/
 PKGNAMESUFFIX=	6
@@ -17,7 +16,9 @@ USES+=		compiler:c11 gmake
 MAKE_ENV=	OPTIMIZATION= \
 		V=yo
 
-CONFLICTS_INSTALL=	redis redis-devel # etc/rc.d/redis
+CONFLICTS_INSTALL=	redis redis-devel redis62 # etc/rc.d/redis
+
+PORTSCOUT=	limit:^6\.0
 
 OPTIONS_DEFINE=		JEMALLOC TESTS TLS TRIB
 OPTIONS_DEFAULT=	TLS
@@ -42,7 +43,7 @@ TLS_USES=		ssl
 TLS_MAKE_ENV=		BUILD_TLS=yes
 TRIB_CATEGORIES=	ruby
 TRIB_RUN_DEPENDS=	rubygem-redis>=2.2:databases/rubygem-redis
-TRIB_USE=		RUBY=yes
+TRIB_USES=		ruby
 
 .include <bsd.port.pre.mk>
 

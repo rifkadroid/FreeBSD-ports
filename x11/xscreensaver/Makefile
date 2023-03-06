@@ -1,5 +1,5 @@
 PORTNAME=	xscreensaver
-PORTVERSION=	6.04
+DISTVERSION=	6.06
 PORTREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	http://www.jwz.org/xscreensaver/
@@ -22,7 +22,7 @@ LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 USES=		autoreconf cpe gettext gl gmake gnome jpeg localbase:ldflags \
 		perl5 pkgconfig xorg
 USE_GL=		gl glu
-USE_GNOME=	cairo gdkpixbuf2 gdkpixbuf2xlib gtk20 intltool libglade2 libxml2
+USE_GNOME=	cairo gdkpixbuf2 gtk30 intltool libxml2
 USE_PERL5=	run
 USE_XORG=	ice sm x11 xext xft xi xinerama xmu xrandr xrender xt xxf86vm
 CPE_VENDOR=	xscreensaver_project

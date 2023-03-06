@@ -254,11 +254,11 @@ cardano:*:310:
 _arti:*:311:
 _sphinx:*:312:
 _fastdfs:*:313:
-# free: 314
-# free: 315
-# free: 316
-# free: 317
-# free: 318
+promscale:*:314:
+lavinmq:*:315:
+nut:*:316:
+hedgedoc:*:317:
+# free: 318, UID used by icingadirector
 # free: 319
 # free: 320
 # free: 321
@@ -267,7 +267,7 @@ _fastdfs:*:313:
 # free: 324
 dkfilter:*:325:
 smfs:*:326:
-# free: 327
+_reticulum:*:327:
 # free: 328
 # free: 329
 orthanc:*:330:
@@ -566,7 +566,7 @@ taskd:*:616:
 # free: 622
 # free: 623
 # free: 624
-# free: 625
+xapsd:*:625:
 # free: 626
 # free: 627
 # free: 628
@@ -809,7 +809,7 @@ opensearch:*:855:
 # free: 865
 # free: 866
 # free: 867
-# free: 868
+jellyfin:*:868:
 keyd:*:869:
 buildbot:*:870:
 # free: 871
@@ -929,7 +929,7 @@ tvheadend:*:984:
 puppetdb:*:985:
 kamailio:*:986:
 spark:*:987:
-# free: 988
+pot:*:988:
 emby:*:989:
 oozie:*:990:
 sguil:*:991:

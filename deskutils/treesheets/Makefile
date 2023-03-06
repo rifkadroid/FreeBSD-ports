@@ -1,6 +1,5 @@
 PORTNAME=	treesheets
-DISTVERSION=	1.0.20220917
-PORTREVISION=	1
+DISTVERSION=	1.0.20230222
 CATEGORIES=	deskutils
 
 MAINTAINER=	eduardo@FreeBSD.org
@@ -10,11 +9,11 @@ WWW=		https://strlen.com/treesheets/
 LICENSE=	ZLIB
 LICENSE_FILE=	${WRKSRC}/ZLIB_LICENSE.txt
 
-USES=		cmake compiler:c++17-lang desktop-file-utils gettext gnome
-
+USES=		cmake compiler:c++17-lang desktop-file-utils gettext gnome \
+		shared-mime-info
 USE_GITHUB=	yes
 GH_ACCOUNT=	aardappel
-GH_TAGNAME=	3074091860
+GH_TAGNAME=	4245087767
 USE_WX=		3.2
 
 PORTSCOUT=	ignore:1 # upstream uses CI run ids as releases

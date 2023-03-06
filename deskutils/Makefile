@@ -19,6 +19,8 @@
     SUBDIR += bijiben
     SUBDIR += birdtray
     SUBDIR += bookworm
+    SUBDIR += budgie-desktop-view
+    SUBDIR += budgie-trash-applet
     SUBDIR += cairo-dock
     SUBDIR += cairo-dock-plugins
     SUBDIR += caja-extensions
@@ -48,7 +50,6 @@
     SUBDIR += dosage
     SUBDIR += dstask
     SUBDIR += easystroke
-    SUBDIR += egroupware
     SUBDIR += elementary-calendar
     SUBDIR += fasd
     SUBDIR += fbreader
@@ -129,6 +130,7 @@
     SUBDIR += itinerary
     SUBDIR += jjclient
     SUBDIR += jlj
+    SUBDIR += jot
     SUBDIR += just
     SUBDIR += kaddressbook
     SUBDIR += kalarm
@@ -140,6 +142,7 @@
     SUBDIR += kdepim-addons
     SUBDIR += kdepim-runtime
     SUBDIR += keditbookmarks
+    SUBDIR += keep-presence
     SUBDIR += kfind
     SUBDIR += kmail
     SUBDIR += kmail-account-wizard
@@ -153,9 +156,13 @@
     SUBDIR += ktimetracker
     SUBDIR += kuserfeedback
     SUBDIR += latte-dock
+    SUBDIR += lazycli
     SUBDIR += libcprime
     SUBDIR += libkdepim
     SUBDIR += libportal
+    SUBDIR += libportal-gtk3
+    SUBDIR += libportal-gtk4
+    SUBDIR += libportal-qt5
     SUBDIR += ljclive
     SUBDIR += lumina-archiver
     SUBDIR += lumina-calculator
@@ -209,6 +216,7 @@
     SUBDIR += preferences
     SUBDIR += presage
     SUBDIR += projectlibre
+    SUBDIR += pueue
     SUBDIR += puush
     SUBDIR += py-autokey
     SUBDIR += py-bugwarrior
@@ -236,10 +244,13 @@
     SUBDIR += showdown
     SUBDIR += sigi
     SUBDIR += simpleagenda
+    SUBDIR += skim
     SUBDIR += sliderule
     SUBDIR += solanum
     SUBDIR += sowon
+    SUBDIR += spacefm
     SUBDIR += spice-gtk
+    SUBDIR += subsurface
     SUBDIR += synapse
     SUBDIR += syncthingtray
     SUBDIR += sysctlview
@@ -251,6 +262,7 @@
     SUBDIR += teapot
     SUBDIR += terminal-image-viewer
     SUBDIR += thinkingrock
+    SUBDIR += thokr
     SUBDIR += timewarrior
     SUBDIR += todo
     SUBDIR += todour
@@ -265,6 +277,7 @@
     SUBDIR += when
     SUBDIR += wmpinboard
     SUBDIR += x026
+    SUBDIR += xannotate
     SUBDIR += xcalendar
     SUBDIR += xcbautolock
     SUBDIR += xchm
