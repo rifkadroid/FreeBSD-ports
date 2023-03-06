@@ -1,5 +1,6 @@
 PORTNAME=	snes9x
 DISTVERSION=	1.61
+PORTREVISION=	1
 CATEGORIES=	emulators
 PKGNAMESUFFIX=	-gtk
 
@@ -50,6 +51,7 @@ PORTAUDIO_MESON_TRUE=	portaudio
 PULSEAUDIO_LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 PULSEAUDIO_MESON_TRUE=	pulseaudio
 
+WAYLAND_CATEGORIES=	wayland
 WAYLAND_LIB_DEPENDS=	libwayland-client.so:graphics/wayland
 WAYLAND_MESON_TRUE=	wayland
 

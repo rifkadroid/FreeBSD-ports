@@ -1,10 +1,11 @@
 PORTNAME=	fotoxx
-PORTVERSION=	22.35
+PORTVERSION=	23.2
 CATEGORIES=	graphics
 MASTER_SITES=	https://kornelix.net/downloads/downloads/
+DISTNAME=	${PORTNAME}-${PORTVERSION}-source
 
 MAINTAINER=	danfe@FreeBSD.org
-COMMENT=	Application to organize and edit image collections
+COMMENT=	Image editing and collection management program
 WWW=		https://kornelix.net/fotoxx/fotoxx.html
 
 LICENSE=	GPLv3+
@@ -30,15 +31,9 @@ OPTIONS_DEFINE=	DOCS
 
 post-patch:
 	@${REINPLACE_CMD} -e \
-		's,= thread,= cartoon::thread,' ${WRKSRC}/f.effects.cc
-	@${REINPLACE_CMD} -e \
-		'/#include <sys\/prctl\.h>/d' ${WRKSRC}/f.meta.cc
-	@${REINPLACE_CMD} -e \
 		's,pidof,pgrep -d\\\\ ,' ${WRKSRC}/fotoxx.cc
 	@${REINPLACE_CMD} -e \
 		'/#include/s,wait\.h,sys/&,' ${WRKSRC}/fotoxx.h
-	@${REINPLACE_CMD} -e \
-		's|/usr/share/fotoxx|${DATADIR}|' ${WRKSRC}/fotoxx.desktop
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fotoxx

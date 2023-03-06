@@ -29,7 +29,7 @@ BUILD_DEPENDS=		gperf:devel/gperf \
 			${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat \
 			node16>0:www/node16 \
 			npm-node16>0:www/npm-node16
-LIB_DEPENDS=		libatk-bridge-2.0.so:accessibility/at-spi2-atk \
+LIB_DEPENDS=		libatk-bridge-2.0.so:accessibility/at-spi2-core \
 			libatspi.so:accessibility/at-spi2-core \
 			libsnappy.so:archivers/snappy \
 			libFLAC.so:audio/flac \
@@ -155,7 +155,7 @@ REACTIVEOBJC_VER=		74ab5baccc6f7202c8ac69a8d1e152c29dc1ea76
 # See ${WRKSRC}/electron/DEPS for MANTLE_VER
 MANTLE_VER=			78d3966b3c331292ea29ec38661b25df0a245948
 
-YARN_TIMESTAMP=	1662535038
+YARN_TIMESTAMP=	1673511086
 
 GN_ARGS+=		clang_use_chrome_plugins=false \
 			enable_hangout_services_extension=true \

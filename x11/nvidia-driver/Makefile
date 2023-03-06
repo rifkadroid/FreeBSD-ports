@@ -1,21 +1,20 @@
-#
 # For those wondering why this port is not under `x11-drivers' category,
 # have a look at https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=121930.
 #
 # Starting with version 1.0-7667, NVidia has dropped support for numerous
 # "legacy" GPUs.  Consult NVidia README (the Appendix) to find out whether
 # you need to use legacy driver version and install one of corresponding
-# slave ports instead (`x11/nvidia-driver-390', `x11/nvidia-driver-340',
-# or `x11/nvidia-driver-304').
+# slave ports instead (`x11/nvidia-driver-470', `x11/nvidia-driver-390',
+# `x11/nvidia-driver-340', or `x11/nvidia-driver-304').
 #
 # To simplify testing of new feature branches and beta driver versions,
 # the port aims to support building against arbitrary DISTVERSION, i.e.
 # ``make DISTVERSION=xxx.yy.zz -DNO_CHECKSUM'' should typically work.
 
 PORTNAME?=	nvidia-driver
-DISTVERSION?=	510.60.02
+DISTVERSION?=	515.86.01
 # Always try to set PORTREVISION as it can be overridden by the slave ports
-PORTREVISION?=	0
+PORTREVISION?=	1
 CATEGORIES=	x11
 MASTER_SITES=	NVIDIA/XFree86/FreeBSD-${ARCH_SUFX}/${DISTVERSION}
 DISTNAME=	NVIDIA-FreeBSD-${ARCH_SUFX}-${DISTVERSION}
@@ -42,6 +41,8 @@ USES+=		tar:xz
 .endif
 USE_XORG=	x11 xorg-server xext
 USE_LDCONFIG=	yes
+
+PIE_UNSAFE=	yes
 
 EGL_JSON_PATH=		${PREFIX}/share/egl/egl_external_platform.d
 GLVND_JSON_PATH=	${PREFIX}/share/glvnd/egl_vendor.d
@@ -88,6 +89,12 @@ NVSRC=		.
 NVSRC=		nvidia
 .endif
 
+.if ${NVVERSION} < 358.009
+SUB_LIST+=	KLDNAME=nvidia
+.else
+SUB_LIST+=	KLDNAME=nvidia-modeset
+.endif
+
 .if ${NVVERSION} < 460.039
 .  if ${NVVERSION} >= 358.009
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-src_nvidia-modeset_nvidia-modeset-freebsd.c
@@ -105,7 +112,7 @@ SUB_PATCHES+=	extra-patch-src-nv-misc.h
 
 OPTIONS_DEFINE=	ACPI_PM LINUX WBINVD DOCS
 OPTIONS_DEFINE_i386=	PAE
-OPTIONS_DEFAULT=	LINUX
+OPTIONS_DEFAULT=	ACPI_PM LINUX
 
 ACPI_PM_DESC=		ACPI Power Management support
 LINUX_DESC=		Linux compatibility support
@@ -127,6 +134,10 @@ PLIST_SUB+=	EXTENSIONSDIR="@comment "
 PLIST_SUB+=	LIBGLDIR=${LIBGLDIR} LIBGLMAP="@comment "
 .else
 PLIST_SUB+=	LIBGLDIR="@comment " LIBGLMAP=""
+.endif
+
+.if ${NVVERSION} >= 515.8601
+PLIST_FILES+=	lib/libnvidia-wayland-client.so.${DISTVERSION}
 .endif
 
 CONFLICTS_INSTALL+=	nvidia-driver nvidia-driver-*

@@ -1,5 +1,5 @@
 PORTNAME=	vim
-PORTVERSION=	9.0.0735
+PORTVERSION=	9.0.1366
 DISTVERSIONPREFIX=	v
 CATEGORIES=	editors
 
@@ -139,7 +139,7 @@ PYTHON_CONFIGURE_ENABLE=	python3interp
 PYTHON_CONFIGURE_WITH=	python3-command=${PYTHON_CMD}
 
 RUBY_CONFIGURE_ENABLE=	rubyinterp
-RUBY_USE=		RUBY=yes
+RUBY_USES=		ruby
 
 SCHEME_DESC=		MzScheme (Racket) bindings
 SCHEME_CONFIGURE_ENABLE=mzschemeinterp
@@ -168,6 +168,9 @@ post-patch:
 post-configure:
 # Needed when devel/libsysinfo is installed:
 	${REINPLACE_CMD} -e '/^#define HAVE_SYSINFO/ d' ${WRKSRC}/src/auto/config.h
+
+do-test:
+	${DO_MAKE_BUILD} -C ${WRKSRC} test
 
 .if ${FLAVOR:U} == tiny
 do-install:

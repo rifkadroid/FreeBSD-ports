@@ -1,5 +1,6 @@
 PORTNAME=	ruby-dcl
 PORTVERSION=	1.8.1
+PORTREVISION=	1
 CATEGORIES=	science rubygems
 MASTER_SITES=	RG
 
@@ -20,6 +21,5 @@ RUN_DEPENDS=	rubygem-narray>=0.5.5:math/rubygem-narray \
 USES=		gem gettext-runtime gnome xorg
 USE_GNOME=	atk cairo gdkpixbuf2 glib20 gtk20 pango
 USE_XORG=	ice sm x11
-USE_RUBY=	yes
 
 .include <bsd.port.mk>

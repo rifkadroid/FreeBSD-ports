@@ -14,17 +14,19 @@ WWW=		https://docs.puppetlabs.com/puppetserver/latest/services_master_puppetserv
 
 LICENSE=	APACHE20
 
+DEPRECATED=	Puppet 6 has reached EOL
+EXPIRATION_DATE=2023-06-01
+
 RUN_DEPENDS=	bash>=0:shells/bash \
 		puppet6>=0:sysutils/puppet6 \
 		rubygem-puppetserver-ca>=1:sysutils/rubygem-puppetserver-ca \
 		rubygem-semantic_puppet>=1:devel/rubygem-semantic_puppet \
 		sudo>=1:security/sudo
 
-USES=		shebangfix
+USES=		ruby shebangfix
 USE_RC_SUBR=	puppetserver
 
 USE_JAVA=	yes
-USE_RUBY=	yes
 NO_ARCH=	yes
 NO_BUILD=	yes
 JAVA_VERSION=	1.8+

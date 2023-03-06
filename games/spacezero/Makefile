@@ -1,5 +1,5 @@
 PORTNAME=	spacezero
-PORTVERSION=	0.86.00
+PORTVERSION=	0.86.01
 PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}%20${PORTVERSION:R}/
@@ -11,12 +11,10 @@ WWW=		http://spacezero.sourceforge.net/
 LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libvorbisfile.so:audio/libvorbis \
-		libfontconfig.so:x11-fonts/fontconfig \
-		libfreetype.so:print/freetype2
+LIB_DEPENDS=	libvorbisfile.so:audio/libvorbis
 
 USES=		openal:al,alut gnome pkgconfig xorg
-USE_GNOME=	gtk20 cairo gdkpixbuf2
+USE_GNOME=	gtk20
 USE_XORG=	x11
 MAKE_ARGS=	DATADIR="${DATADIR}" \
 		INSTALL_DATA_DIR="${DATADIR}"
@@ -24,7 +22,6 @@ ALL_TARGET=	${PORTNAME}
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 
-LDFLAGS+=	-lX11
 LDFLAGS_i386=	-Wl,-znotext
 
 PORTDOCS=	*

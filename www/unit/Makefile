@@ -18,6 +18,7 @@ CPE_PRODUCT=	unit
 OPTIONS_DEFINE?=	\
 	DEBUG \
 	IPV6 \
+	NJS \
 	SSL \
 	UNIXSOCK
 OPTIONS_DEFAULT?=	IPV6 PCRE2 SSL UNIXSOCK
@@ -27,6 +28,7 @@ OPTIONS_RADIO_REGEX=	NOPCRE PCRE PCRE2
 
 DEBUG_DESC=	Enable debug logging
 REGEX_DESC=	Support regular expressions
+NJS_DESC=	Enable NGINX JavaScript
 NOPCRE_DESC=	No support for Regular Expressions
 PCRE_DESC=	Regular Expressions via devel/pcre
 PCRE2_DESC=	Regular Expressions via devel/pcre2
@@ -79,6 +81,13 @@ CONFIGURE_ARGS+=--debug
 
 .if empty(PORT_OPTIONS:MIPV6)
 CONFIGURE_ARGS+=--no-ipv6
+.endif
+
+.if ${PORT_OPTIONS:MNJS}
+BUILD_DEPENDS+=	${LOCALBASE}/lib/libnjs.a:devel/libnjs
+CONFIGURE_ARGS+=--njs \
+	--cc-opt="-I${LOCALBASE}/include" \
+	--ld-opt="-L${LOCALBASE}/lib"
 .endif
 
 .if ${PORT_OPTIONS:MNOPCRE}

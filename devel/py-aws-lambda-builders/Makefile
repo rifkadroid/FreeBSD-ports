@@ -1,11 +1,11 @@
 PORTNAME=	aws-lambda-builders
 DISTVERSION=	1.19.0
 CATEGORIES=	devel python
-MASTER_SITES=	CHEESESHOP
+MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 DISTNAME=	${PORTNAME:S/-/_/g}-${DISTVERSION}
 
-MAINTAINER=	nork@ninth-nine.com
+MAINTAINER=	nork@FreeBSD.org
 COMMENT=	Python library to compile, build and package AWS Lambda functions
 WWW=		https://pypi.org/project/aws-lambda-builders/
 

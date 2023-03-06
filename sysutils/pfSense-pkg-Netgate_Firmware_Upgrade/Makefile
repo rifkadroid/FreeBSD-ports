@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	pfSense-pkg-Netgate_Firmware_Upgrade
-PORTVERSION=	0.46
+PORTVERSION=	0.47
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 
@@ -43,6 +43,9 @@ SUB_LIST=	PORTNAME=${PORTNAME}
 WRKSRC=		${WRKDIR}/${PORTNAME}
 CBFSTOOL_PATH=	${WRKSRC}/coreboot/util/cbfstool
 
+CBFSTOOL_HOSTCFLAGS= -Wno-misleading-indentation \
+		     -Wno-strict-prototypes
+
 .include <bsd.port.options.mk>
 
 pre-extract:
@@ -53,7 +56,6 @@ post-extract:
 	${REINPLACE_CMD} -e "s,%%COREBOOT_PLCCB_ROM%%,${COREBOOT_PLCCB_ROM},g" \
 		${WRKSRC}/adi_smbios_util/config.h
 	${LN} -sf ${WRKSRC_coreboot} ${WRKSRC}/coreboot
-	${PATCH} -p0 -d ${WRKSRC_coreboot} < ${FILESDIR}/fix-build-clang10
 
 do-build:
 	${CC} ${CFLAGS} -o ${WRKSRC}/adi_flash_util \
@@ -65,7 +67,7 @@ do-build:
 		-include ${WRKSRC}/adi_smbios_util/config.h \
 		${WRKSRC}/adi_smbios_util/adi_smbios_util.c
 	${GMAKE} -C ${CBFSTOOL_PATH} HOSTCC=${CC} HOSTCXX=${CXX} \
-		VBOOT_SOURCE=${WRKSRC_vboot}
+		VBOOT_SOURCE=${WRKSRC_vboot} HOSTCFLAGS='${CBFSTOOL_HOSTCFLAGS}'
 	${CC} ${CFLAGS} -o ${WRKSRC}/dmistore ${FILESDIR}/dmistore/dmistore.c
 
 do-install:
