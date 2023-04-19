@@ -25,7 +25,6 @@
     SUBDIR += amphetadesk
     SUBDIR += analog
     SUBDIR += anyremote2html
-    SUBDIR += anyterm
     SUBDIR += apache-mode.el
     SUBDIR += apache24
     SUBDIR += apt-cacher-ng
@@ -47,6 +46,7 @@
     SUBDIR += bareos18-webui
     SUBDIR += bareos19-webui
     SUBDIR += bareos20-webui
+    SUBDIR += bareos21-webui
     SUBDIR += beehive
     SUBDIR += bkmrkconv
     SUBDIR += bluefish
@@ -454,6 +454,7 @@
     SUBDIR += node16
     SUBDIR += node18
     SUBDIR += node19
+    SUBDIR += node20
     SUBDIR += nostromo
     SUBDIR += novnc
     SUBDIR += novnc-websockify
@@ -464,6 +465,7 @@
     SUBDIR += npm-node16
     SUBDIR += npm-node18
     SUBDIR += npm-node19
+    SUBDIR += npm-node20
     SUBDIR += oauth2-proxy
     SUBDIR += obhttpd
     SUBDIR += oneshot
@@ -1419,7 +1421,9 @@
     SUBDIR += py-adblock
     SUBDIR += py-aioh2
     SUBDIR += py-aiohttp
+    SUBDIR += py-aiohttp-jinja2
     SUBDIR += py-aiohttp-middlewares
+    SUBDIR += py-aiohttp-oauthlib
     SUBDIR += py-aiohttp-session
     SUBDIR += py-aiohttp-wsgi
     SUBDIR += py-aiohttp_cors
@@ -1591,6 +1595,7 @@
     SUBDIR += py-django32
     SUBDIR += py-django40
     SUBDIR += py-django41
+    SUBDIR += py-django42
     SUBDIR += py-django_compressor
     SUBDIR += py-djangocms-admin-style
     SUBDIR += py-djangoql
@@ -1753,7 +1758,6 @@
     SUBDIR += py-requests-cache93
     SUBDIR += py-requests-file
     SUBDIR += py-requests-futures
-    SUBDIR += py-requests-futures0
     SUBDIR += py-requests-gssapi
     SUBDIR += py-requests-mock
     SUBDIR += py-requests-oauthlib
@@ -1789,6 +1793,7 @@
     SUBDIR += py-starlette
     SUBDIR += py-swapper
     SUBDIR += py-textile
+    SUBDIR += py-ticketutil
     SUBDIR += py-tornado
     SUBDIR += py-tornado4
     SUBDIR += py-tornado5
@@ -1813,6 +1818,7 @@
     SUBDIR += py-wagtail-localize
     SUBDIR += py-wagtail-transfer
     SUBDIR += py-waitress
+    SUBDIR += py-wcag-contrast-ratio
     SUBDIR += py-webargs
     SUBDIR += py-webassets
     SUBDIR += py-webob
@@ -1923,7 +1929,6 @@
     SUBDIR += rubygem-em-websocket
     SUBDIR += rubygem-emk-sinatra-url-for
     SUBDIR += rubygem-erubi
-    SUBDIR += rubygem-erubi19
     SUBDIR += rubygem-erubis
     SUBDIR += rubygem-ethon
     SUBDIR += rubygem-eventmachine_httpserver
@@ -2381,6 +2386,7 @@
     SUBDIR += varnish6
     SUBDIR += varnish7
     SUBDIR += varnish_exporter
+    SUBDIR += vaultwarden-web_vault
     SUBDIR += vdr-plugin-live
     SUBDIR += vdradmin-am
     SUBDIR += vertx
@@ -2444,6 +2450,7 @@
     SUBDIR += yarn-node16
     SUBDIR += yarn-node18
     SUBDIR += yarn-node19
+    SUBDIR += yarn-node20
     SUBDIR += yarr
     SUBDIR += yaws
     SUBDIR += you-get

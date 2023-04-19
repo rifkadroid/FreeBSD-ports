@@ -1,5 +1,5 @@
 PORTNAME=	ansible-lint
-PORTVERSION=	6.14.3
+PORTVERSION=	6.14.6
 CATEGORIES=	sysutils python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -21,7 +21,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}ansible-core>=2.12.0:sysutils/py-ansible-cor
 		${PYTHON_PKGNAMEPREFIX}subprocess-tee>=0.4.1:devel/py-subprocess-tee@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}wcmatch>=8.1.2:textproc/py-wcmatch@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}yaml>=5.4.1:devel/py-yaml@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}yamllint>=1.26.3:devel/py-yamllint@${PY_FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}yamllint>=1.30.0:devel/py-yamllint@${PY_FLAVOR}
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools>=63.0.0:devel/py-setuptools@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}setuptools_scm>=6.4.2:devel/py-setuptools_scm@${PY_FLAVOR}
 
@@ -30,6 +30,7 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}coverage_enable_subprocess>0:devel/py-cover
 		${PYTHON_PKGNAMEPREFIX}flake8>0:devel/py-flake8@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}flake8-future-annotations>0:devel/py-flake8-future-annotations@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}mypy>0:devel/py-mypy@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}netaddr>0:net/py-netaddr@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR} \
 		pylint${PYTHON_PKGNAMESUFFIX}>0:devel/pylint@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytest>7.2.0:devel/py-pytest@${PY_FLAVOR} \

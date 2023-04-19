@@ -1,7 +1,6 @@
 PORTNAME=	surelog
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.51
-PORTREVISION=	1
+DISTVERSION=	1.56
 CATEGORIES=	cad
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -22,7 +21,7 @@ LIB_DEPENDS=	libcapnp.so:devel/capnproto \
 		libuhdm.so:cad/uhdm
 
 USES=		cmake:testing compiler:c++17-lang localbase:ldflags tcl:86,build
-USE_JAVA=	17
+USE_JAVA=	17 # Java selection fails in cmake when Java 11 is also installed, see https://gitlab.kitware.com/cmake/cmake/-/issues/24674
 USE_LDCONFIG=	${PREFIX}/lib ${PREFIX}/lib/surelog
 
 USE_GITHUB=	yes
@@ -39,7 +38,7 @@ CMAKE_ARGS=	-DFREEBSD_JAVA_VERSION=${USE_JAVA} \
 CMAKE_TESTING_ON=	SURELOG_BUILD_TESTS # unclear how to run tests, see https://github.com/chipsalliance/Surelog/issues/3545
 CMAKE_TESTING_TARGET=	UnitTests
 
-CONFLICTS_INSTALL=	capnproto capnproto080 uhdm # bin/uhdm-dump lib/libcapnp.so
+CONFLICTS_INSTALL=	capnproto capnproto080
 
 BINARY_ALIAS=	python3=${PYTHON_CMD} tclsh=${TCLSH}
 
@@ -53,10 +52,11 @@ PYTHON_CMAKE_ON=	-DFREEBSD_PYTHON_DISTVERSION=${PYTHON_DISTVERSION}
 
 PORTSCOUT=	limit:^.*[0-9]\.[0-9] # prevent tags like 'show'
 
-post-install:
+post-install: # workaound for https://github.com/chipsalliance/Surelog/issues/3596
 	@${RMDIR} \
-		${STAGEDIR}${PREFIX}/bin/pkg/work \
-		${STAGEDIR}${PREFIX}/bin/pkg
+		${STAGEDIR}${DATADIR}/pkg/work \
+		${STAGEDIR}${DATADIR}/pkg \
+		${STAGEDIR}${DATADIR}
 
 post-test:
 	cd ${BUILD_WRKSRC} && ctest

@@ -100,6 +100,7 @@
     SUBDIR += cegui
     SUBDIR += cenon
     SUBDIR += cfdg
+    SUBDIR += cgif
     SUBDIR += chafa
     SUBDIR += charls
     SUBDIR += cimg
@@ -859,6 +860,7 @@
     SUBDIR += py-face_recognition
     SUBDIR += py-face_recognition_models
     SUBDIR += py-fiona
+    SUBDIR += py-fotokilof
     SUBDIR += py-freeimagepy
     SUBDIR += py-gdal
     SUBDIR += py-geomdl
@@ -950,6 +952,7 @@
     SUBDIR += py-svgwrite
     SUBDIR += py-termtosvg
     SUBDIR += py-tifffile
+    SUBDIR += py-tkcolorpicker
     SUBDIR += py-toyplot
     SUBDIR += py-traitsui
     SUBDIR += py-ueberzug
