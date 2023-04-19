@@ -1,6 +1,6 @@
 PORTNAME=	pfSense
 DISTVERSION=	2.7.0
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	security
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -20,7 +20,6 @@ RUN_DEPENDS=	bind-tools>=0:dns/bind-tools \
 		cpdup>=0:sysutils/cpdup \
 		cpustats>=0:sysutils/cpustats \
 		dhcp6>=0:net/dhcp6 \
-		dhcpleases6>=0:sysutils/dhcpleases6 \
 		dhcpleases>=0:sysutils/dhcpleases \
 		dnsmasq>=0:dns/dnsmasq \
 		dpinger>=0:net/dpinger \
@@ -50,7 +49,7 @@ RUN_DEPENDS=	bind-tools>=0:dns/bind-tools \
 		${PHP_PKGNAMEPREFIX}pear-XML_RPC2>=0:net/pear-XML_RPC2@${PHP_FLAVOR} \
 		${PHP_PKGNAMEPREFIX}pfSense-module>=0:devel/php-pfSense-module@${PHP_FLAVOR} \
 		${PHP_PKGNAMEPREFIX}phpseclib>=0:security/phpseclib@${PHP_FLAVOR} \
-		pfSense-Status_Monitoring>=0:sysutils/pfSense-Status_Monitoring@${PHP_FLAVOR} \
+		pfSense-Status_Monitoring${PHP_PKGNAMESUFFIX}>=0:sysutils/pfSense-Status_Monitoring@${PHP_FLAVOR} \
 		pfSense-repo>=0:sysutils/pfSense-repo \
 		pfSense-upgrade>=0:sysutils/pfSense-upgrade \
 		pftop>=0:sysutils/pftop \
