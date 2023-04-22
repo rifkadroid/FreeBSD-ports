@@ -1393,7 +1393,7 @@ sortifaddrs(struct ifaddrs *list,
     int (*compare)(struct ifaddrs *, struct ifaddrs *))
 {
 	struct ifaddrs *right, *temp, *last, *result, *next, *tail;
-	
+
 	right = list;
 	temp = list;
 	last = list;
@@ -1475,7 +1475,7 @@ fill_interface_params(zval *val, struct ifaddrs *mb)
 	struct sockaddr_dl *tmpdl;
 	struct ifreq ifr;
 	struct if_data *md;
-	
+
 	if (mb->ifa_flags & IFF_UP)
 		add_assoc_string(val, "status", "up");
 	else
@@ -1674,7 +1674,7 @@ PHP_FUNCTION(pfSense_get_ifaddrs)
 	char *ifname;
 	size_t ifname_len;
 	zval addrs4, addrs6;
-	
+
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_STRING(ifname, ifname_len)
 	ZEND_PARSE_PARAMETERS_END();
@@ -1695,13 +1695,13 @@ PHP_FUNCTION(pfSense_get_ifaddrs)
 	/* We didn't find our iface */
 	if (mb == NULL)
 		goto out;
-	
+
 	array_init(return_value);
 	array_init(&addrs4);
 	array_init(&addrs6);
 
 	fill_interface_params(return_value, mb);
-	
+
 	/* loop until iface name changes or we exhaust the list */
 	for (; mb != NULL; mb = mb->ifa_next) {
 		zval addr;
@@ -1836,7 +1836,7 @@ PHP_FUNCTION(pfSense_get_interface_addresses)
 	 * only be copied once (see ifconfig.c all interface listing, it only
 	 * uses the first struct ifaddrs for a new interface name for listing
 	 * interface params) */
-	
+
 	addresscnt = 0;
 	addresscnt6 = 0;
 	array_init(return_value);
@@ -1945,7 +1945,7 @@ PHP_FUNCTION(pfSense_get_interface_addresses)
 		if (mb->ifa_addr->sa_family != AF_LINK)
 			continue;
 		fill_interface_params(return_value, mb);
-	}		
+	}
 	freeifaddrs(ifdata);
 }
 
