@@ -1533,6 +1533,7 @@
     SUBDIR += trafshow
     SUBDIR += trafshow3
     SUBDIR += trickle
+    SUBDIR += trippy
     SUBDIR += tsclient
     SUBDIR += tsctp
     SUBDIR += tsocks
@@ -1580,6 +1581,12 @@
     SUBDIR += webalizer-geodb
     SUBDIR += whois
     SUBDIR += widentd
+    SUBDIR += wifi-firmware-ath10k-kmod
+    SUBDIR += wifi-firmware-ath11k-kmod
+    SUBDIR += wifi-firmware-base
+    SUBDIR += wifi-firmware-mt76-kmod
+    SUBDIR += wifi-firmware-rtw88-kmod
+    SUBDIR += wifi-firmware-rtw89-kmod
     SUBDIR += wifibox
     SUBDIR += wifibox-alpine
     SUBDIR += wifibox-core

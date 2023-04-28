@@ -86,6 +86,7 @@
     SUBDIR += cyrus-imapd36
     SUBDIR += cyrus2courier
     SUBDIR += cyrus2dovecot
+    SUBDIR += datovka
     SUBDIR += davmail
     SUBDIR += dbmail
     SUBDIR += dcc-dccd
