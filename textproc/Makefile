@@ -116,6 +116,7 @@
     SUBDIR += cpp-peglib
     SUBDIR += cpptoml
     SUBDIR += crex
+    SUBDIR += crow-translate
     SUBDIR += crunch
     SUBDIR += cs-aspell
     SUBDIR += cs-hunspell
@@ -1400,6 +1401,7 @@
     SUBDIR += py-mathics-pygments
     SUBDIR += py-mdit-py-plugins
     SUBDIR += py-mdurl
+    SUBDIR += py-merge3
     SUBDIR += py-mike
     SUBDIR += py-misaka
     SUBDIR += py-mistletoe
@@ -1775,6 +1777,7 @@
     SUBDIR += rubygem-loggability
     SUBDIR += rubygem-loofah
     SUBDIR += rubygem-loofah219
+    SUBDIR += rubygem-loofah221
     SUBDIR += rubygem-ltsv
     SUBDIR += rubygem-markaby
     SUBDIR += rubygem-mdl
