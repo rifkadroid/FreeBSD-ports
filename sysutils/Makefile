@@ -104,9 +104,6 @@
     SUBDIR += bareos-client
     SUBDIR += bareos-server
     SUBDIR += bareos-traymonitor
-    SUBDIR += bareos18-client
-    SUBDIR += bareos18-server
-    SUBDIR += bareos18-traymonitor
     SUBDIR += bareos19-client
     SUBDIR += bareos19-server
     SUBDIR += bareos19-traymonitor
@@ -139,7 +136,6 @@
     SUBDIR += blisp
     SUBDIR += boot-extract
     SUBDIR += bottom
-    SUBDIR += boxbackup-devel
     SUBDIR += bpytop
     SUBDIR += brasero
     SUBDIR += brename
@@ -187,11 +183,9 @@
     SUBDIR += cfengine-masterfiles
     SUBDIR += cfengine-masterfiles-devel
     SUBDIR += cfengine-masterfiles318
-    SUBDIR += cfengine-masterfiles319
     SUBDIR += cfengine-masterfiles320
     SUBDIR += cfengine-masterfiles321
     SUBDIR += cfengine318
-    SUBDIR += cfengine319
     SUBDIR += cfengine320
     SUBDIR += cfengine321
     SUBDIR += chaoskube
@@ -331,6 +325,7 @@
     SUBDIR += duply
     SUBDIR += dupmerge
     SUBDIR += dust
+    SUBDIR += dutree
     SUBDIR += dvd+rw-tools
     SUBDIR += dvdbackup
     SUBDIR += dvdimagecmp
@@ -821,6 +816,7 @@
     SUBDIR += namefix
     SUBDIR += nbosd
     SUBDIR += ncdu
+    SUBDIR += ncdu2
     SUBDIR += ndmpd
     SUBDIR += neofetch
     SUBDIR += nerdctl
@@ -964,7 +960,6 @@
     SUBDIR += pacman
     SUBDIR += paicc
     SUBDIR += paladin
-    SUBDIR += pam_mount
     SUBDIR += pam_xdg
     SUBDIR += panicmail
     SUBDIR += parafly
@@ -1060,10 +1055,8 @@
     SUBDIR += pstree
     SUBDIR += puppet-lint
     SUBDIR += puppet-mode.el
-    SUBDIR += puppet6
     SUBDIR += puppet7
     SUBDIR += puppet8
-    SUBDIR += puppetserver6
     SUBDIR += puppetserver7
     SUBDIR += puppetserver8
     SUBDIR += pv
@@ -1222,7 +1215,6 @@
     SUBDIR += rubygem-capistrano-ext
     SUBDIR += rubygem-capistrano-harrow
     SUBDIR += rubygem-chef
-    SUBDIR += rubygem-chef16
     SUBDIR += rubygem-chef-bin
     SUBDIR += rubygem-chef-bin17
     SUBDIR += rubygem-chef-cleanroom
@@ -1233,6 +1225,7 @@
     SUBDIR += rubygem-chef-utils17
     SUBDIR += rubygem-chef-vault
     SUBDIR += rubygem-chef-zero
+    SUBDIR += rubygem-chef17
     SUBDIR += rubygem-choria-mcorpc-support
     SUBDIR += rubygem-facter
     SUBDIR += rubygem-fluent-mixin-plaintextformatter
@@ -1268,7 +1261,7 @@
     SUBDIR += rubygem-mothra
     SUBDIR += rubygem-murder
     SUBDIR += rubygem-ohai
-    SUBDIR += rubygem-ohai16
+    SUBDIR += rubygem-ohai17
     SUBDIR += rubygem-parallel
     SUBDIR += rubygem-puppet_forge
     SUBDIR += rubygem-puppetfile-resolver
