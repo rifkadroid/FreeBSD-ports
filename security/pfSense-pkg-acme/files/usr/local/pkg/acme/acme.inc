@@ -741,6 +741,12 @@ $acme_domain_validation_method['dns_freedns'] = array('name' => "DNS-FreeDNS",
 			'description' => "Gandi LiveDNS API Key, retrieved from <a href=\"https://account.gandi.net\">https://account.gandi.net</a>"
 		)
 	));
+$acme_domain_validation_method['dns_gcore'] = array('name' => "DNS-Gcore",
+	'fields' => array(
+		'GCORE_Key' => array('name' => "gcore_key", 'columnheader' => "Key", 'type' => "password",
+			'description' => "Gcore API Key"
+		),
+	));
 $acme_domain_validation_method['dns_geoscaling'] = array('name' => "DNS-Geoscaling",
 	'fields' => array(
 		'GEOSCALING_Username' => array('name' => "geoscaling_username", 'columnheader' => "Username", 'type' => "textbox",
@@ -758,6 +764,15 @@ $acme_domain_validation_method['dns_gd'] = array('name' => "DNS-GoDaddy",
 		'GD_Secret' => array('name' => "gd_secret", 'columnheader' => "Secret", 'type' => "password",
 			'description' => "GoDaddy API Secret"
 		)
+	));
+$acme_domain_validation_method['dns_googledomains'] = array('name' => "DNS-Google Domains (DNS API)",
+	'fields' => array(
+		'GOOGLEDOMAINS_ACCESS_TOKEN' => array('name' => "googledomains_access_token", 'columnheader' => "Token", 'type' => "password",
+			'description' => "Google Domains API Access Token"
+		),
+		'GOOGLEDOMAINS_ZONE' => array('name' => "googledomains_zone", 'columnheader' => "Zone", 'type' => "textbox",
+			'description' => "Google Domains DNS Zone"
+		),
 	));
 $acme_domain_validation_method['dns_hetzner'] = array('name' => "DNS-Hetzner",
 	'fields' => array(
@@ -835,6 +850,12 @@ $acme_domain_validation_method['dns_ionos'] = array('name' => "DNS-IONOS",
 		),
 		'IONOS_SECRET' => array('name' => "ionos_secret", 'columnheader' => "Secret", 'type' => "password",
 			'description' => "Secret. Read https://beta.developer.hosting.ionos.de/docs/getstarted to learn how to get a prefix and secret."
+		)
+	));
+$acme_domain_validation_method['dns_ipv64'] = array('name' => "DNS-IPv64.net",
+	'fields' => array(
+		'IPv64_Token' => array('name' => "ipv64_token", 'columnheader' => "Token", 'type' => "password",
+			'description' => "IPv64.net Access Token"
 		)
 	));
 $acme_domain_validation_method['dns_internetbs'] = array('name' => "DNS-Internet.BS",
@@ -1028,6 +1049,12 @@ $acme_domain_validation_method['dns_nm'] = array('name' => "DNS-NameMaster.de",
 		),
 		'NM_sha256' => array('name' => "nm_sha256", 'columnheader' => "Password Hash", 'type' => "textbox",
 			'description' => "namemaster.de API password as SHA256 hash"
+		)
+	));
+$acme_domain_validation_method['dns_nanelo'] = array('name' => "DNS-Nanelo.com",
+	'fields' => array(
+		'NANELO_TOKEN' => array('name' => "nanelo_token", 'columnheader' => "Token", 'type' => "password",
+			'description' => "Nanelo.com Access Token"
 		)
 	));
 $acme_domain_validation_method['dns_nederhost'] = array('name' => "DNS-NederHost",
@@ -1524,7 +1551,8 @@ function acme_custom_php_deinstall_command() {
 	update_output_window($static_output);
 	$static_output .= "Acme, uninstalling cron job\n";
 	update_output_window($static_output);
-	install_cron_job("/etc/rc.acme_renew.sh", false);
+	/* Remove cron job (if present), see #13828 */
+	install_cron_job('/usr/local/pkg/acme/acme_command.sh "renewall"', false);
 	$static_output .= "Acme, running acme_custom_php_deinstall_command() DONE\n";
 	update_output_window($static_output);
 }
@@ -1808,7 +1836,9 @@ function & get_certificate($name) {
 			syslog(LOG_NOTICE, "Acme, renewing certificate: {$id}");
 			echo "Renewing certificate \n";
 			$domainstosign = array();
-			if (is_array($certificate['a_domainlist']['item'])) {
+			if (is_array($certificate) &&
+			    is_array($certificate['a_domainlist']) &&
+			    is_array($certificate['a_domainlist']['item'])) {
 				foreach($certificate['a_domainlist']['item'] as $domain) {
 					if ($domain['status'] == 'disable') {
 						continue;
