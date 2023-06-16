@@ -94,6 +94,7 @@
     SUBDIR += cairomm
     SUBDIR += cal3d
     SUBDIR += camerakit
+    SUBDIR += catimg
     SUBDIR += cbonsai
     SUBDIR += cbviewer
     SUBDIR += cegui
@@ -786,6 +787,8 @@
     SUBDIR += php81-gd
     SUBDIR += php82-exif
     SUBDIR += php82-gd
+    SUBDIR += php83-exif
+    SUBDIR += php83-gd
     SUBDIR += phplot
     SUBDIR += picpuz
     SUBDIR += piddle
@@ -812,6 +815,7 @@
     SUBDIR += pngrewrite
     SUBDIR += pngwriter
     SUBDIR += podofo
+    SUBDIR += podofo09
     SUBDIR += polyclipping
     SUBDIR += poppler
     SUBDIR += poppler-data

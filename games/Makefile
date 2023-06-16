@@ -138,6 +138,7 @@
     SUBDIR += bzflag
     SUBDIR += bzflag-server
     SUBDIR += cake
+    SUBDIR += candycrisis
     SUBDIR += caph
     SUBDIR += cardpics
     SUBDIR += cataclysm-dda
@@ -995,7 +996,6 @@
     SUBDIR += tty-solitaire
     SUBDIR += tux-aqfh
     SUBDIR += tuxkart
-    SUBDIR += tuxmath
     SUBDIR += tuxpaint
     SUBDIR += tuxpaint-config
     SUBDIR += tuxpaint-fonts

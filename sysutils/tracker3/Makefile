@@ -1,6 +1,5 @@
 PORTNAME=	tracker
-PORTVERSION=	3.1.2
-PORTREVISION=	7
+PORTVERSION=	3.5.3
 CATEGORIES=	sysutils gnome
 MASTER_SITES=	GNOME
 PKGNAMESUFFIX=	3
@@ -12,11 +11,13 @@ WWW=		https://wiki.gnome.org/Projects/Tracker
 LICENSE=	LGPL21
 LICENSE_FILE=	${WRKSRC}/COPYING.LGPL
 
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gobject3>=0:devel/py-gobject3@${PY_FLAVOR}
 LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libicutu.so:devel/icu \
 		libjson-glib-1.0.so:devel/json-glib \
 		libsoup-2.4.so:devel/libsoup \
 		libuuid.so:misc/e2fsprogs-libuuid
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gobject3>=0:devel/py-gobject3@${PY_FLAVOR}
 
 USES=		compiler:c++11-lib gettext gnome localbase:ldflags meson \
 		pkgconfig python:3.6+,build sqlite tar:xz vala:build
@@ -32,8 +33,6 @@ MESON_ARGS=	-Dbash_completion=true \
 DATADIR=	${PREFIX}/share/${PORTNAME}${PKGNAMESUFFIX}
 BINARY_ALIAS=	python3=${PYTHON_CMD}
 PORTSCOUT=	limitw:1,even
-
-PLIST_SUB=	LIBVER=0.304.0
 
 OPTIONS_DEFINE=		DOCS MAN
 OPTIONS_SUB=		yes
