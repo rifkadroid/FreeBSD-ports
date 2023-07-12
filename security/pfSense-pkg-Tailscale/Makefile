@@ -1,5 +1,5 @@
 PORTNAME=	pfSense-pkg-Tailscale
-PORTVERSION=	0.1.3
+PORTVERSION=	0.1.4
 CATEGORIES=	security
 MASTER_SITES=	# empty
 DISTFILES=	# empty

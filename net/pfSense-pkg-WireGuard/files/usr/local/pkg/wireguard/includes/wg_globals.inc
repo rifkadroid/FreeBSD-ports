@@ -60,7 +60,7 @@ $wgg = array(
 	'php'			=> '/usr/local/bin/php',
 	'php_wg'		=> '/usr/local/bin/php_wg',
 	'wg_pkg_root'		=> '/usr/local/pkg/wireguard',
-	'kmod'			=> 'if_wg.ko',
+	'kmod'			=> 'if_wg',
 	'subsystem_prefix'	=> 'wireguard',
 	'service_name'		=> 'wireguardd',
 	'nrb'			=> '-NoReMoTeBaCkUp',
@@ -71,7 +71,7 @@ $wgg = array(
 	'xml_path'		=> array('installedpackages', 'wireguard'),
 	'if_prefix'		=> 'tun_wg',
 	'ifgroupentry'		=> array(
-					'ifname' => 'WireGuard', 
+					'ifname' => 'WireGuard',
 					'descr' => gettext('WireGuard Interface Group (DO NOT EDIT/DELETE!)'),
 					'members' => null),
 	'unboundaclentry'	=> array(
@@ -134,7 +134,7 @@ $wgg['depends_names']		= array(
 
 $wgg['pid_path']		= "{$g['varrun_path']}/{$wgg['service_name']}.pid";
 $wgg['subsystems']		= array(
-					'wg' => $wgg['subsystem_prefix'], 
+					'wg' => $wgg['subsystem_prefix'],
 					'postboot' => "{$wgg['subsystem_prefix']}_postboot");
 $wgg['wg_daemon'] 		= "{$wgg['php_wg']} -f {$wgg['wg_includes']}/wg_service.inc";
 
@@ -203,7 +203,7 @@ function wg_init_config_arr(&$a_config, $keys) {
 
 /*
  * A wrapper for write_config() with the ability to easily toggle ACB on or off
- * 
+ *
  * Ephemeral changes to the config should not hammer the ACB system. Only changes
  * to <installedpackages><wireguard>...</wireguard></installedpackages> tree should
  * invoke a ACB backup event.
