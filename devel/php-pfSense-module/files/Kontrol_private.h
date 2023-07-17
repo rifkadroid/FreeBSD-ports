@@ -76,15 +76,15 @@
 
 #include <libvici.h>
 
-ZEND_BEGIN_MODULE_GLOBALS(pfSense)
+ZEND_BEGIN_MODULE_GLOBALS(Kontrol)
 	int s;
 	int inets;
 	int inets6;
 	int csock;
-ZEND_END_MODULE_GLOBALS(pfSense)
+ZEND_END_MODULE_GLOBALS(Kontrol)
 
-ZEND_EXTERN_MODULE_GLOBALS(pfSense)
+ZEND_EXTERN_MODULE_GLOBALS(Kontrol)
 
-#define PFSENSE_G(v) ZEND_MODULE_GLOBALS_ACCESSOR(pfSense, v)
+#define PFSENSE_G(v) ZEND_MODULE_GLOBALS_ACCESSOR(Kontrol, v)
 
 #endif

@@ -65,7 +65,7 @@
 
 #include "Kontrol_private.h"
 
-ZEND_DECLARE_MODULE_GLOBALS(pfSense)
+ZEND_DECLARE_MODULE_GLOBALS(Kontrol)
 
 /* For compatibility with older PHP versions */
 #ifndef ZEND_PARSE_PARAMETERS_NONE
@@ -3876,7 +3876,7 @@ PHP_MSHUTDOWN_FUNCTION(pfsense)
 }
 
 /* {{{ PHP_RINIT_FUNCTION */
-PHP_RINIT_FUNCTION(pfsense)
+PHP_RINIT_FUNCTION(kontrol)
 {
 #if defined(ZTS) && defined(COMPILE_DL_PFSENSE)
 	ZEND_TSRMLS_CACHE_UPDATE();
@@ -3887,10 +3887,10 @@ PHP_RINIT_FUNCTION(pfsense)
 /* }}} */
 
 /* {{{ PHP_MINFO_FUNCTION */
-PHP_MINFO_FUNCTION(pfsense)
+PHP_MINFO_FUNCTION(kontrol)
 {
 	php_info_print_table_start();
-	php_info_print_table_header(2, "pfsense support", "enabled");
+	php_info_print_table_header(2, "kontrol support", "enabled");
 	php_info_print_table_end();
 }
 /* }}} */
@@ -3898,15 +3898,15 @@ PHP_MINFO_FUNCTION(pfsense)
 /* {{{ pfsense_module_entry */
 zend_module_entry pfsense_module_entry = {
 	STANDARD_MODULE_HEADER,
-	"pfSense",						/* Extension name */
+	"Kontrol",						/* Extension name */
 	ext_functions,					/* zend_function_entry */
-	PHP_MINIT(pfsense),				/* PHP_MINIT - Module initialization */
-	PHP_MSHUTDOWN(pfsense),			/* PHP_MSHUTDOWN - Module shutdown */
-	PHP_RINIT(pfsense),				/* PHP_RINIT - Request initialization */
+	PHP_MINIT(kontrol),				/* PHP_MINIT - Module initialization */
+	PHP_MSHUTDOWN(kontrol),			/* PHP_MSHUTDOWN - Module shutdown */
+	PHP_RINIT(kontrol),				/* PHP_RINIT - Request initialization */
 	NULL,							/* PHP_RSHUTDOWN - Request shutdown */
-	PHP_MINFO(pfsense),				/* PHP_MINFO - Module info */
+	PHP_MINFO(kontrol),				/* PHP_MINFO - Module info */
 	PHP_PFSENSE_VERSION,			/* Version */
-    PHP_MODULE_GLOBALS(pfSense),  	/* Module globals */
+    PHP_MODULE_GLOBALS(Kontrol),  	/* Module globals */
     NULL,         		 			/* PHP_GINIT – Globals initialization */
     NULL,                      		/* PHP_GSHUTDOWN – Globals shutdown */
     NULL,
@@ -3918,5 +3918,5 @@ zend_module_entry pfsense_module_entry = {
 # ifdef ZTS
 ZEND_TSRMLS_CACHE_DEFINE()
 # endif
-ZEND_GET_MODULE(pfsense)
+ZEND_GET_MODULE(kontrol)
 #endif
