@@ -1,7 +1,7 @@
 --TEST--
 test1() Basic test
 --EXTENSIONS--
-pfsense
+kontrol
 --FILE--
 <?php
 $ret = test1();
@@ -9,5 +9,5 @@ $ret = test1();
 var_dump($ret);
 ?>
 --EXPECT--
-The extension pfsense is loaded and working!
+The extension kontrol is loaded and working!
 NULL
