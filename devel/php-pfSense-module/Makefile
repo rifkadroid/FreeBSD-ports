@@ -1,4 +1,4 @@
-PORTNAME=	pfSense
+PORTNAME=	Kontrol
 PORTVERSION=	0.95
 CATEGORIES=	devel
 MASTER_SITES=	#
@@ -6,7 +6,7 @@ DISTFILES=	#
 PKGNAMEPREFIX=	${PHP_PKGNAMEPREFIX}
 PKGNAMESUFFIX=	-module
 
-MAINTAINER=	coreteam@pfsense.org
+MAINTAINER=	contato@kontrol.com.br
 COMMENT=	Library for getting useful info
 
 LIB_DEPENDS=	libvici.so:security/strongswan
@@ -23,7 +23,7 @@ CFLAGS+=	-I/usr/local/include -I. -DTCPSTATES
 CFLAGS+=	-Wall -Wredundant-decls -Wnested-externs -Winline
 ETHERSWITCH_CFLAGS=	-DETHERSWITCH_FUNCTIONS
 PF_CAPTIVEPORTAL_CFLAGS=	-DPF_CP_FUNCTIONS
-CONFIGURE_ARGS=	--enable-pfSense
+CONFIGURE_ARGS=	--enable-Kontrol
 
 .include <bsd.port.options.mk>
 
