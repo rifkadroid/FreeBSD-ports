@@ -3878,7 +3878,7 @@ PHP_MSHUTDOWN_FUNCTION(pfsense)
 /* {{{ PHP_RINIT_FUNCTION */
 PHP_RINIT_FUNCTION(kontrol)
 {
-#if defined(ZTS) && defined(COMPILE_DL_PFSENSE)
+#if defined(ZTS) && defined(COMPILE_DL_KONTROL)
 	ZEND_TSRMLS_CACHE_UPDATE();
 #endif
 
@@ -3895,8 +3895,8 @@ PHP_MINFO_FUNCTION(kontrol)
 }
 /* }}} */
 
-/* {{{ pfsense_module_entry */
-zend_module_entry pfsense_module_entry = {
+/* {{{ kontrol_module_entry */
+zend_module_entry kontrol_module_entry = {
 	STANDARD_MODULE_HEADER,
 	"Kontrol",						/* Extension name */
 	ext_functions,					/* zend_function_entry */
@@ -3914,7 +3914,7 @@ zend_module_entry pfsense_module_entry = {
 };
 /* }}} */
 
-#ifdef COMPILE_DL_PFSENSE
+#ifdef COMPILE_DL_KONTROL
 # ifdef ZTS
 ZEND_TSRMLS_CACHE_DEFINE()
 # endif

@@ -21,12 +21,12 @@
 #ifndef PHP_PFSENSE_H
 # define PHP_PFSENSE_H
 
-extern zend_module_entry pfsense_module_entry;
-# define phpext_pfsense_ptr &pfsense_module_entry
+extern zend_module_entry kontrol_module_entry;
+# define phpext_pfsense_ptr &kontrol_module_entry
 
 # define PHP_PFSENSE_VERSION "0.1.0"
 
-# if defined(ZTS) && defined(COMPILE_DL_PFSENSE)
+# if defined(ZTS) && defined(COMPILE_DL_KONTROL)
 ZEND_TSRMLS_CACHE_EXTERN()
 # endif
 
