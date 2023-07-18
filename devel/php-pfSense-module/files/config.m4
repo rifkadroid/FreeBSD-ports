@@ -14,5 +14,5 @@ PHP_SUBST(PFSENSE_SHARED_LIBADD)
 
 if test "$PHP_PFSENSE" != "no"; then
   AC_DEFINE(HAVE_PFSENSE, 1, [ Have pfsense support ])
-  PHP_NEW_EXTENSION(pfSense, pfSense.c %%DUMMYNET%% %%ETHERSWITCH%%, $ext_shared)
+  PHP_NEW_EXTENSION(Kontrol, Kontrol.c %%DUMMYNET%% %%ETHERSWITCH%%, $ext_shared)
 fi
