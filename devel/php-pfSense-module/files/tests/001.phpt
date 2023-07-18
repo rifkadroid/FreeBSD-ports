@@ -1,10 +1,10 @@
 --TEST--
-Check if kontrol is loaded
+Check if pfsense is loaded
 --EXTENSIONS--
-kontrol
+pfsense
 --FILE--
 <?php
-echo 'The extension "kontrol" is available';
+echo 'The extension "pfsense" is available';
 ?>
 --EXPECT--
-The extension "kontrol" is available
+The extension "pfsense" is available

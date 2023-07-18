@@ -21,7 +21,7 @@
 #ifndef _PFSENSE_PRIVATE_H
 #define _PFSENSE_PRIVATE_H
 
-#include "php_Kontrol.h"
+#include "php_pfSense.h"
 
 #include <sys/endian.h>
 #include <sys/ioctl.h>
@@ -76,15 +76,15 @@
 
 #include <libvici.h>
 
-ZEND_BEGIN_MODULE_GLOBALS(Kontrol)
+ZEND_BEGIN_MODULE_GLOBALS(pfSense)
 	int s;
 	int inets;
 	int inets6;
 	int csock;
-ZEND_END_MODULE_GLOBALS(Kontrol)
+ZEND_END_MODULE_GLOBALS(pfSense)
 
-ZEND_EXTERN_MODULE_GLOBALS(Kontrol)
+ZEND_EXTERN_MODULE_GLOBALS(pfSense)
 
-#define PFSENSE_G(v) ZEND_MODULE_GLOBALS_ACCESSOR(Kontrol, v)
+#define PFSENSE_G(v) ZEND_MODULE_GLOBALS_ACCESSOR(pfSense, v)
 
 #endif
