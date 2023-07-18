@@ -60,10 +60,10 @@
 
 #include "php.h"
 #include "ext/standard/info.h"
-#include "php_pfSense.h"
-#include "pfSense_arginfo.h"
+#include "php_Kontrol.h"
+#include "Kontrol_arginfo.h"
 
-#include "pfSense_private.h"
+#include "Kontrol_private.h"
 
 ZEND_DECLARE_MODULE_GLOBALS(pfSense)
 
