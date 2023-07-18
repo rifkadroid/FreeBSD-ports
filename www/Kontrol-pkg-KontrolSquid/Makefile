@@ -17,7 +17,7 @@ RUN_DEPENDS=	squid>=0:www/squid \
 		squid_radius_auth>=0:www/squid_radius_auth \
 		c-icap-modules>=0:www/c-icap-modules \
 		squidclamav>=0:www/squidclamav \
-		samba413>=0:net/samba416 \
+		samba416>=0:net/samba416 \
 		base64>=0:converters/base64
 
 NO_BUILD=	yes
