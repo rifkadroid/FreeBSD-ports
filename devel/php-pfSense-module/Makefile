@@ -6,7 +6,7 @@ DISTFILES=	#
 PKGNAMEPREFIX=	${PHP_PKGNAMEPREFIX}
 PKGNAMESUFFIX=	-module
 
-MAINTAINER=	contato@kontrol.com.br
+MAINTAINER=	coreteam@pfsense.org
 COMMENT=	Library for getting useful info
 
 LIB_DEPENDS=	libvici.so:security/strongswan
