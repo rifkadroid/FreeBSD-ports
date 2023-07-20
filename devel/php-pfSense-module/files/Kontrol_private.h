@@ -21,7 +21,7 @@
 #ifndef _PFSENSE_PRIVATE_H
 #define _PFSENSE_PRIVATE_H
 
-#include "php_Kontrol.h"
+#include "php_pfSense.h"
 
 #include <sys/endian.h>
 #include <sys/ioctl.h>
