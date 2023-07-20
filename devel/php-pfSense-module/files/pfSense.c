@@ -3896,7 +3896,7 @@ PHP_MINFO_FUNCTION(pfsense)
 /* }}} */
 
 /* {{{ pfsense_module_entry */
-zend_module_entry pfSense_module_entry = {
+zend_module_entry pfsense_module_entry = {
 	STANDARD_MODULE_HEADER,
 	"pfSense",						/* Extension name */
 	ext_functions,					/* zend_function_entry */
@@ -3918,5 +3918,5 @@ zend_module_entry pfSense_module_entry = {
 # ifdef ZTS
 ZEND_TSRMLS_CACHE_DEFINE()
 # endif
-ZEND_GET_MODULE(pfSense)
+ZEND_GET_MODULE(pfsense)
 #endif
