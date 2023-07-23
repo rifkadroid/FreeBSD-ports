@@ -847,7 +847,7 @@ function build_interface($lcd) {
 
 	$lcd_cmds = array();
 	$lcd_cmds[] = "hello";
-	$lcd_cmds[] = "client_set name pfSense";
+	$lcd_cmds[] = "client_set name Kontrol";
 
 	/* setup pfsense control menu */
 	if (cmenu_enabled()) {
@@ -1074,7 +1074,7 @@ function loop_status($lcd) {
 	$lcdpanel_width = get_lcdpanel_width();
 	$lcdpanel_height = get_lcdpanel_height();
 	if (empty($g['product_name'])) {
-		$g['product_name'] = "pfSense";
+		$g['product_name'] = "Kontrol";
 	}
 
 	$refresh_frequency = get_lcdpanel_refresh_frequency();
