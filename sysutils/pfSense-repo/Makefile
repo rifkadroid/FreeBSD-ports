@@ -30,7 +30,7 @@ PFSENSE_PKG_SET_VERSION?=	${DISTVERSION}
 .include <bsd.port.pre.mk>
 
 MIRROR_TYPE?=	srv
-PFSENSE_REPOS?=	pfSense-repo pfSense-previous pfSense-repo-devel
+PFSENSE_REPOS?=	pfSense-repo pfSense-repo-previous pfSense-repo-devel
 PFSENSE_REPOS_${ARCH}?=	${PFSENSE_REPOS}
 PFSENSE_DEFAULT_REPO?=	pfSense-repo-devel
 PFSENSE_DEFAULT_REPO_${ARCH}?=	${PFSENSE_DEFAULT_REPO}
