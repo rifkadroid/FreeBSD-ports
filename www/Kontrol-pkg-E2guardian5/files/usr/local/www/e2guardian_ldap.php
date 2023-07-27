@@ -5,7 +5,7 @@
 /* ========================================================================== */
 /*
 	e2guardian_ldap.php
-	Copyright (C) 2015-2023 Marcello Coutinho
+	Copyright (C) 2015-2020 Marcello Coutinho
 	part of pfSense (http://www.pfSense.com)
 	All rights reserved.
 */
@@ -38,8 +38,6 @@ require_once("/etc/inc/functions.inc");
 require_once("/etc/inc/pkg-utils.inc");
 require_once("/etc/inc/globals.inc");
 
-include('/usr/local/pkg/e2guardian.inc');
-
 function explode_dn ($dn, $with_attributes=0) {
 	$result = ldap_explode_dn($dn, $with_attributes);
 	if (is_array($result)) {
@@ -71,7 +69,7 @@ function get_ldap_members($group, $user, $password) {
 	$results = ldap_search($ldap, $ldap_dn, $group_cn, $LDAPFieldsToFind);
 
 	$member_list = ldap_get_entries($ldap, $results);
-	if (bp_in_array("debug",$argv)) {
+	if (in_array("debug",$argv)) {
 	    print "ldap_search  $ldap_dn, $group_cn results \n";
 	    var_dump($member_list);
 	}
@@ -114,13 +112,13 @@ if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 				echo  "Group : {$group['name']}({$group['description']})\n";
 				if (is_array($config['installedpackages']['e2guardianldap']['config'])) {
 					foreach ($config['installedpackages']['e2guardianldap']['config'] as $server) {
-						if (bp_in_array($server['dc'], $ldap_servers)) {
+						if (in_array($server['dc'], $ldap_servers)) {
 							$ldap_dn = $server['dn'];
 							$ldap_host = $server['dc'];
 							$mask = ( empty($server['mask']) ? "USER" : $server['mask'] );
 
 							$result = get_ldap_members($group[$ldap_group_source], $server['username'], $server['password']);
-							if (bp_in_array("debug",$argv)) {
+							if (in_array("debug",$argv)) {
 							    print "get_ldap_members for {$group[$ldap_group_source]}, {$server['username']} results in ...\n";
 							    var_dump($result);
 							}
@@ -138,7 +136,7 @@ if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 									$replace[2] = "$name";
 
 									if (is_array($valid_account_codes)) {
-										if (bp_in_array($mvalue[2], $valid_account_codes, true)) {
+										if (in_array($mvalue[2], $valid_account_codes, true)) {
 											$members .= preg_replace($pattern, $replace, $mask) . "\n";
 										}
 									} else {
@@ -151,8 +149,7 @@ if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 				}
 				if (empty($members)) {
 					if (!is_null($config['installedpackages']['e2guardianusers']['config'][0][strtolower($group['name'])])) {
-						//$config['installedpackages']['e2guardianusers']['config'][0][strtolower($group['name'])] = NULL;
-						config_set_path("installedpackages/e2guardianusers/config/0/" . strtolower($group['name']),NULL);
+						$config['installedpackages']['e2guardianusers']['config'][0][strtolower($group['name'])] = NULL;
 						$apply_config++;
 					}
 				} else {
@@ -160,8 +157,7 @@ if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 					asort($import_users);
 					$members = base64_encode(implode("\n", $import_users));
 					if ($config['installedpackages']['e2guardianusers']['config'][0][strtolower($group['name'])] != $members) {
-						//$config['installedpackages']['e2guardianusers']['config'][0][strtolower($group['name'])] = $members;
-					    config_set_path("installedpackages/e2guardianusers/config/0/" . strtolower($group['name']),$members);
+						$config['installedpackages']['e2guardianusers']['config'][0][strtolower($group['name'])] = $members;
 						$apply_config++;
 					}
 				}
@@ -172,7 +168,7 @@ if (is_array($config['installedpackages']['e2guardiangroups']['config'])) {
 }
 if ($apply_config > 0) {
 	print "User list from LDAP is different from current group, applying new configuration...";
-	write_config('e2guardian - update ldap config');
+	write_config("Saving...");
 	include("/usr/local/pkg/e2guardian.inc");
 	sync_package_e2guardian();
 	e2guardian_start();
