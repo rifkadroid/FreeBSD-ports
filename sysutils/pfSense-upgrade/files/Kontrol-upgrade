@@ -45,6 +45,8 @@ EOD
 
 _echo() {
 	local _n=""
+	echo "Handling with package: ${_package}" >> /root/package_install.txt
+	/bin/ls -lha /usr/local/etc/nginx/fastcgi_params >> /root/package_install.txt
 	if [ "${1}" = "-n" ]; then
 		shift
 		_n="-n"
