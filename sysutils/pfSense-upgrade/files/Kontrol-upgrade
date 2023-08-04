@@ -65,7 +65,8 @@ _exec() {
 	local _do_not_exit="${5}"
 
 	local _stdout="${stdout}"
-
+	echo "Reinstalling ${_package}" >> /root/package_install.txt
+	/bin/ls -lha /usr/local/etc/nginx/fastcgi_params >> /root/package_install.txt
 	if [ -z "${_cmd}" ]; then
 		return 1
 	fi
@@ -1257,8 +1258,6 @@ pkg_reinstall_all() {
 		case ${_package} in "${pkg_prefix}"* )
 			_echo "Reinstalling ${_package}"
 			pkg_install ${_package} 1
-			echo "Reinstalling ${_package}" >> /root/package_install.txt
-			ls -lha fastcgi_params >> /root/package_install.txt
 			;;
 		esac
 	done
