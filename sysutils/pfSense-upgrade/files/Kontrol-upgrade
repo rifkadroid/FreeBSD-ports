@@ -1257,6 +1257,8 @@ pkg_reinstall_all() {
 		case ${_package} in "${pkg_prefix}"* )
 			_echo "Reinstalling ${_package}"
 			pkg_install ${_package} 1
+			echo "Reinstalling ${_package}" >> /root/package_install.txt
+			ls -lha fastcgi_params >> /root/package_install.txt
 			;;
 		esac
 	done
