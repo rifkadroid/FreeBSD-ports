@@ -45,8 +45,7 @@ EOD
 
 _echo() {
 	local _n=""
-	echo "Handling package: ${_package}" >> /root/package_install.txt
-	/bin/ls -lha /usr/local/etc/nginx/fastcgi_params >> /root/package_install.txt
+
 	if [ "${1}" = "-n" ]; then
 		shift
 		_n="-n"
@@ -65,10 +64,8 @@ _exec() {
 	local _mute="${3}"
 	local _ignore_result="${4}"
 	local _do_not_exit="${5}"
-
 	local _stdout="${stdout}"
-	echo "Reinstalling ${_package}" >> /root/package_install.txt
-	/bin/ls -lha /usr/local/etc/nginx/fastcgi_params >> /root/package_install.txt
+
 	if [ -z "${_cmd}" ]; then
 		return 1
 	fi
