@@ -2,7 +2,7 @@
 
 PORTNAME=	pfSense-repo
 DISTVERSION=	2.6.0
-PORTREVISION=	13
+PORTREVISION=	14
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -30,9 +30,9 @@ PFSENSE_PKG_SET_VERSION?=	${DISTVERSION}
 .include <bsd.port.pre.mk>
 
 MIRROR_TYPE?=	srv
-PFSENSE_REPOS?=	pfSense-repo pfSense-repo-devel
+PFSENSE_REPOS?=	pfSense-repo pfSense-repo-previous
 PFSENSE_REPOS_${ARCH}?=	${PFSENSE_REPOS}
-PFSENSE_DEFAULT_REPO?=	pfSense-repo-devel
+PFSENSE_DEFAULT_REPO?=	pfSense-repo
 PFSENSE_DEFAULT_REPO_${ARCH}?=	${PFSENSE_DEFAULT_REPO}
 SIGNATURE_TYPE?=	fingerprints
 DEFAULT_REPO=	${DATADIR}/pkg/repos/${PFSENSE_DEFAULT_REPO_${ARCH}}.conf
