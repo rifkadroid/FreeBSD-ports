@@ -118,6 +118,7 @@ do-build:
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/pkg/repos
 	${TOUCH} ${STAGEDIR}${DEFAULT_REPO}.default
+	${INSTALL_DATA} ${FILESDIR}${DATADIR}/pkg.kontrol.com.br.20180421 ${STAGEDIR}${DATADIR}
 .for f in ${PFSENSE_REPOS_${ARCH}}
 	${INSTALL_DATA} ${WRKSRC}/${f}.conf ${STAGEDIR}${DATADIR}/pkg/repos
 	${INSTALL_DATA} ${WRKSRC}/${f}.descr ${STAGEDIR}${DATADIR}/pkg/repos
