@@ -2,7 +2,7 @@
 
 PORTNAME=	pfSense-repo
 DISTVERSION=	2.7.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -30,9 +30,9 @@ PFSENSE_PKG_SET_VERSION?=	${DISTVERSION}
 .include <bsd.port.pre.mk>
 
 MIRROR_TYPE?=	srv
-PFSENSE_REPOS?=	pfSense-repo pfSense-repo-previous pfSense-repo-devel
+PFSENSE_REPOS?=	pfSense-repo pfSense-repo-previous
 PFSENSE_REPOS_${ARCH}?=	${PFSENSE_REPOS}
-PFSENSE_DEFAULT_REPO?=	pfSense-repo-devel
+PFSENSE_DEFAULT_REPO?=	pfSense-repo
 PFSENSE_DEFAULT_REPO_${ARCH}?=	${PFSENSE_DEFAULT_REPO}
 SIGNATURE_TYPE?=	fingerprints
 DEFAULT_REPO=	${DATADIR}/pkg/repos/${PFSENSE_DEFAULT_REPO_${ARCH}}.conf
@@ -118,6 +118,8 @@ do-build:
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/pkg/repos
 	${TOUCH} ${STAGEDIR}${DEFAULT_REPO}.default
+	${MKDIR} ${STAGEDIR}/usr/local/share/Kontrol/keys/trusted/
+${INSTALL_DATA} ${FILESDIR}/usr/local/share/Kontrol/keys/trusted/pkg.kontrol.com.br.20180421 ${STAGEDIR}/usr/local/share/Kontrol/keys/trusted/pkg.kontrol.com.br.20180421
 .for f in ${PFSENSE_REPOS_${ARCH}}
 	${INSTALL_DATA} ${WRKSRC}/${f}.conf ${STAGEDIR}${DATADIR}/pkg/repos
 	${INSTALL_DATA} ${WRKSRC}/${f}.descr ${STAGEDIR}${DATADIR}/pkg/repos
