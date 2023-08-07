@@ -17,7 +17,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-set -e
+
 usage() {
 	me=$(basename $0)
 	cat << EOD >&2
@@ -45,7 +45,6 @@ EOD
 
 _echo() {
 	local _n=""
-
 	if [ "${1}" = "-n" ]; then
 		shift
 		_n="-n"
@@ -64,6 +63,7 @@ _exec() {
 	local _mute="${3}"
 	local _ignore_result="${4}"
 	local _do_not_exit="${5}"
+
 	local _stdout="${stdout}"
 
 	if [ -z "${_cmd}" ]; then
@@ -254,7 +254,7 @@ unset_vital_flag() {
 }
 
 is_ce() {
-	if [ "${product_label}" == "Kontrol" ]; then
+	if [ "${product_label}" == "pfSense" ]; then
 		return 0
 	fi
 	return 1
@@ -720,7 +720,7 @@ pkg_upgrade() {
 		fi
 
 		# Always make sure important packages are set as vital
-		set_vital_flag pkg ${kernel_pkg} ${product}-boot ${product} ${product}-rc \
+		set_vital_flag pkg ${kernel_pkg} ${product} ${product}-rc \
 		    ${product}-base ${uboot_pkg}
 
 		check_upgrade mute skip_update
@@ -819,31 +819,6 @@ pkg_upgrade() {
 		if [ -n "${NEW_MAJOR}" ]; then
 			pkg_lock pkg
 			unlock_pkg=1
-		fi
-
-		if upgrade_available ${product}-boot; then
-			_exec "pkg-static upgrade -U ${product}-boot" \
-			    "Upgrading ${product}-boot"
-			if [ ! -d /boot/efi ]; then
-				mkdir /boot/efi
-			fi
-			LOADER_UPDATE=1
-			if [ -c /dev/msdosfs/EFISYS ]; then
-				mount_msdosfs /dev/msdosfs/EFISYS /boot/efi
-			elif [ -c /dev/gpt/EFISYS ]; then
-				mount_msdosfs /dev/gpt/EFISYS /boot/efi
-			else
-				unset LOADER_UPDATE
-			fi
-			if [ -n "${LOADER_UPDATE}" ]; then
-				_echo "Updating the EFI loader"
-				if [ "${arch}" = "aarch64" ]; then
-					cp /boot/loader.efi /boot/efi/efi/boot/BOOTaa64.efi
-				elif [ "${arch}" = "amd64" ]; then
-					cp /boot/loader.efi /boot/efi/efi/boot/BOOTx64.efi
-				fi
-				umount /boot/efi
-			fi
 		fi
 
 		if upgrade_available ${kernel_pkg}; then
@@ -1000,7 +975,7 @@ pkg_upgrade() {
 			delete_annotation=""
 
 			# Always make sure important packages are set as vital
-			set_vital_flag pkg ${kernel_pkg} ${product}-boot ${product} \
+			set_vital_flag pkg ${kernel_pkg} ${product} \
 			    ${product}-rc ${product}-base ${uboot_pkg}
 
 			# Register that system is running latest pkg_set_version
