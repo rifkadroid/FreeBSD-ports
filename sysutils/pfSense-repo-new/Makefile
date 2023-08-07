@@ -1,19 +1,19 @@
 # $FreeBSD$
 
-PORTNAME=	pfSense-repo
+PORTNAME=	Kontrol-repo
 DISTVERSION=	2.6.0
-PORTREVISION=	13
+PORTREVISION=	14
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	coreteam@pfsense.org
-COMMENT=	Setup pfSense pkg(8) repositories
+MAINTAINER=	contato@konntrol.com.br
+COMMENT=	Setup Kontrol pkg(8) repositories
 
 LICENSE=	APACHE20
 
-RUN_DEPENDS=	${LOCALBASE}/sbin/pfSense-upgrade:sysutils/pfSense-upgrade
+RUN_DEPENDS=	${LOCALBASE}/sbin/Kontrol-upgrade:sysutils/Kontrol-upgrade
 
 NO_MTREE=	yes
 
@@ -22,7 +22,7 @@ SUB_LIST=	PORTNAME=${PORTNAME} \
 		PRODUCT_NAME=${PRODUCT_NAME} \
 		DEFAULT_REPO=${DEFAULT_REPO}
 
-DATADIR=	${PREFIX}/share/pfSense
+DATADIR=	${PREFIX}/share/Kontrol
 
 # Flag used to detect when we want to reinstall all packages during upgrade
 PFSENSE_PKG_SET_VERSION?=	${DISTVERSION}
@@ -30,9 +30,9 @@ PFSENSE_PKG_SET_VERSION?=	${DISTVERSION}
 .include <bsd.port.pre.mk>
 
 MIRROR_TYPE?=	srv
-PFSENSE_REPOS?=	pfSense-repo pfSense-repo-devel
+PFSENSE_REPOS?=	Kontrol-repo Kontrol-repo-previous
 PFSENSE_REPOS_${ARCH}?=	${PFSENSE_REPOS}
-PFSENSE_DEFAULT_REPO?=	pfSense-repo-devel
+PFSENSE_DEFAULT_REPO?=	Kontrol-repo
 PFSENSE_DEFAULT_REPO_${ARCH}?=	${PFSENSE_DEFAULT_REPO}
 SIGNATURE_TYPE?=	fingerprints
 DEFAULT_REPO=	${DATADIR}/pkg/repos/${PFSENSE_DEFAULT_REPO_${ARCH}}.conf
@@ -118,6 +118,8 @@ do-build:
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/pkg/repos
 	${TOUCH} ${STAGEDIR}${DEFAULT_REPO}.default
+	${MKDIR} ${STAGEDIR}/usr/local/share/Kontrol/keys/pkg/trusted/
+	${INSTALL_DATA} ${FILESDIR}/usr/local/share/Kontrol/keys/pkg/trusted/pkg.kontrol.com.br.20180421 ${STAGEDIR}/usr/local/share/Kontrol/keys/pkg/trusted/pkg.kontrol.com.br.20180421
 .for f in ${PFSENSE_REPOS_${ARCH}}
 	${INSTALL_DATA} ${WRKSRC}/${f}.conf ${STAGEDIR}${DATADIR}/pkg/repos
 	${INSTALL_DATA} ${WRKSRC}/${f}.descr ${STAGEDIR}${DATADIR}/pkg/repos
