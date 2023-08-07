@@ -2,7 +2,7 @@
 
 PORTNAME=	Kontrol-repo
 DISTVERSION=	2.6.0
-PORTREVISION=	13
+PORTREVISION=	14
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -118,7 +118,7 @@ do-build:
 do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/pkg/repos
 	${TOUCH} ${STAGEDIR}${DEFAULT_REPO}.default
-	${MKDIR} ${STAGEDIR}/usr/local/share/Kontrol/keys/trusted/
+	${MKDIR} ${STAGEDIR}/usr/local/share/Kontrol/keys/pkg/trusted/
 	${INSTALL_DATA} ${FILESDIR}/usr/local/share/Kontrol/keys/pkg/trusted/pkg.kontrol.com.br.20180421 ${STAGEDIR}/usr/local/share/Kontrol/keys/pkg/trusted/pkg.kontrol.com.br.20180421
 .for f in ${PFSENSE_REPOS_${ARCH}}
 	${INSTALL_DATA} ${WRKSRC}/${f}.conf ${STAGEDIR}${DATADIR}/pkg/repos
