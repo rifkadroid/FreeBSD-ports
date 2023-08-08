@@ -1,6 +1,6 @@
 PORTNAME=	mongodb
 DISTVERSIONPREFIX=	r
-DISTVERSION=	7.0.0-rc6
+DISTVERSION=	7.0.0-rc10
 CATEGORIES=	databases net
 PKGNAMESUFFIX=	${DISTVERSION:R:S/.//}
 
@@ -36,6 +36,7 @@ LIB_DEPENDS= 	libcurl.so:ftp/curl \
 USES=		compiler:c++20-lang cpe python:build scons shebangfix
 # gmake is used while running ${WRKSRC}/src/third_party/mozjs/gen-config.sh
 USES+=		gmake pkgconfig
+USE_CXXSTD=	c++14
 
 # mozjs tag comes from ${WRKSRC}/src/third_party/mozjs/get-sources.sh
 MOZJS_TAG=	82aac6af18abcd5bf188afbc821779ccb0ca0902
@@ -66,6 +67,8 @@ MAKE_ARGS=	--cxx-std=20 \
 		MONGO_VERSION=${DISTVERSION} \
 		VERBOSE=on
 
+CFLAGS+=	-DBOOST_NO_CXX98_FUNCTION_BASE
+
 CONFLICTS_INSTALL=	mongodb[0-9][0-9]
 
 USERS=		mongodb
@@ -85,8 +88,6 @@ SASL_MAKE_ARGS=		--use-sasl-client
 
 SSL_USES=	ssl
 SSL_MAKE_ARGS=	--ssl
-
-CFLAGS+=	-DBOOST_NO_CXX98_FUNCTION_BASE
 
 .include <bsd.port.pre.mk>
 
