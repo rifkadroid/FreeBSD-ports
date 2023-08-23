@@ -8,7 +8,7 @@ MASTER_SITES=	# empty
 DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
-MAINTAINER=	contato@kontrolsecurity.com.br
+MAINTAINER=	contato@kontrol.com.br
 COMMENT=	Kontrol SARG Package
 
 LICENSE=	APACHE20
