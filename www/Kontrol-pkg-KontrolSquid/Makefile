@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-KontrolSquid
-PORTVERSION=	0.1.21
-PORTREVISION=	14
+PORTVERSION=	0.1.22
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -36,8 +35,8 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc
 	${MKDIR} ${STAGEDIR}/etc
 	${MKDIR} ${STAGEDIR}/root
-	${MKDIR} ${STAGEDIR}/etc/inc/priv
 	${MKDIR} ${STAGEDIR}${PREFIX}/www/widgets/widgets
+	${MKDIR} ${STAGEDIR}/etc/inc/priv
 	${MKDIR} ${STAGEDIR}${PREFIX}/www
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin
 	${MKDIR} ${STAGEDIR}${DATADIR}
@@ -102,21 +101,21 @@ do-install:
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_remove.php \
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_join.php \
-			${STAGEDIR}${PREFIX}/www
+		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_transparent.php \
-			${STAGEDIR}${PREFIX}/www
+		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/login2.php \
-					${STAGEDIR}${PREFIX}/www
+		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/etc/smb4.conf \
-			${STAGEDIR}${PREFIX}/etc
+		${STAGEDIR}${PREFIX}/etc
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/etc/krb5.conf \
-			${STAGEDIR}${PREFIX}/etc
+		${STAGEDIR}${PREFIX}/etc
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/bin/kontrolhelper \
-			${STAGEDIR}${PREFIX}/bin
+		${STAGEDIR}${PREFIX}/bin
 	${INSTALL_DATA} -m 0664 ${FILESDIR}/etc/nsswitch.conf \
-			${STAGEDIR}/etc
+		${STAGEDIR}/etc
 	${INSTALL_DATA} -m 0660 ${FILESDIR}/root/kontrolid.db \
-			${STAGEDIR}/root
+		${STAGEDIR}/root
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/pkg/swapstate_check.php \
 		${STAGEDIR}${PREFIX}/pkg
 	${INSTALL_DATA} ${FILESDIR}${DATADIR}/info.xml \

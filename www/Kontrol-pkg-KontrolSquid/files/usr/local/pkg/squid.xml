@@ -8,7 +8,7 @@
  * squid.xml
  *
  * part of pfSense (https://www.pfsense.org)
- * Copyright (c) 2015-2021 Rubicon Communications, LLC (Netgate)
+ * Copyright (c) 2015-2023 Rubicon Communications, LLC (Netgate)
  * Copyright (c) 2012-2014 Marcello Coutinho
  * All rights reserved.
  *
@@ -67,6 +67,9 @@
 	<plugins>
 		<item>
 			<type>plugin_carp</type>
+		</item>
+		<item>
+			<type>plugin_certificates</type>
 		</item>
 	</plugins>
 	<tabs>
@@ -205,7 +208,7 @@
 			<source><![CDATA[squid_get_interface_list(false, false, true)]]></source>
 			<source_name>name</source_name>
 			<source_value>value</source_value>
-			<default_value>lan</default_value>
+			<default_value>auto</default_value>
 		</field>
 		<field>
 			<fielddescr>Proxy Port</fielddescr>
@@ -785,19 +788,19 @@
 				<br/>
 				**Copy/Paste authentication code for KontrolSSO below** <br/>
 				**Modify it according to your DOMAIN name and environment** <br/>
-	<br/>
-	<br/>
+				<br/>
+				<br/>
 				#### NEGOTIATE KERBEROS AUTHENTICATION #### <br/>
 				auth_param negotiate program /usr/local/libexec/squid/negotiate_kerberos_auth  -d -i -s HTTP/kontrol.kontrol.corp@KONTROL.CORP <br/>
 				auth_param negotiate children 50 startup=20 idle=10 <br/>
 				auth_param negotiate keep_alive on <br/>
- <br/>
+				<br/>
 				####  NTLM AUTHENTICATION ONLY - IN CASE KERBEROS DOESNT WORK  #### <br/>
 				auth_param ntlm program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-ntlmssp  <br/>
 				auth_param ntlm children 30 startup=20 idle=5 <br/>
 				auth_param ntlm keep_alive off <br/>
- <br/>
- 				#### BASIC AUTHENTICATION  #### <br/>
+				<br/>
+				#### BASIC AUTHENTICATION  #### <br/>
 				#auth_param basic program /usr/local/bin/ntlm_auth --helper-protocol=squid-2.5-basic <br/>
 				#auth_param basic children 15 startup=10 idle=5 <br/>
 				#auth_param basic use_ntlm_negotiate on <br/>
@@ -805,30 +808,30 @@
 				#auth_param basic keep_alive off <br/>
 				#auth_param basic credentialsttl 2 hours <br/>
 				#auth_param basic casesensitive off <br/>
- <br/>
+				<br/>
 				####  STARTING  CUSTOM ACLs  #### <br/>
 				acl auth proxy_auth REQUIRED <br/>
- <br/>
+				<br/>
 				#### STARTING CUSTOM AUTHORIZATION ACL  ### <br/>
 				http_access allow auth <br/>
-	<br/>
-	<br/>
+				<br/>
+				<br/>
 				 **If you prefer to use the exclusive KONTROL-UTM Transparent Authentication/Identification integrated with E2GUARDIAN** <br/>
 				 **Copy/Paste the code below** <br/>
-	<br/>
-	<br/>
+				<br/>
+				<br/>
 				####  TRANSPARENT AUTHENTICATION HELPER-Configure credentials using text MENU - option 4 #### <br/>
 				####  NEEDS SQUID IN TRANSPARENT MODE WITH MITM and SPLICE ENABLED #### <br/>
 				external_acl_type userip children-startup=5 children-max=20 children-idle=5 ttl=10  %SRC /usr/local/bin/kontrol_ID.sh <br/>
 				acl KONTROLACL external userip <br/>
 				http_access allow KONTROLACL <br/>
-<br/>
+				<br/>
 				####SENDING CONNECTIONS TO E2GUARDIAN AFTER AUTH #### <br/>
 				cache_peer 127.0.0.1 parent 8080 0 login=*:password no-digest no-netdb-exchange <br/>
 				always_direct deny all <br/>
 				never_direct allow all <br/>
-<br/>
-		]]>
+				<br/>
+				]]>
 			</description>
 			<type>textarea</type>
 			<encoding>base64</encoding>
