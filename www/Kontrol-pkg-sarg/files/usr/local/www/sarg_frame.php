@@ -4,7 +4,7 @@
 	part of pfSense (https://www.pfSense.org/)
 	Copyright (C) 2012 Marcello Coutinho <marcellocoutinho@gmail.com>
 	Copyright (C) 2015 ESF, LLC
-	Copyright KONNTROL Tecnologia Epp - 2016-2021
+	Copyright KONTROL Tecnologia Epp - 2016-2023
 	All rights reserved.
 
 	Redistribution and use in source and binary forms, with or without
@@ -86,7 +86,8 @@ if ($report != "" ) {
 	$replace[3] = 'img src="/sarg-images/temp/$1.' . $rand . '.png';
 	$pattern[4] = '/<head>/';
 	$replace[4] = '<head><META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE"><META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">';
-
+	$pattern[5] = "/tt.html/";
+	$replace[5] = "tt.html&";
 	// look for graph files inside reports.
 	if (preg_match_all('/img src="([a-zA-Z0-9._-]+).png/', $report, $images)) {
 		conf_mount_rw();
