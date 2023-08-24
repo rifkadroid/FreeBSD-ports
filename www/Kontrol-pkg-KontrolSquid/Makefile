@@ -17,7 +17,7 @@ RUN_DEPENDS=	squid>=0:www/squid \
 		c-icap-modules>=0:www/c-icap-modules \
 		squidclamav>=0:www/squidclamav \
 		samba416>=0:net/samba416 \
-		Kontrol-pkg-E2guardian5>=0:www\Kontrol-pkg-E2guardian5 \
+		E2guardian5>=0:www\Kontrol-pkg-E2guardian5 \
 		base64>=0:converters/base64
 
 CONFLITS_WITH=	Kontrol-pkg-squid
