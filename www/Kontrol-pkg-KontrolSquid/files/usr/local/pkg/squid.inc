@@ -2135,7 +2135,7 @@ function squid_resync_auth() {
 						$conf .= "never_direct allow all \n";
 					break;
 		}
-		if ($auth_method != 'cp') {
+		if (($auth_method != 'cp') && ($auth_method != 'transparent') && ($auth_method != 'kerbntlm')){
 		$conf .= <<< EOD
 auth_param basic children $processes
 auth_param basic realm $prompt
