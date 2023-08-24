@@ -3,7 +3,7 @@
 @@ -9,6 +9,9 @@
  #ifndef SQUID_ENUMS_H
  #define SQUID_ENUMS_H
-
+ 
 +/* Namespace pollution from fcntl.h as of FreeBSD r345982 */
 +#undef FD_NONE
 +
