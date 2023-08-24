@@ -9,5 +9,5 @@
 +	in /etc/rc.conf to reflect the new value. Please see
 +	/usr/local/etc/rc.d/squid for details.
  DOC_END
- 
+
  NAME: client_netmask

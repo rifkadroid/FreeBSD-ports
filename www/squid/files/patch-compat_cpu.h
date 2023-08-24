@@ -6,6 +6,6 @@
  #endif
 +#undef CPU_COUNT
 +#undef CPU_AND
- 
+
  #if !HAVE_CPU_AFFINITY
  /* failing replacements to minimize the number of if-HAVE_CPU_AFFINITYs */

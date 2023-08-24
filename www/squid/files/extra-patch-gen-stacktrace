@@ -3,7 +3,7 @@
 @@ -71,6 +71,13 @@
  #include <errno.h>
  #endif
- 
+
 +#if PRINT_STACK_TRACE
 +#ifdef __FreeBSD__
 +#define UNW_LOCAL_ONLY
@@ -16,7 +16,7 @@
  \n\
 @@ -411,6 +418,45 @@
      }
- 
+
  #endif
 +#ifdef __FreeBSD__
 +    do {
@@ -58,5 +58,5 @@
 +    } while (0);
 +#endif /* __FreeBSD__ */
  #endif /* PRINT_STACK_TRACE */
- 
+
  #if SA_RESETHAND == 0 && !_SQUID_WINDOWS_

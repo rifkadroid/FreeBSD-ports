@@ -3,7 +3,7 @@
 @@ -608,7 +608,7 @@ no_suid(void)
      uid = geteuid();
      debugs(21, 3, "no_suid: PID " << getpid() << " giving up root privileges forever");
- 
+
 -    if (setuid(0) < 0) {
 +    if (setuid(0) < 0 && TheProcessKind != pkHelper) {
          int xerrno = errno;
