@@ -840,8 +840,8 @@ function squid_validate_general($post, &$input_errors) {
 	unset($port, $webgui_port);
 
 	if ($post['transparent_proxy'] == 'on') {
-		if (preg_match("/(local|ldap|radius|ntlm)/", config_get_path('installedpackages/squidauth/config/0/auth_method'))) {
-			$input_errors[] = "Transparent mode cannot be enabled while proxy authentication is enabled";
+		if (preg_match("/(local|ldap|radius|ntlm|kerbntlm)/", config_get_path('installedpackages/squidauth/config/0/auth_method'))) {
+			$input_errors[] = "Transparent mode cannot be enabled while specific proxy authentication is enabled";
 		}
 		if (empty($post['transparent_active_interface'])) {
 			$input_errors[] = "You must select at least one interface under 'Transparent Proxy Interface(s)' when 'Transparent HTTP Proxy' is enabled.";
@@ -1140,7 +1140,7 @@ function squid_validate_auth($post, &$input_errors) {
 	unset($num_fields);
 
 	$auth_method = $post['auth_method'];
-	if (($auth_method != 'none') && ($auth_method != 'local') && ($auth_method != 'cp')) {
+	if (($auth_method != 'none') && ($auth_method != 'local') && ($auth_method != 'cp')  && ($auth_method != 'transparent') && ($auth_method != 'ntlm') && ($auth_method != 'kerbntlm')) {
 		$server = trim($post['auth_server']);
 		if (empty($server)) {
 			$input_errors[] = "'Authentication server' is required.";
@@ -1994,7 +1994,7 @@ function squid_resync_auth() {
 
 	$transparent_proxy = ($settingsconfig['transparent_proxy'] == 'on');
 	if ($transparent_proxy) {
-		if (preg_match ("/(none|cp)/", $settings['auth_method'])) {
+		if (preg_match ("/(none|cp|transparent)/", $settings['auth_method'])) {
 			$auth_method = $settings['auth_method'];
 		} else {
 			$auth_method = "none";
