@@ -2049,6 +2049,8 @@ function squid_resync_auth() {
 		$auth_ttl = ($settings['auth_ttl'] ? $settings['auth_ttl'] : 5);
 		$processes = ($settings['auth_processes'] ? $settings['auth_processes'] : 5);
 		$prompt = ($settings['auth_prompt'] ? $settings['auth_prompt'] : 'Please enter your credentials to access the proxy');
+		$myhostname = strtolower(gethostname());
+		$mydomain = strtoupper( exec ('hostname -d'));
 		switch ($auth_method) {
 			case 'local':
 				$conf .= 'auth_param basic program ' . SQUID_LOCALBASE . '/libexec/squid/basic_ncsa_auth ' . SQUID_PASSWD . "\n";
