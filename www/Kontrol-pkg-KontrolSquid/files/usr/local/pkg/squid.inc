@@ -2194,7 +2194,7 @@ EOD;
 		}
 
 		// Include squidguard denied acl log in squid
-		if ($settingsconfig['log_sqd']) {
+		if (($settingsconfig['log_sqd']) && ($auth_method != 'transparent')) {
 			$conf .= "http_access deny password sglog\n";
 		}
 
