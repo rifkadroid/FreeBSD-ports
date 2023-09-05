@@ -686,6 +686,15 @@ pkg_upgrade() {
 			_exit 99
 		fi
 
+		# Do not upgrade if Squid or KontrolSquid is installed.
+		if [ -f /usr/local/sbin/squid ]; then
+			notice "ERROR: Remove KontrolSquid or Squid package before" \
+			    "upgrading."
+			_echo "ERROR: Remove KontrolSquid or Squid package before" \
+			    "upgrading."
+			_exit 1
+		fi
+
 		# Do not upgrade while wg interfaces are assigned
 		if sed '/<interfaces>/,/<\/interfaces>/!d' /cf/conf/config.xml \
 		    | grep -q '<if>wg'; then
