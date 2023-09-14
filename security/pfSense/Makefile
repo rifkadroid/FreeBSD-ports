@@ -1,10 +1,6 @@
 PORTNAME=	pfSense
-DISTVERSION=	2.7.0
-PORTREVISION=	5
+DISTVERSION=	${PRODUCT_VERSION}
 CATEGORIES=	security
-MASTER_SITES=	# empty
-DISTFILES=	# empty
-EXTRACT_ONLY=	# empty
 
 MAINTAINER=	coreteam@pfsense.org
 COMMENT?=	Meta package to install pfSense required ports
@@ -53,6 +49,7 @@ RUN_DEPENDS=	bind-tools>=0:dns/bind-tools \
 		${PHP_PKGNAMEPREFIX}pfSense-module>=0:devel/php-pfSense-module@${PHP_FLAVOR} \
 		${PHP_PKGNAMEPREFIX}phpseclib>=0:security/phpseclib@${PHP_FLAVOR} \
 		pfSense-Status_Monitoring${PHP_PKGNAMESUFFIX}>=0:sysutils/pfSense-Status_Monitoring@${PHP_FLAVOR} \
+		pfSense-composer-deps>=0:devel/pfSense-composer-deps \
 		pfSense-repo>=0:sysutils/pfSense-repo \
 		pfSense-upgrade>=0:sysutils/pfSense-upgrade \
 		pftop>=0:sysutils/pftop \
@@ -89,16 +86,20 @@ USE_PHP=	bz2 bcmath ctype curl dom filter gettext gmp intl json mbstring \
 		sysvshm sqlite3 tokenizer xml ldap zlib xmlreader xmlwriter
 
 NO_BUILD=	yes
-NO_MTREE=	yes
 
 CONFLICTS=	pfSense-vmware-[0-9]*
 
-PLIST_FILES=	/etc/version.patch
-PLIST_DIRS=	/etc
+USE_GITLAB=	yes
+GL_SITE=	https://gitlab.netgate.com
+GL_ACCOUNT=	pfSense
+GL_PROJECT=	${PFSENSE_SRC_REPO}
+GL_COMMIT=	${PFSENSE_COMMITHASH}
+MASTER_SITE_BACKUP=
+NO_CHECKSUM=yes
 
 .include <bsd.port.pre.mk>
 
-.if (${ARCH} == "amd64" || ${ARCH} == "i386")
+.if ${ARCH} == "amd64"
 RUN_DEPENDS+=	dmidecode>=0:sysutils/dmidecode \
 		smartmontools>=0:sysutils/smartmontools \
 		wrapalixresetbutton>=0:sysutils/wrapalixresetbutton \
@@ -108,7 +109,7 @@ RUN_DEPENDS+=	dmidecode>=0:sysutils/dmidecode \
 .endif
 
 do-install:
-	${MKDIR} ${STAGEDIR}/etc
+	(cd ${WRKSRC}/src && ${COPYTREE_SHARE} "etc usr" ${STAGEDIR})
 	${ECHO} ${PORTREVISION} > ${STAGEDIR}/etc/version.patch
 
 .include <bsd.port.post.mk>
