@@ -1,5 +1,5 @@
 PORTNAME=	veloren
-PORTVERSION=	s20230802
+PORTVERSION=	s20230901
 CATEGORIES=	games wayland
 PKGNAMESUFFIX=	-weekly
 
@@ -10,9 +10,9 @@ WWW=		https://veloren.net/
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+BROKEN=		fails to build with rust 1.72 https://gitlab.com/veloren/veloren/-/issues/1875
 BROKEN_aarch64=	https://github.com/rust-lang/libc/issues/3217
 ONLY_FOR_ARCHS=	aarch64 amd64 i386
-# https://gitlab.com/veloren/veloren/-/issues/1006
 ONLY_FOR_ARCHS_REASON=	unsupported platform by https://github.com/wasmerio/wasmer
 
 LIB_DEPENDS=	libasound.so:audio/alsa-lib \
@@ -24,7 +24,7 @@ RUN_DEPENDS=	${LOCALBASE}/lib/alsa-lib/libasound_module_pcm_oss.so:audio/alsa-pl
 USES=		cargo xorg
 USE_XORG=	xcb
 USE_GITLAB=	yes
-GL_TAGNAME=	8abb93040ca49f9873a657c6a4b7f7aaf49bae78
+GL_TAGNAME=	19742bb9300fb0be9fdc92f30766c95230a8a371
 CARGO_ENV=	VELOREN_USERDATA_STRATEGY=system SHADERC_LIB_DIR="${LOCALBASE}/lib"
 PLIST_FILES=	bin/${PORTNAME}-server-cli \
 		bin/${PORTNAME}-voxygen \
@@ -36,7 +36,7 @@ PORTDATA=	*
 CONFLICTS_INSTALL=	${PORTNAME}
 
 .if ${MACHINE_ARCH} == i386
-# Fixes error "Rust cannot catch foreign exceptions"
+# https://github.com/rust-lang/rust/issues/85598
 CARGO_ENV+=	CARGO_PROFILE_RELEASE_LTO=false
 .endif
 # Fixes error "Instruction does not dominate all uses!"

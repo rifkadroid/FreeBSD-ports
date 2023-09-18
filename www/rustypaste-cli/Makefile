@@ -1,12 +1,12 @@
 PORTNAME=	rustypaste-cli
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.6.0
+DISTVERSION=	0.7.0
 PORTREVISION=	1
 CATEGORIES=	www
 
 MAINTAINER=	DtxdF@disroot.org
 COMMENT=	CLI tool for rustypaste
-WWW=		https://github.com/orhun/rustypaste-cli/
+WWW=		https://github.com/orhun/rustypaste-cli
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE

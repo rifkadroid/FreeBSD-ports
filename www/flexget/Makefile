@@ -1,6 +1,6 @@
 PORTNAME=	FlexGet
 DISTVERSIONPREFIX=	v
-DISTVERSION=	3.8.2
+DISTVERSION=	3.9.1
 CATEGORIES=	www
 
 MAINTAINER=	jbeich@FreeBSD.org
@@ -51,10 +51,4 @@ USE_PYTHON=	autoplist pep517 pytest
 GH_PROJECT=	Flexget
 NO_ARCH=	yes
 
-.include <bsd.port.pre.mk>
-
-.if ${PYTHON_REL} < 30800
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}importlib-metadata>0:devel/py-importlib-metadata@${PY_FLAVOR}
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

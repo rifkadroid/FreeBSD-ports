@@ -17,7 +17,7 @@ _INCLUDE_BSD_DEFAULT_VERSIONS_MK=	yes
 
 LOCALBASE?=	/usr/local
 
-.  for lang in APACHE BDB COROSYNC EMACS FIREBIRD FORTRAN FPC GCC \
+.  for lang in APACHE BDB COROSYNC EBUR128 EMACS FIREBIRD FORTRAN FPC GCC \
 	GHOSTSCRIPT GL GO GUILE IMAGEMAGICK JAVA LAZARUS LIBRSVG2 LINUX LLVM \
 	LUA LUAJIT MONO MYSQL NINJA NODEJS OPENLDAP PERL5 PGSQL PHP \
 	PYCRYPTOGRAPHY PYTHON PYTHON2 PYTHON3 RUBY RUST SAMBA SSL TCLTK VARNISH
@@ -38,6 +38,12 @@ APACHE_DEFAULT?=	2.4
 BDB_DEFAULT?=		5
 # Possible values: 2, 3
 COROSYNC_DEFAULT?=	2
+# Possible values: rust, legacy
+.  if empty(ARCH:Naarch64:Namd64:Narmv7:Ni386:Npowerpc64:Npowerpc64le:Npowerpc:Nriscv64)
+EBUR128_DEFAULT?=	rust
+.  else
+EBUR128_DEFAULT?=	legacy
+.  endif
 # Possible_values: full canna nox devel_full devel_nox
 #EMACS_DEFAULT?=	let the flavor be the default if not explicitly set
 # Possible values: 3.0, 4.0
@@ -57,7 +63,7 @@ GCC_DEFAULT?=		12
 GHOSTSCRIPT_DEFAULT?=	agpl
 # Possible values: mesa-libs, mesa-devel
 GL_DEFAULT?=		mesa-libs
-# Possible values: 1.19, 1.20, 1.21-devel
+# Possible values: 1.19, 1.20, 1.21, 1.22-devel
 GO_DEFAULT?=		1.20
 # Possible values: 1.8, 2.2, 3.0
 GUILE_DEFAULT?=		2.2
