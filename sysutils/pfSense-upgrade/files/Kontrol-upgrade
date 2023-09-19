@@ -720,7 +720,7 @@ pkg_upgrade() {
 		fi
 
 		# Always make sure important packages are set as vital
-		set_vital_flag pkg ${kernel_pkg} ${product}-boot ${product} ${product}-rc \
+		set_vital_flag pkg ${kernel_pkg} ${product}-boot ${product} \
 		    ${product}-base ${uboot_pkg}
 
 		check_upgrade mute skip_update
@@ -867,6 +867,7 @@ pkg_upgrade() {
 				_exec "pkg-static upgrade -U ${product}-rc" \
 				    "Upgrading ${product}-rc"
 			fi
+
 			# In the past /boot/loader.conf was part of kernel pkg
 			# and now it's an orphan file.  Check if current
 			# installation has it registered on kernel pkg and make
@@ -1001,7 +1002,7 @@ pkg_upgrade() {
 
 			# Always make sure important packages are set as vital
 			set_vital_flag pkg ${kernel_pkg} ${product}-boot ${product} \
-			    ${product}-rc ${product}-base ${uboot_pkg}
+			    ${product}-base ${uboot_pkg}
 
 			# Register that system is running latest pkg_set_version
 			cp -f ${pkg_set_version} ${running_pkg_set_version}

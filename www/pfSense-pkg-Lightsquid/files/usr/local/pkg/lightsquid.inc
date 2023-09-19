@@ -123,7 +123,7 @@ EOF;
 function lightsquid_write_webconfig() {
 	$lighttpd_ls_auth_path = "/var/etc/lightsquid/.passwd";
 	$lighttpd_ls_cert_path = "/var/etc/lightsquid/cert.pem";
-	$lightsquid_config = config_get_path('installedpackages/squid/config/0', []);
+	$lightsquid_config = config_get_path('installedpackages/lightsquid/config/0', []);
 
 	if (empty($lightsquid_config)) {
 		return;
@@ -262,7 +262,7 @@ EOF;
 		if (!is_array($lscert) || !$lscert['crt'] || !$lscert['prv'] ||
 		    cert_chain_has_weak_digest($lscert)) {
 			$lscert = cert_create_selfsigned();
-			if (is_array($cert) && !empty($cert)) {
+			if (is_array($lscert) && !empty($lscert)) {
 				config_set_path('system/webgui/ssl-certref', $lscert['refid']);
 				write_config(sprintf(gettext("Generated new self-signed SSL/TLS certificate for HTTPS (%s)"), $lscert['refid']));
 			} else {
@@ -448,8 +448,7 @@ function lightsquid_setup_cron($active=false) {
 			case 'lhp_12h':  $on = true; $opt[0]= "0"; $opt[1]= "*/12"; break;
 			case 'lhp_24h':  $on = true; $opt[0]= "45"; $opt[1]= "23";   break; // daily at 23:45
 		}
-		init_config_arr(array('cron', 'item'));
-		foreach (config_get_path('cron/item') as $item) {
+		foreach (config_get_path('cron/item', []) as $item) {
 			if ($item['command'] == $lightsquid_parser_today) {
 				if (($item['minute'] == $opt[0]) && ($item['hour'] == $opt[1])) {
 					$update_cron = false;
@@ -534,8 +533,8 @@ function lightsquid_create_reportdir() {
  */
 function lightsquid_validate_input($post, &$input_errors) {
 	if ($post['navto_lightsquid'] == 'Open Lightsquid') {
-		$lightsquid_config = config_get_path('installedpackages/lightsquid/config/0');
-		if (is_array($lightsquid_config)) {
+		$lightsquid_config = config_get_path('installedpackages/lightsquid/config/0', []);
+		if (empty($lightsquid_config)) {
 			return;
 		}
 		list($server_host, $server_port) = explode(':', $_SERVER['HTTP_HOST']);
