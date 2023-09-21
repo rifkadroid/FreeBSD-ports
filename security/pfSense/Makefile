@@ -89,13 +89,13 @@ NO_BUILD=	yes
 
 CONFLICTS=	pfSense-vmware-[0-9]*
 
-USE_GITLAB=	yes
-GL_SITE=	https://gitlab.netgate.com
-GL_ACCOUNT=	pfSense
-GL_PROJECT=	${PFSENSE_SRC_REPO}
-GL_COMMIT=	${PFSENSE_COMMITHASH}
-MASTER_SITE_BACKUP=
-NO_CHECKSUM=yes
+#USE_GITLAB=	yes
+#GL_SITE=	https://gitlab.netgate.com
+#GL_ACCOUNT=	pfSense
+#GL_PROJECT=	${PFSENSE_SRC_REPO}
+#GL_COMMIT=	${PFSENSE_COMMITHASH}
+#MASTER_SITE_BACKUP=
+#NO_CHECKSUM=yes
 
 .include <bsd.port.pre.mk>
 
