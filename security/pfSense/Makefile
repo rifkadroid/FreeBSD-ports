@@ -86,9 +86,11 @@ USE_PHP=	bz2 bcmath ctype curl dom filter gettext gmp intl json mbstring \
 		sysvshm sqlite3 tokenizer xml ldap zlib xmlreader xmlwriter
 
 NO_BUILD=	yes
-
+NO_MTREE=	yes
 CONFLICTS=	pfSense-vmware-[0-9]*
 
+PLIST_FILES=	/etc/version.patch
+PLIST_DIRS=	/etc
 #USE_GITLAB=	yes
 #GL_SITE=	https://gitlab.netgate.com
 #GL_ACCOUNT=	pfSense
