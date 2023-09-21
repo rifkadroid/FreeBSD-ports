@@ -1,6 +1,10 @@
 PORTNAME=	pfSense
 DISTVERSION=	${PRODUCT_VERSION}
+
 CATEGORIES=	security
+MASTER_SITES=	# empty
+DISTFILES=	# empty
+EXTRACT_ONLY=	# empty
 
 MAINTAINER=	coreteam@pfsense.org
 COMMENT?=	Meta package to install pfSense required ports
