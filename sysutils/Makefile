@@ -1199,7 +1199,6 @@
     SUBDIR += rovclock
     SUBDIR += rpi-firmware
     SUBDIR += rset
-    SUBDIR += rsfetch
     SUBDIR += rshim-user-space
     SUBDIR += rsnapshot
     SUBDIR += rsyncbackup
@@ -1300,7 +1299,7 @@
     SUBDIR += rubygem-winrm-fs
     SUBDIR += rubygem-yell
     SUBDIR += runas
-    SUBDIR += rundeck3
+    SUBDIR += rundeck
     SUBDIR += runiq
     SUBDIR += runit
     SUBDIR += runit-faster
@@ -1410,7 +1409,6 @@
     SUBDIR += syslinux
     SUBDIR += syslog-ng
     SUBDIR += syslogger
-    SUBDIR += sysrc
     SUBDIR += sysvbanner
     SUBDIR += szyszka
     SUBDIR += tai64nfrac
