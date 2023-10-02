@@ -7,7 +7,7 @@ DISTFILES=	# empty
 EXTRACT_ONLY=	# empty
 
 MAINTAINER=	coreteam@pfsense.org
-COMMENT?=	Meta package to install pfSense required ports
+COMMENT?=	Main pfSense package
 
 LICENSE=	APACHE20
 
@@ -105,6 +105,10 @@ PLIST_DIRS=	/etc
 #MASTER_SITE_BACKUP=
 #NO_CHECKSUM=yes
 
+SUB_FILES=	pkg-post-install
+SUB_LIST=	PRODUCT_NAME=${PRODUCT_NAME}
+PKGPOSTINSTALL=	${WRKDIR}/pkg-post-install
+
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == "amd64"
@@ -119,7 +123,8 @@ RUN_DEPENDS+=	dmidecode>=0:sysutils/dmidecode \
 do-install:
 	${MKDIR} ${STAGEDIR}/etc
 	${ECHO} ${PORTREVISION} > ${STAGEDIR}/etc/version.patch
-	#${ECHO} "${PFSENSE_COMMITHASH}" > ${STAGEDIR}/etc/version.lastcommit
-	#${ECHO} "${PFSENSE_DATESTRING}" > ${STAGEDIR}/etc/version.buildtime
+	${ECHO} "${PFSENSE_COMMITHASH}" > ${STAGEDIR}/etc/version.lastcommit
+	${ECHO} "${PFSENSE_DATESTRING}" > ${STAGEDIR}/etc/version.buildtime
+	${MKDIR} "${STAGEDIR}/cf/conf"
 
 .include <bsd.port.post.mk>
