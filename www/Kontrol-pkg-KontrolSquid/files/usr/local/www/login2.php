@@ -1,6 +1,6 @@
 <?php
 // DO NOT CHANGE THIS FILE MANUALLY AS IT IS MANAGED BY SCRIPTS !!!
-// KONTROL-UTM - 2016-2020 - KONNTROL TECNOLOGIA EPP, All rights reserved.
+// KONTROL-UTM - 2016-2023 - KONTROL TECNOLOGIA EPP, All rights reserved.
 // LOGIN/AUTHENTICATION WEB PAGE used to capture credentials for Transparent Authentication.
 // DO NOT CHANGE THIS FILE MANUALLY AS IT IS MANAGED BY SCRIPTS
 error_reporting(E_ALL);

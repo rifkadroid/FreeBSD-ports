@@ -38,7 +38,7 @@ include("head.inc");
 #Setting Variables
 $domain = (exec ('hostname -d'));
 $ad_domain = strtoupper(exec ('hostname -d'));
-$host_var = exec ("hostname");
+$host_var = strtolower(exec ("hostname"));
 $smb_workgroup = exec('hostname -d | cut -d. -f1');
 $smb_workgroup_upper = strtoupper($smb_workgroup);
 
