@@ -172,10 +172,10 @@
     SUBDIR += freeswitch
     SUBDIR += freevrrpd
     SUBDIR += frp
-    SUBDIR += frr7
-    SUBDIR += frr7-pythontools
     SUBDIR += frr8
     SUBDIR += frr8-pythontools
+    SUBDIR += frr9
+    SUBDIR += frr9-pythontools
     SUBDIR += fspclient
     SUBDIR += fspd
     SUBDIR += fsplib
@@ -1161,6 +1161,7 @@
     SUBDIR += py-suds
     SUBDIR += py-tacacs_plus
     SUBDIR += py-terminado
+    SUBDIR += py-tiny-proxy
     SUBDIR += py-tofu
     SUBDIR += py-transip
     SUBDIR += py-trio
@@ -1349,7 +1350,6 @@
     SUBDIR += rubygem-oauth21
     SUBDIR += rubygem-octokit
     SUBDIR += rubygem-octokit4
-    SUBDIR += rubygem-octokit5
     SUBDIR += rubygem-octokit6
     SUBDIR += rubygem-octopress-deploy
     SUBDIR += rubygem-omniauth-auth0
