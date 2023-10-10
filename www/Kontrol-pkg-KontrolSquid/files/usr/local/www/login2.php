@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 // DOMAIN FQDN - DO NOT CHANGE THIS MANUALLY!!!!
 define('DOMAIN_FQDN', 'kontrol.corp');
-define('LDAP_SERVER', '192.168.0.30');
+define('LDAP_SERVER', '192.168.0.4');
 
 // INIT of Capturing Client's IP address
 function get_client_ip_env() {
@@ -36,9 +36,13 @@ $srcip =  get_client_ip_env();
 //Basic Login verification
 if (isset($_POST['submit']))
 {
+	if (!empty($_POST['username'])&&($_POST['password']))
+	{
+
     $user = strip_tags($_POST['username']) .'@'. DOMAIN_FQDN;
     $pass = stripslashes($_POST['password']);
     $conn = ldap_connect("ldaps://". LDAP_SERVER ."/");
+
     if (!$conn)
         $err = 'Could not connect to LDAP server';
     else
@@ -72,53 +76,60 @@ if (isset($_POST['submit']))
 				$user_final = substr($user, 0, strrpos($user, '@'));
 				//$user_final = base64_encode($user);
 
-//INIT of TIMESTAMP calculation + N hours Expiration Time - In seconds.  2 Hours e.g.   $timestamp = time() + (2 * 60 * 60);
-$timestamp = time() + (1 * 60 * 60);
-//END of TIMESTAMP calculation
+		//INIT of TIMESTAMP calculation + N hours Expiration Time - In seconds.  2 Hours e.g.   $timestamp = time() + (2 * 60 * 60);
+		$timestamp = time() + (1 * 60 * 60);
+		//END of TIMESTAMP calculation
 
 
-// INIT OF SQL CODE
-class kontroldb extends SQLite3 {
-      function __construct() {
-         $this->open('/root/kontrolid.db');
-      }
-   }
+		// INIT OF SQL CODE
+		class kontroldb extends SQLite3 {
+			function __construct() {
+				$this->open('/root/kontrolid.db');
+			}
+		}
 
-   $db = new kontroldb();
-   if(!$db){
-      echo $db->lastErrorMsg();
-   } else {
-      echo "";
-   }
+		$db = new kontroldb();
+		if(!$db){
+			echo $db->lastErrorMsg();
+		}
+		else {
+			echo "";
+		}
 
-   $sql =<<<EOF
+		$sql =<<<EOF
+		REPLACE INTO kontrolid VALUES ('$srcip', '$user_final', '$timestamp');
+		EOF;
 
-      REPLACE INTO kontrolid VALUES ('$srcip', '$user_final', '$timestamp');
-EOF;
+		$ret = $db->exec($sql);
+		if(!$ret) {
+			echo $db->lastErrorMsg();
+		}
+		else {
+			# CHANGE THE AMOUNT OF TIME ACCORDING TO YOUR SETTINGS ON TIMESTAMP CALC.
+			echo "Success - Authentication Valid for 1 Hour\n";
+		}
 
-   $ret = $db->exec($sql);
-   if(!$ret) {
-      echo $db->lastErrorMsg();
-   } else {
-# CHANGE THE AMOUNT OF TIME ACCORDING TO YOUR SETTINGS ON TIMESTAMP CALC.
-      echo "Success - Authentication Valid for 1 Hour\n";
-   }
-   $db->close();
+		$db->close();
+		// END OF SQL CODE
 
-// END OF SQL CODE
-
-            }
+			}
         }
     }
-    // session OK, redirect to home page
-    if (isset($_SESSION['redir']))
-    {
-        header('Location: /');
-        exit();
-    }
-    elseif (!isset($err)) $err = 'Result: '. ldap_error($conn);
-    ldap_close($conn);
+		// session OK, redirect to home page
+		if (isset($_SESSION['redir']))
+		{
+			header('Location: /');
+			exit();
+		}
+		elseif (!isset($err)) $err = 'Result: '. ldap_error($conn);
+			ldap_close($conn);
+	}
+
+	else {
+		echo "Error - Username and Password fields cannot be empty \n";
+	}
 }
+
 ?>
 <!DOCTYPE html><head><title>KONTROL-UTM</title></head>
 <style>
