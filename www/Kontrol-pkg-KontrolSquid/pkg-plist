@@ -24,6 +24,7 @@ www/squid_clwarn.php
 www/squid_monitor.php
 www/squid_monitor_data.php
 www/status_squid.php
+www/new-kontrol-logo1.png
 www/login2.php
 bin/check_ip.php
 pkg/sqpmon.sh

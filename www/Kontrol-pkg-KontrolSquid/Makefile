@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	Kontrol-pkg-KontrolSquid
-PORTVERSION=	0.1.33
+PORTVERSION=	0.1.34
 CATEGORIES=	www
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -105,6 +105,8 @@ do-install:
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_join.php \
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/ad_transparent.php \
+		${STAGEDIR}${PREFIX}/www
+	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/new-kontrol-logo1.png \
 		${STAGEDIR}${PREFIX}/www
 	${INSTALL_DATA} -m 0755 ${FILESDIR}${PREFIX}/www/login2.php \
 		${STAGEDIR}${PREFIX}/www

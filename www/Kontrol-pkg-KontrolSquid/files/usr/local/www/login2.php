@@ -132,7 +132,7 @@ EOF;
 <div align="center">
 <div align="center" style="width:500px;height:145px;border:3px solid #000;">
 <br/>
-<img id="imghdr" src="/new-konntrol-logo1.png"/>
+<img id="imghdr" src="/new-kontrol-logo1.png"/>
 <div align="center"><h1>Authentication Portal</h1>
 </div>
 
