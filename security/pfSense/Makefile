@@ -1,6 +1,6 @@
 PORTNAME=	pfSense
 DISTVERSION=	2.7.1
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	security
 
 MAINTAINER=	coreteam@pfsense.org
