@@ -2,6 +2,9 @@ PORTNAME=	pfSense
 DISTVERSION=	2.7.1
 PORTREVISION=	0
 CATEGORIES=	security
+MASTER_SITES=	# empty
+DISTFILES=	# empty
+EXTRACT_ONLY=	# empty
 
 MAINTAINER=	coreteam@pfsense.org
 COMMENT?=	Main pfSense package
