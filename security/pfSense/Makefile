@@ -1,6 +1,6 @@
 PORTNAME=	pfSense
 DISTVERSION=	2.7.1
-PORTREVISION=	1
+PORTREVISION=	0
 CATEGORIES=	security
 
 MAINTAINER=	coreteam@pfsense.org
@@ -76,15 +76,16 @@ RUN_DEPENDS=	bind-tools>=0:dns/bind-tools \
 		pam_ldap>0:security/pam_ldap \
 		pam_mkhomedir>0:security/pam_mkhomedir
 
+
 LIB_DEPENDS=	libltdl.so:devel/libltdl
 
 USES=		kmod php:flavors
 
 IGNORE_WITH_PHP=	72 73 74 80 81
 USE_PHP=	bz2 bcmath ctype curl dom filter gettext gmp intl json mbstring \
-		mcrypt opcache openssl pcntl pdo pdo_sqlite posix \
-		radius readline session shmop simplexml sockets sysvmsg sysvsem \
-		sysvshm sqlite3 tokenizer xml ldap zlib xmlreader xmlwriter
+					mcrypt opcache openssl pcntl pdo pdo_sqlite posix \
+					radius readline session shmop simplexml sockets sysvmsg sysvsem \
+					sysvshm sqlite3 tokenizer xml ldap zlib xmlreader xmlwriter
 
 NO_BUILD=	yes
 NO_MTREE=	yes
@@ -98,15 +99,15 @@ PLIST_DIRS=	/etc
 
 .if (${ARCH} == "amd64" || ${ARCH} == "i386")
 RUN_DEPENDS+=	dmidecode>=0:sysutils/dmidecode \
-		smartmontools>=0:sysutils/smartmontools \
-		wrapalixresetbutton>=0:sysutils/wrapalixresetbutton \
-		beep>=0:audio/beep \
-		bwi-firmware-kmod>=0:net/bwi-firmware-kmod \
-		devcpu-data>=0:sysutils/devcpu-data
+							smartmontools>=0:sysutils/smartmontools \
+							wrapalixresetbutton>=0:sysutils/wrapalixresetbutton \
+							beep>=0:audio/beep \
+							bwi-firmware-kmod>=0:net/bwi-firmware-kmod \
+							devcpu-data>=0:sysutils/devcpu-data
 .endif
 
 do-install:
-				${MKDIR} ${STAGEDIR}/etc
-				${ECHO} ${PORTREVISION} > ${STAGEDIR}/etc/version.patch
+			${MKDIR} ${STAGEDIR}/etc
+			${ECHO} ${PORTREVISION} > ${STAGEDIR}/etc/version.patch
 
 .include <bsd.port.post.mk>
