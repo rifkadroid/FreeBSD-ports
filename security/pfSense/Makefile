@@ -87,6 +87,7 @@ USE_PHP=	bz2 bcmath ctype curl dom filter gettext gmp intl json mbstring \
 		sysvshm sqlite3 tokenizer xml ldap zlib xmlreader xmlwriter
 
 NO_BUILD=	yes
+NO_MTREE=	yes
 
 CONFLICTS=	pfSense-vmware-[0-9]*
 
@@ -96,7 +97,7 @@ PKGPOSTINSTALL=	${WRKDIR}/pkg-post-install
 
 .include <bsd.port.pre.mk>
 
-.if ${ARCH} == "amd64"
+.if (${ARCH} == "amd64" || ${ARCH} == "i386")
 RUN_DEPENDS+=	dmidecode>=0:sysutils/dmidecode \
 		smartmontools>=0:sysutils/smartmontools \
 		wrapalixresetbutton>=0:sysutils/wrapalixresetbutton \
