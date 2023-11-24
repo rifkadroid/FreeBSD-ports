@@ -1,6 +1,6 @@
 PORTNAME=	pfSense
-DISTVERSION=	${PRODUCT_VERSION}
-DISTVERSIONPREFIX=	v
+DISTVERSION=	2.7.1
+PORTREVISION=	0
 CATEGORIES=	security
 
 MAINTAINER=	coreteam@pfsense.org
@@ -90,14 +90,6 @@ NO_BUILD=	yes
 
 CONFLICTS=	pfSense-vmware-[0-9]*
 
-USE_GITLAB=	yes
-GL_SITE=	https://gitlab.netgate.com
-GL_ACCOUNT=	pfSense
-GL_PROJECT=	${PFSENSE_SRC_REPO}
-GL_COMMIT=	${PFSENSE_COMMITHASH}
-MASTER_SITE_BACKUP=
-NO_CHECKSUM=yes
-
 SUB_FILES=	pkg-post-install
 SUB_LIST=	PRODUCT_NAME=${PRODUCT_NAME}
 PKGPOSTINSTALL=	${WRKDIR}/pkg-post-install
@@ -114,11 +106,7 @@ RUN_DEPENDS+=	dmidecode>=0:sysutils/dmidecode \
 .endif
 
 do-install:
-	(cd ${WRKSRC}/src && ${COPYTREE_SHARE} "etc usr" ${STAGEDIR})
-	${ECHO} "${PRODUCT_NAME}" > ${STAGEDIR}/etc/platform
-	${ECHO} ${PORTREVISION} > ${STAGEDIR}/etc/version.patch
-	${ECHO} "${PFSENSE_COMMITHASH}" > ${STAGEDIR}/etc/version.lastcommit
-	${ECHO} "${PFSENSE_DATESTRING}" > ${STAGEDIR}/etc/version.buildtime
-	${MKDIR} "${STAGEDIR}/cf/conf"
+				${MKDIR} ${STAGEDIR}/etc
+				${ECHO} ${PORTREVISION} > ${STAGEDIR}/etc/version.patch
 
 .include <bsd.port.post.mk>
