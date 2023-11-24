@@ -1,6 +1,6 @@
 PORTNAME=	pfSense
 DISTVERSION=	2.7.1
-PORTREVISION=	0
+PORTREVISION=	1
 CATEGORIES=	security
 
 MAINTAINER=	coreteam@pfsense.org
@@ -91,9 +91,8 @@ NO_MTREE=	yes
 
 CONFLICTS=	pfSense-vmware-[0-9]*
 
-SUB_FILES=	pkg-post-install
-SUB_LIST=	PRODUCT_NAME=${PRODUCT_NAME}
-PKGPOSTINSTALL=	${WRKDIR}/pkg-post-install
+PLIST_FILES=	/etc/version.patch
+PLIST_DIRS=	/etc
 
 .include <bsd.port.pre.mk>
 
