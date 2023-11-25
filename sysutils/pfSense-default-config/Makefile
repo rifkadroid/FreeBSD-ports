@@ -1,5 +1,6 @@
 PORTNAME=	pfSense-default-config
-DISTVERSION=	${PRODUCT_VERSION}
+DISTVERSION=	2.7.1
+DISTREVISION= # empty
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
