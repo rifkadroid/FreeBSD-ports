@@ -254,7 +254,7 @@ unset_vital_flag() {
 }
 
 is_ce() {
-	if [ "${product_label}" == "pfSense" ]; then
+	if [ "${product_label}" == "Kontrol" ]; then
 		return 0
 	fi
 	return 1
