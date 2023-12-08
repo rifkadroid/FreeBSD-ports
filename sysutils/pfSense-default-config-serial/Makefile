@@ -1,5 +1,5 @@
 PORTNAME=	pfSense-default-config-serial
-DISTVERSION=	2.7.1
+DISTVERSION=	2.7.2
 DISTREVISION= # empty
 CATEGORIES=	sysutils
 MASTER_SITES=	# empty
