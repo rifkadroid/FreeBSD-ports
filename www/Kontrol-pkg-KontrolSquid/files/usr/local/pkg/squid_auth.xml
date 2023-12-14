@@ -93,8 +93,7 @@
 				<option><name>LDAP</name><value>ldap</value></option>
 				<option><name>RADIUS</name><value>radius</value></option>
 				<option><name>Captive Portal</name><value>cp</value></option>
-				<option><name>NTLM Kontrol-ID</name><value>ntlm</value></option>
-				<option><name>KERBEROS+NTLM Kontrol-ID</name><value>kerbntlm</value></option>
+				<option><name>KERBEROS Kontrol-ID</name><value>kerbntlm</value></option>
 				<option><name>TRANSPARENT Kontrol-ID</name><value>transparent</value></option>
 			</options>
 			<onchange>on_auth_method_changed()</onchange>
