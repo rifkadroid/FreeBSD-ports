@@ -293,7 +293,7 @@ $section->addInput(
 	new Form_Checkbox(
 		'controlmenu', // checkbox name (id)
 		'pfSense control menu', // checkbox label
-		'Enable the Kontrol control menu next to LCDproc\'s Options menu.', // checkbox text
+		'Enable the ahool control menu next to LCDproc\'s Options menu.', // checkbox text
 		$pconfig['controlmenu'] // checkbox initial value
 	)
 )->setHelp(
