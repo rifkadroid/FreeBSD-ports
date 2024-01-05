@@ -119,7 +119,7 @@ do-install:
 	${MKDIR} ${STAGEDIR}${DATADIR}/pkg/repos
 	${TOUCH} ${STAGEDIR}${DEFAULT_REPO}.default
 	${MKDIR} ${STAGEDIR}/usr/local/share/ahool/keys/pkg/trusted/
-	${INSTALL_DATA} ${FILESDIR}/usr/local/share/ahool/keys/pkg/trusted/pkg.ahool.com.20180421 ${STAGEDIR}/usr/local/share/Kontrol/keys/pkg/trusted/pkg.ahool.com.20180421
+	${INSTALL_DATA} ${FILESDIR}/usr/local/share/ahool/keys/pkg/trusted/pkg.ahool.com.20180421 ${STAGEDIR}/usr/local/share/ahool/keys/pkg/trusted/pkg.ahool.com.20180421
 .for f in ${PFSENSE_REPOS_${ARCH}}
 	${INSTALL_DATA} ${WRKSRC}/${f}.conf ${STAGEDIR}${DATADIR}/pkg/repos
 	${INSTALL_DATA} ${WRKSRC}/${f}.descr ${STAGEDIR}${DATADIR}/pkg/repos

@@ -1,6 +1,6 @@
 # $FreeBSD$
 
-PORTNAME=	ahool-pkg-KontrolSquid
+PORTNAME=	ahool-pkg-ahoolSquid
 PORTVERSION=	0.1.35
 CATEGORIES=	www
 MASTER_SITES=	# empty
